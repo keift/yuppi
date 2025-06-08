@@ -35,14 +35,11 @@
 
 ## About
 
-Trusty file methods.
+Write your schemas in JSON then convert to Yup and OpenAPI.
 
 ## Features
 
-- Respects CommonJS
-- Secure with [Atomically](https://github.com/fabiospampinato/atomically)
-- Functional with [FS Extra](https://github.com/jprichardson/node-fs-extra)
-- Stable with [Graceful FS](https://github.com/isaacs/node-graceful-fs)
+- Can be converted to OpenAPI schema.
 
 ## Installation
 
@@ -50,39 +47,37 @@ You can install it as follows.
 
 ```shell
 // NPM
-npm install trufs
+npm install yuppi
 
 // PNPM
-pnpm install trufs
+pnpm install yuppi
 
 // Yarn
-yarn add trufs
+yarn add yuppi
 
 // Bun
-bun add trufs
+bun add yuppi
 
 // Deno
-deno install npm:trufs
+deno install npm:yuppi
 ```
 
 ## Documentation
 
 ### Import
 
-It is enough to change the `fs` to `trufs`.
+Briefly as follows.
 
 > TypeScript
 >
-> ```diff
-> - import fs from "fs";
-> + import { fs, type Types as TrufsTypes } from "trufs";
+> ```typescript
+> import { Schema, type Types as YuppiTypes } from "yuppi";
 > ```
 >
 > JavaScript
 >
-> ```diff
-> - import fs from "fs";
-> + import { fs } from "trufs";
+> ```javascript
+> import { Schema } from "yuppi";
 > ```
 
 ### Methods
@@ -102,65 +97,6 @@ Read file asynchronous.
 >
 > ```typescript
 > const reading: string | Buffer = await fs.readFile("./config.json");
-> ```
-
-<br/>
-
-`fs.readFileSync(filepath, options?)`
-
-Read file synchronous.
-
-> | Parameter | Description                                                                                                                    |
-> | --------- | ------------------------------------------------------------------------------------------------------------------------------ |
-> | filepath  | [String]<br/>File path to read.                                                                                                |
-> | options   | [Object] (optional)<br/>Method options. [More details](https://github.com/fabiospampinato/atomically?tab=readme-ov-file#usage) |
->
-> returns [String] | [Buffer]
->
-> Example:
->
-> ```typescript
-> const reading: string | Buffer = fs.readFileSync("./config.json");
-> ```
-
-<br/>
-
-`fs.writeFile(filepath, data, options?)`
-
-Write file asynchronous.
-
-> | Parameter | Description                                                                                                                    |
-> | --------- | ------------------------------------------------------------------------------------------------------------------------------ |
-> | filepath  | [String]<br/>File path to write.                                                                                               |
-> | data      | [String] \| [Buffer]<br/>Data to be written.                                                                                   |
-> | options   | [Object] (optional)<br/>Method options. [More details](https://github.com/fabiospampinato/atomically?tab=readme-ov-file#usage) |
->
-> returns [Promise]<[Void]>
->
-> Example:
->
-> ```typescript
-> const writing: unknown = await fs.writeFile("./config.json", JSON.stringify({}));
-> ```
-
-<br/>
-
-`fs.writeFileSync(filepath, data, options?)`
-
-Write file synchronous.
-
-> | Parameter | Description                                                                                                                    |
-> | --------- | ------------------------------------------------------------------------------------------------------------------------------ |
-> | filepath  | [String]<br/>File path to write.                                                                                               |
-> | data      | [String] \| [Buffer]<br/>Data to be written.                                                                                   |
-> | options   | [Object] (optional)<br/>Method options. [More details](https://github.com/fabiospampinato/atomically?tab=readme-ov-file#usage) |
->
-> returns [Void]
->
-> Example:
->
-> ```typescript
-> const writing: unknown = fs.writeFileSync("./config.json", JSON.stringify({}));
 > ```
 
 ### Types
