@@ -1,0 +1,42 @@
+{
+  "name": "yuppi",
+  "version": "1.0.0",
+  "description": "Write your schemas in JSON then convert to Yup and OpenAPI.",
+  "license": "MIT",
+  "homepage": "https://github.com/keift/yuppi",
+  "bugs": "https://github.com/keift/yuppi/issues",
+  "main": "./dist/main.js",
+  "module": "./dist/main.mjs",
+  "types": "./dist/main.d.ts",
+  "scripts": {
+    "dev": "bun run --watch ./examples/yuppi.example.ts",
+    "tests": "bun run lint",
+    "prettier": "prettier --write ./",
+    "build": "tsup",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "jiti": "^2.4.2",
+    "prettier": "^3.5.3",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.33.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keift/yuppi.git"
+  },
+  "keywords": [
+    "fs",
+    "file-system",
+    "atomically",
+    "fs-extra",
+    "graceful-fs",
+    "atomic",
+    "atomic-reads",
+    "atomic-writes"
+  ]
+}
