@@ -62,9 +62,5 @@ export const convertSchema = (schema: Schema): Yup.ObjectSchema<Yup.AnyObject> =
 
   for (const [key, config] of Object.entries(schema)) shape[key] = buildSchema(key, config);
 
-<<<<<<< HEAD
   return Yup.object().shape(shape as Yup.ObjectShape);
-=======
-  return Yup.object().shape(shape);
->>>>>>> 1248fbddfddb299c74886ae34ebe3c1efec873ce
 };
