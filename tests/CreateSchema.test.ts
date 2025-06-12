@@ -14,8 +14,8 @@ const yuppi_schema: Yup.ObjectSchema<Yup.AnyObject> = Yupp.create({
 
 const example_fields: { username: number } = {
   username: 1
-}
+};
 
-const validation: Yup.AnyObject = await yuppi_schema.validate(example_fields, {abortEarly: false, stripUnknown: true});
+const validation: Yup.AnyObject = await yuppi_schema.validate(example_fields, { abortEarly: false, stripUnknown: true });
 
 console.log(validation);
