@@ -4,8 +4,8 @@ import type { Schema, Types } from "../types/Schema.type";
 
 export const convertSchema = (schema: Schema): Yup.ObjectSchema<Yup.AnyObject> => {
   const buildSchema = (key: string, config: Types, parent_path: string = ""): Yup.AnyObject => {
-    let schema: Yup.AnyObject;
     const field_path: string = parent_path ? `${parent_path}.${key}` : key;
+    let schema: Yup.AnyObject;
 
     if (config.type === "string") {
       schema = Yup.string().typeError(`Field ${field_path} must be a string`);
