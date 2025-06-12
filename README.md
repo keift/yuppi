@@ -27,6 +27,7 @@
 - [Features](#features)
 - [Installation](#installation)
 - [Documentation](#documentation)
+  - [Tree](#tree)
   - [Import](#import)
   - [Methods](#methods)
   - [Types](#types)
