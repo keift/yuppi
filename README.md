@@ -64,6 +64,31 @@ deno install npm:yuppi
 
 ## Documentation
 
+### Tree
+
+Briefly as follows.
+
+```typescript
+Yuppi
+│
+├── new Snowflake(options?)
+│   │
+│   ├── generate()
+│   └── resolve(id)
+│
+├── new Symbolic(options?)
+│   │
+│   ├── generate()
+│   └── resolve(id)
+│
+└── type Types
+    │
+    ├── SnowflakeOptions
+    ├── SnowflakeResolve
+    ├── SymbolicOptions
+    └── SymbolicResolve
+```
+
 ### Import
 
 Briefly as follows.

@@ -13,7 +13,7 @@
     "tests": "bun run lint",
     "prettier": "prettier --write ./",
     "build": "tsup",
-    "lint": "eslint"
+    "lint": "eslint ./"
   },
   "dependencies": {
     "yup": "^1.6.1"
