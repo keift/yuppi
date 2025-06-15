@@ -5,15 +5,27 @@ import type * as Yup from "yup";
 const Yupp: Yuppi = new Yuppi();
 
 const yuppi_schema: YuppiTypes.Schema = {
-  username: {
-    type: "boolean",
-    nullable: false,
+  users: {
+    type: "array",
+    array: {
+      type: "object",
+      object: {
+        email: {
+          type: "string",
+          nullable: true,
+          required: true
+        }
+      },
+      nullable: true,
+      required: true
+    },
+    nullable: true,
     required: true
   }
 };
 
-const example_fields: { username: number } = {
-  username: 5
+const example_fields: Yup.AnyObject = {
+  users: [{}]
 };
 
 const validation: Yup.AnyObject = await Yupp.validate(yuppi_schema, example_fields);

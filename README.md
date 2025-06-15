@@ -46,7 +46,7 @@ Write your schemas in JSON then convert to Yup and OpenAPI.
 
 You can install it as follows.
 
-```ruby
+```shell
 // NPM
 npm install yuppi
 
