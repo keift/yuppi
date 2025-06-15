@@ -1,21 +1,21 @@
-import { Yuppi } from "../src/main";
+import { Yuppi, type Types as YuppiTypes } from "../src/main";
 
 import type * as Yup from "yup";
 
 const Yupp: Yuppi = new Yuppi();
 
-const yuppi_schema: Yup.ObjectSchema<Yup.AnyObject> = Yupp.create({
+const yuppi_schema: YuppiTypes.Schema = {
   username: {
-    type: "string",
+    type: "boolean",
     nullable: false,
     required: true
   }
-});
-
-const example_fields: { username: number } = {
-  username: 1
 };
 
-const validation: Yup.AnyObject = await yuppi_schema.validate(example_fields, { abortEarly: false, stripUnknown: true });
+const example_fields: { username: number } = {
+  username: 5
+};
+
+const validation: Yup.AnyObject = await Yupp.validate(yuppi_schema, example_fields);
 
 console.log(validation);

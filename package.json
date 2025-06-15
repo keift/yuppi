@@ -16,6 +16,8 @@
     "lint": "eslint ./"
   },
   "dependencies": {
+    "@types/lodash": "^4.17.17",
+    "lodash": "^4.17.21",
     "yup": "^1.6.1"
   },
   "devDependencies": {
