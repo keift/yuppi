@@ -193,14 +193,14 @@ Validate the fields with your Yuppi schema.
 
 ### Types
 
-> | Type                |
-> | ------------------- |
-> | [AnyObject]         |
-> | [JSONSchema]        |
-> | [Schema]            |
-> | [ValidateOptions]   |
+> | Type              |
+> | ----------------- |
+> | [AnyObject]       |
+> | [JSONSchema]      |
+> | [Schema]          |
+> | [ValidateOptions] |
 > | [ValidationError] |
-> | [YuppiOptions]      |
+> | [YuppiOptions]    |
 >
 > Example:
 >
