@@ -136,7 +136,7 @@ Validate the fields with your Yuppi schema.
 > | Parameter | Description                                       |
 > | --------- | ------------------------------------------------- |
 > | schema    | [Schema]<br/>Yuppi schema.                        |
-> | fields    | [AnyObject] (optional)<br/>Object to be validate. |
+> | fields    | [AnyObject] (optional)<br/>Fields to be validate. |
 >
 > returns [Promise]<[AnyObject]>
 >
