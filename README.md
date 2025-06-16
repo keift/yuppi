@@ -199,7 +199,7 @@ Read file asynchronous.
 > | [JSONSchema]        |
 > | [Schema]            |
 > | [ValidateOptions]   |
-> | [ValidationOptions] |
+> | [ValidationError] |
 > | [YuppiOptions]      |
 >
 > Example:
