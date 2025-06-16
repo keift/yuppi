@@ -132,9 +132,9 @@ Yuppi schema builder.
 
 Read file asynchronous.
 
-> | Parameter | Description                                |
-> | --------- | ------------------------------------------ |
-> | schema    | [Schema]<br/>Yuppi schema.            |
+> | Parameter | Description                                       |
+> | --------- | ------------------------------------------------- |
+> | schema    | [Schema]<br/>Yuppi schema.                        |
 > | fields    | [AnyObject] (optional)<br/>Object to be validate. |
 >
 > returns [Promise]<[AnyObject]>
@@ -142,9 +142,7 @@ Read file asynchronous.
 > Example:
 >
 > ```typescript
-> const validation: YuppiTypes.AnyObject = await Yuppi.validate({
->   
-> });
+> const validation: YuppiTypes.AnyObject = await Yuppi.validate({});
 > ```
 
 ### Types
