@@ -39,10 +39,10 @@
   - [Methods](#methods)
   - [Types](#types)
 - [Links](#links)
-  - [GitHub](https://github.com/keift)
   - [Discord](https://discord.gg/keift)
   - [Telegram](https://t.me/keiftt)
   - [Twitter](https://x.com/keiftttt)
+  - [GitHub](https://github.com/keift)
 
 ## About
 
