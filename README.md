@@ -328,10 +328,10 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 
 ## Links
 
-- [GitHub](https://github.com/keift)
 - [Discord](https://discord.gg/keift)
 - [Telegram](https://t.me/keiftt)
 - [Twitter](https://x.com/keiftttt)
+- [GitHub](https://github.com/keift)
 
 ## License
 
