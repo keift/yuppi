@@ -41,6 +41,7 @@
 - [Links](#links)
   - [Change Log](CHANGELOG.md)
   - [License](LICENSE.md)
+  - [GitHub](https://github.com/keift)
   - [Discord](https://discord.gg/keift)
   - [Telegram](https://t.me/keiftt)
   - [Twitter](https://x.com/keiftttt)
@@ -331,6 +332,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 
 - [Change Log](CHANGELOG.md)
 - [License](LICENSE.md)
+- [GitHub](https://github.com/keift)
 - [Discord](https://discord.gg/keift)
 - [Telegram](https://t.me/keiftt)
 - [Twitter](https://x.com/keiftttt)
