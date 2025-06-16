@@ -39,8 +39,6 @@
   - [Methods](#methods)
   - [Types](#types)
 - [Links](#links)
-  - [Change Log](CHANGELOG.md)
-  - [License](LICENSE.md)
   - [GitHub](https://github.com/keift)
   - [Discord](https://discord.gg/keift)
   - [Telegram](https://t.me/keiftt)
@@ -330,8 +328,6 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 
 ## Links
 
-- [Change Log](CHANGELOG.md)
-- [License](LICENSE.md)
 - [GitHub](https://github.com/keift)
 - [Discord](https://discord.gg/keift)
 - [Telegram](https://t.me/keiftt)
