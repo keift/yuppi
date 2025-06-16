@@ -179,12 +179,12 @@ Read file asynchronous.
 >   .then((fields: YuppiTypes.AnyObject) => {
 >     console.log(fields);
 >     /*
->     {
->       display_name: "Fırat",
->       username: "fir4tozden",
->       email: "fir4tozden@gmail.com"
->     }
->   */
+>       {
+>         display_name: "Fırat",
+>         username: "fir4tozden",
+>         email: "fir4tozden@gmail.com"
+>       }
+>     */
 >   })
 >   .catch((error: YuppiTypes.ValidationError) => {
 >     console.log(fields); // "Field email must match the required pattern"
