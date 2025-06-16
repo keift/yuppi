@@ -139,7 +139,6 @@ Read file asynchronous.
 > import { Yuppi, type Types as YuppiTypes } from "yuppi";
 >
 > const Yupp: Yuppi = new Yuppi();
->
 > ```
 
 ## Links
