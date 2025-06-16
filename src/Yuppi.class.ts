@@ -17,9 +17,9 @@ export class Yuppi {
     this.options = _.merge({}, YuppiOptionsDefault, options);
   }
 
-  public async validate(schema: Schema, fields: Record<string, unknown>): Promise<Record<string, unknown>> {
+  public async validate(schema: Schema, fields: AnyObject): Promise<AnyObject> {
     const yup_schema: AnyObject = convertToYup(schema, this.options.error_messages);
-    const validation: Record<string, unknown> = await yup_schema.validate(fields, this.options.validate_options);
+    const validation: AnyObject = await yup_schema.validate(fields, this.options.validate_options);
 
     return validation;
   }

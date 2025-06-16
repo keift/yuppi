@@ -128,21 +128,23 @@ Yuppi schema builder.
 
 ### Methods
 
-`fs.readFile(filepath, options?)`
+`Yuppi.validate(schema, fields)`
 
 Read file asynchronous.
 
-> | Parameter | Description                                                                                                                    |
-> | --------- | ------------------------------------------------------------------------------------------------------------------------------ |
-> | filepath  | [String]<br/>File path to read.                                                                                                |
-> | options   | [Object] (optional)<br/>Method options. [More details](https://github.com/fabiospampinato/atomically?tab=readme-ov-file#usage) |
+> | Parameter | Description                                |
+> | --------- | ------------------------------------------ |
+> | schema    | [Schema]<br/>Yuppi schema.            |
+> | fields    | [AnyObject] (optional)<br/>Object to be validate. |
 >
-> returns [Promise]<[String] | [Buffer]>
+> returns [Promise]<[AnyObject]>
 >
 > Example:
 >
 > ```typescript
-> const reading: string | Buffer = await fs.readFile("./config.json");
+> const validation: YuppiTypes.AnyObject = await Yuppi.validate({
+>   
+> });
 > ```
 
 ### Types
