@@ -31,11 +31,17 @@ const schema: YuppiTypes.Schema = {
 const fields: YuppiTypes.AnyObject = {
   display_name: "Fırat",
   username: "fir4tozden",
-  email: "fir4tozden@gmail.com"
+  email: "fir4tozden@!gmail.com"
 };
 
-const validation: YuppiTypes.AnyObject = await Yupp.validate(schema, fields);
+Yupp.validate(schema, fields)
+  .then((fields: YuppiTypes.AnyObject) => {
+    console.log(JSON.stringify(fields));
+  })
+  .catch((error: YuppiTypes.ValidationError) => {
+    console.log(error.message);
+  });
+
 const typebox_schema: YuppiTypes.JSONSchema = Yupp.convertToJSONSchema(schema);
 
-console.log(JSON.stringify(validation));
 console.log(JSON.stringify(typebox_schema, null, 2));

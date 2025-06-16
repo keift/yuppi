@@ -13,6 +13,7 @@
 [JSONSchema]: ./src/types/JSONSchema.type.ts
 [Schema]: ./src/types/Schema.type.ts
 [ValidateOptions]: ./src/types/ValidateOptions.type.ts
+[ValidationError]: ./src/types/ValidationError.type.ts
 [YuppiOptions]: ./src/types/YuppiOptions.type.ts
 
 <div align="center">
@@ -174,17 +175,32 @@ Read file asynchronous.
 >   email: "fir4tozden@gmail.com"
 > };
 >
-> const validation: YuppiTypes.AnyObject = await Yupp.validate(schema, fields);
+> const validation: YuppiTypes.AnyObject = Yupp.validate(schema, fields)
+>   .then((fields: YuppiTypes.AnyObject) => {
+>     console.log(fields);
+>     /*
+>     {
+>       display_name: "Fırat",
+>       username: "fir4tozden",
+>       email: "fir4tozden@gmail.com"
+>     }
+>   */
+>   })
+>   .catch((error: YuppiTypes.ValidationError) => {
+>     console.log(fields); // "Field email must match the required pattern"
+>   });
 > ```
 
 ### Types
 
-> | Type           |
-> | -------------- |
-> | [AnyObject]    |
-> | [JSONSchema]   |
-> | [Schema]       |
-> | [YuppiOptions] |
+> | Type                |
+> | ------------------- |
+> | [AnyObject]         |
+> | [JSONSchema]        |
+> | [Schema]            |
+> | [ValidateOptions]   |
+> | [ValidationOptions] |
+> | [YuppiOptions]      |
 >
 > Example:
 >
