@@ -7,11 +7,13 @@ export type YuppiOptions = {
       nullable?: string;
       required?: string;
     };
+
     string?: {
       type?: string;
       min?: string;
       max?: string;
     };
+
     number?: {
       type?: string;
       min?: string;
@@ -20,22 +22,27 @@ export type YuppiOptions = {
       positive?: string;
       negative?: string;
     };
+
     boolean?: {
       type?: string;
     };
+
     date?: {
       type?: string;
       min?: string;
       max?: string;
     };
+
     object?: {
       type?: string;
     };
+
     array?: {
       type?: string;
       min?: string;
       max?: string;
     };
   };
+
   validate_options?: ValidateOptions;
 };
