@@ -133,9 +133,9 @@ Yuppi schema builder.
 
 Validate the fields with your Yuppi schema.
 
-> | Parameter | Description                                       |
-> | --------- | ------------------------------------------------- |
-> | schema    | [Schema]<br/>Yuppi schema.                        |
+> | Parameter | Description                            |
+> | --------- | -------------------------------------- |
+> | schema    | [Schema]<br/>Yuppi schema.             |
 > | fields    | [AnyObject]<br/>Fields to be validate. |
 >
 > returns [Promise]<[AnyObject]>
