@@ -90,6 +90,8 @@ Yuppi
     ├── AnyObject
     ├── JSONSchema
     ├── Schema
+    ├── ValidateOptions
+    ├── ValidationError
     └── YuppiOptions
 ```
 
@@ -193,22 +195,14 @@ Validate the fields with your Yuppi schema.
 
 ### Types
 
-> | Type              |
-> | ----------------- |
-> | [AnyObject]       |
-> | [JSONSchema]      |
-> | [Schema]          |
-> | [ValidateOptions] |
-> | [ValidationError] |
-> | [YuppiOptions]    |
->
-> Example:
->
-> ```typescript
-> import { Yuppi, type Types as YuppiTypes } from "yuppi";
->
-> const Yupp: Yuppi = new Yuppi();
-> ```
+| Type              |
+| ----------------- |
+| [AnyObject]       |
+| [JSONSchema]      |
+| [Schema]          |
+| [ValidateOptions] |
+| [ValidationError] |
+| [YuppiOptions]    |
 
 ## Links
 
