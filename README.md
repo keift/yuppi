@@ -131,7 +131,7 @@ Yuppi schema builder.
 
 `Yuppi.validate(schema, fields)`
 
-Read file asynchronous.
+Validate the fields with your Yuppi schema.
 
 > | Parameter | Description                                       |
 > | --------- | ------------------------------------------------- |
