@@ -1,7 +1,7 @@
 {
   "name": "yuppi",
   "version": "1.0.0",
-  "description": "Write your schemas in JSON then convert to Yup and OpenAPI.",
+  "description": "Schemas that can be converted to Yup and JSON Schema.",
   "license": "MIT",
   "homepage": "https://github.com/keift/yuppi",
   "bugs": "https://github.com/keift/yuppi/issues",
@@ -16,6 +16,7 @@
     "lint": "eslint ./"
   },
   "dependencies": {
+    "@sinclair/typebox": "^0.34.35",
     "@types/lodash": "^4.17.17",
     "lodash": "^4.17.21",
     "yup": "^1.6.1"

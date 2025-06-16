@@ -8,7 +8,10 @@
 [Function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
 [Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [Void]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Undefined
-[Fs]: ./src/types/Fs.type.ts
+[AnyObject]: ./src/types/AnyObject.type.ts
+[JSONSchema]: ./src/types/JSONSchema.type.ts
+[Schema]: ./src/types/Schema.type.ts
+[YuppiOptions]: ./src/types/YuppiOptions.type.ts
 
 <div align="center">
   <br/>
@@ -36,7 +39,7 @@
 
 ## About
 
-Write your schemas in JSON then convert to Yup and OpenAPI.
+Schemas that can be converted to Yup and JSON Schema.
 
 ## Features
 
@@ -72,22 +75,18 @@ Briefly as follows.
 ```typescript
 Yuppi
 │
-├── new Snowflake(options?)
+├── new Yuppi(options?)
 │   │
-│   ├── generate()
-│   └── resolve(id)
-│
-├── new Symbolic(options?)
-│   │
-│   ├── generate()
-│   └── resolve(id)
+│   ├── validate(schema, fields)
+│   ├── convertToYup(schema)
+│   └── convertToJSONSchema(schema)
 │
 └── type Types
     │
-    ├── SnowflakeOptions
-    ├── SnowflakeResolve
-    ├── SymbolicOptions
-    └── SymbolicResolve
+    ├── JSONSchema
+    ├── Object
+    ├── Schema
+    └── YuppiOptions
 ```
 
 ### Import
@@ -97,13 +96,13 @@ Briefly as follows.
 > TypeScript
 >
 > ```typescript
-> import { Schema, type Types as YuppiTypes } from "yuppi";
+> import { Yuppi, type Types as YuppiTypes } from "yuppi";
 > ```
 >
 > JavaScript
 >
 > ```javascript
-> import { Schema } from "yuppi";
+> import { Yuppi } from "yuppi";
 > ```
 
 ### Methods
@@ -127,19 +126,20 @@ Read file asynchronous.
 
 ### Types
 
-> | Type | Place          |
-> | ---- | -------------- |
-> | [Fs] | [fs](#methods) |
+> | Type           |
+> | -------------- |
+> | [AnyObject]    |
+> | [JSONSchema]   |
+> | [Schema]       |
+> | [YuppiOptions] |
 >
 > Example:
 >
 > ```typescript
-> import { fs, type Types as TrufsTypes } from "trufs";
+> import { Yuppi, type Types as YuppiTypes } from "yuppi";
 >
-> const Trufs: TrufsTypes.Fs = fs;
+> const Yupp: Yuppi = new Yuppi();
 >
-> const writing: unknown = Trufs.writeFileSync("./config.json", JSON.stringify({}));
-> const reading: string | Buffer = Trufs.readFileSync("./config.json");
 > ```
 
 ## Links

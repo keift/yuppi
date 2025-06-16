@@ -36,9 +36,9 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
 
       if (config.min !== undefined) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.number?.min ?? "").split("{path}").join(path).split("{min}").join(min.toString()));
       if (config.max !== undefined) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.number?.max ?? "").split("{path}").join(path).split("{max}").join(max.toString()));
-      if (config.integer) schema = schema.integer(({ path }: { path: string }) => (error_messages?.number?.integer ?? "").split("{path}").join(path));
-      if (config.positive) schema = schema.positive(({ path }: { path: string }) => (error_messages?.number?.positive ?? "").split("{path}").join(path));
-      if (config.negative) schema = schema.negative(({ path }: { path: string }) => (error_messages?.number?.negative ?? "").split("{path}").join(path));
+      if (config.integer === true) schema = schema.integer(({ path }: { path: string }) => (error_messages?.number?.integer ?? "").split("{path}").join(path));
+      if (config.positive === true) schema = schema.positive(({ path }: { path: string }) => (error_messages?.number?.positive ?? "").split("{path}").join(path));
+      if (config.negative === true) schema = schema.negative(({ path }: { path: string }) => (error_messages?.number?.negative ?? "").split("{path}").join(path));
     } else if (config.type === "boolean") {
       schema = Yup.boolean().typeError(({ path }: { path: string }) => (error_messages?.boolean?.type ?? "").split("{path}").join(path));
     } else if (config.type === "date") {
@@ -49,13 +49,11 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
     } else if (config.type === "object") {
       schema = Yup.object().typeError(({ path }: { path: string }) => (error_messages?.object?.type ?? "").split("{path}").join(path));
 
-      if (config.object) {
-        const nested_schema: { [key: string]: AnyObject } = {};
+      const nested_schema: { [key: string]: AnyObject } = {};
 
-        for (const [nested_key, nested_config] of Object.entries(config.object)) nested_schema[nested_key] = build(nested_key, nested_config);
+      for (const [nested_key, nested_config] of Object.entries(config.properties)) nested_schema[nested_key] = build(nested_key, nested_config);
 
-        schema = schema.shape(nested_schema);
-      }
+      schema = schema.shape(nested_schema);
     } else if (config.type === "array") {
       schema = Yup.array().typeError(({ path }: { path: string }) => (error_messages?.array?.type ?? "").split("{path}").join(path));
 
@@ -79,12 +77,13 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
             .split("{plural_suffix}")
             .join(max > 1 ? "s" : "")
         );
-      if (config.array) schema = schema.of(build(`${key}[]`, config.array));
-    } else throw new Error(`Unsupported schema type for key: ${key}`);
+
+      schema = schema.of(build(key, config.items));
+    } else throw new Error(`Unsupported schema type for ${key}`);
 
     schema = schema.nullable();
 
-    if (config.pattern !== undefined && schema.matches) schema = schema.matches(config.pattern, ({ path }: { path: string }) => (error_messages?.base?.pattern ?? "").split("{path}").join(path));
+    if (config.pattern !== undefined && schema.matches !== undefined) schema = schema.matches(config.pattern, ({ path }: { path: string }) => (error_messages?.base?.pattern ?? "").split("{path}").join(path));
 
     if (config.default !== undefined) schema = schema.default(config.default);
 

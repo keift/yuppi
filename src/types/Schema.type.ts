@@ -32,14 +32,14 @@ export type Date = Base & {
 
 export type Object = Base & {
   type: "object";
-  object: Schema;
+  properties: Schema;
 };
 
 export type Array = Base & {
   type: "array";
   min?: number;
   max?: number;
-  array: Types;
+  items: Types;
 };
 
 export type Types = String | Number | Boolean | Date | Object | Array;
