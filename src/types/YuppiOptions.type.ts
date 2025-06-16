@@ -1,4 +1,4 @@
-import type { ValidateOptions } from "yup";
+import type { ValidateOptions } from "./ValidateOptions.type";
 
 export type YuppiOptions = {
   error_messages?: {

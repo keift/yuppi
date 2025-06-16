@@ -8,9 +8,11 @@
 [Function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
 [Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [Void]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Undefined
+[YuppiOptionsDefault]: ./src/defaults/YuppiOptions.default.ts
 [AnyObject]: ./src/types/AnyObject.type.ts
 [JSONSchema]: ./src/types/JSONSchema.type.ts
 [Schema]: ./src/types/Schema.type.ts
+[ValidateOptions]: ./src/types/ValidateOptions.type.ts
 [YuppiOptions]: ./src/types/YuppiOptions.type.ts
 
 <div align="center">
@@ -32,6 +34,7 @@
 - [Documentation](#documentation)
   - [Tree](#tree)
   - [Import](#import)
+  - [Constructors](#constructors)
   - [Methods](#methods)
   - [Types](#types)
 - [Links](#links)
@@ -83,8 +86,8 @@ Yuppi
 │
 └── type Types
     │
+    ├── AnyObject
     ├── JSONSchema
-    ├── Object
     ├── Schema
     └── YuppiOptions
 ```
@@ -104,6 +107,24 @@ Briefly as follows.
 > ```javascript
 > import { Yuppi } from "yuppi";
 > ```
+
+### Constructors
+
+`new Yuppi(options?)`
+
+Yuppi schema builder.
+
+> | Parameter | Default               | Description                                          |
+> | --------- | --------------------- | ---------------------------------------------------- |
+> | options   | [YuppiOptionsDefault] | [YuppiOptions] (optional)<br/>Constructor's options. |
+>
+> Example:
+>
+> ```typescript
+> const Yupp: Yuppi = new Yuppi();
+> ```
+
+<br/>
 
 ### Methods
 
