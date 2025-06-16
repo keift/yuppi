@@ -23,20 +23,20 @@ const schema: YuppiTypes.Schema = {
   email: {
     type: "string",
     pattern: /^[\w-\.]+@[\w-]+\.[a-z]{2,}$/i,
-    nullable: false,
+    nullable: true,
     required: true
   }
 };
 
-const fields: YuppiTypes.AnyObject = {
+const properties: YuppiTypes.AnyObject = {
   display_name: "Fırat",
   username: "fir4tozden",
   email: "fir4tozden@!gmail.com"
 };
 
-Yupp.validate(schema, fields)
-  .then((fields: YuppiTypes.AnyObject) => {
-    console.log(JSON.stringify(fields));
+Yupp.validate(schema, properties)
+  .then((properties: YuppiTypes.AnyObject) => {
+    console.log(JSON.stringify(properties));
   })
   .catch((error: YuppiTypes.ValidationError) => {
     console.log(error.message);
@@ -44,4 +44,4 @@ Yupp.validate(schema, fields)
 
 const typebox_schema: YuppiTypes.JSONSchema = Yupp.convertToJSONSchema(schema);
 
-console.log(JSON.stringify(typebox_schema, null, 2));
+console.log(typebox_schema);

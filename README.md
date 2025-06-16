@@ -47,7 +47,12 @@ Schemas that can be converted to Yup and JSON Schema.
 
 ## Features
 
-- Can be converted to OpenAPI schema.
+- Easy and understandable schema
+- Works with Yup, stable and secure
+- Targeted for API endpoints
+- Can be converted to Yup and [JSON Schema](https://json-schema.org)
+- It is strict and therefore does not accept more than one type
+- Error messages are ready to be understood but can be edited if desired
 
 ## Installation
 
@@ -81,7 +86,7 @@ Yuppi
 │
 ├── new Yuppi(options?)
 │   │
-│   ├── validate(schema, fields)
+│   ├── validate(schema, properties)
 │   ├── convertToYup(schema)
 │   └── convertToJSONSchema(schema)
 │
@@ -127,18 +132,16 @@ Yuppi schema builder.
 > const Yupp: Yuppi = new Yuppi();
 > ```
 
-<br/>
-
 ### Methods
 
-`Yuppi.validate(schema, fields)`
+`Yuppi.validate(schema, properties)`
 
-Validate the fields with your Yuppi schema.
+Validate the properties with your Yuppi schema.
 
-> | Parameter | Description                            |
-> | --------- | -------------------------------------- |
-> | schema    | [Schema]<br/>Yuppi schema.             |
-> | fields    | [AnyObject]<br/>Fields to be validate. |
+> | Parameter  | Description                                |
+> | ---------- | ------------------------------------------ |
+> | schema     | [Schema]<br/>Yuppi schema.                 |
+> | properties | [AnyObject]<br/>Properties to be validate. |
 >
 > returns [Promise]<[AnyObject]>
 >
@@ -171,15 +174,15 @@ Validate the fields with your Yuppi schema.
 >   }
 > };
 >
-> const fields: YuppiTypes.AnyObject = {
+> const properties: YuppiTypes.AnyObject = {
 >   display_name: "Fırat",
 >   username: "fir4tozden",
 >   email: "fir4tozden@gmail.com"
 > };
 >
-> const validation: YuppiTypes.AnyObject = Yupp.validate(schema, fields)
->   .then((fields: YuppiTypes.AnyObject) => {
->     console.log(fields);
+> const validation: YuppiTypes.AnyObject = Yupp.validate(schema, properties)
+>   .then((properties: YuppiTypes.AnyObject) => {
+>     console.log(properties);
 >     /*
 >       {
 >         display_name: "Fırat",
@@ -189,8 +192,124 @@ Validate the fields with your Yuppi schema.
 >     */
 >   })
 >   .catch((error: YuppiTypes.ValidationError) => {
->     console.log(fields); // "Field email must match the required pattern"
+>     console.log(properties); // "Field email must match the required pattern"
 >   });
+> ```
+
+<br/>
+
+`Yuppi.convertToYup(schema)`
+
+Convert your Yuppi schema into Yup schema.
+
+> | Parameter | Description                |
+> | --------- | -------------------------- |
+> | schema    | [Schema]<br/>Yuppi schema. |
+>
+> returns [AnyObject]
+>
+> Example:
+>
+> ```typescript
+> const schema: YuppiTypes.Schema = {
+>   display_name: {
+>     type: "string",
+>     min: 1,
+>     max: 32,
+>     nullable: false,
+>     required: true
+>   },
+>
+>   username: {
+>     type: "string",
+>     min: 3,
+>     max: 16,
+>     pattern: /^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$/,
+>     nullable: false,
+>     required: true
+>   },
+>
+>   email: {
+>     type: "string",
+>     pattern: /^[\w-\.]+@[\w-]+\.[a-z]{2,}$/i,
+>     nullable: false,
+>     required: true
+>   }
+> };
+>
+> const conversion: YuppiTypes.AnyObject = Yupp.convertToYup(schema);
+> ```
+
+<br/>
+
+`Yuppi.convertToJSONSchema(schema)`
+
+Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
+
+> | Parameter | Description                |
+> | --------- | -------------------------- |
+> | schema    | [Schema]<br/>Yuppi schema. |
+>
+> returns [AnyObject]
+>
+> Example:
+>
+> ```typescript
+> const schema: YuppiTypes.Schema = {
+>   display_name: {
+>     type: "string",
+>     min: 1,
+>     max: 32,
+>     nullable: false,
+>     required: true
+>   },
+>
+>   username: {
+>     type: "string",
+>     min: 3,
+>     max: 16,
+>     pattern: /^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$/,
+>     nullable: false,
+>     required: true
+>   },
+>
+>   email: {
+>     type: "string",
+>     pattern: /^[\w-\.]+@[\w-]+\.[a-z]{2,}$/i,
+>     nullable: false,
+>     required: true
+>   }
+> };
+>
+> const conversion: YuppiTypes.JSONSchema = Yupp.convertToJSONSchema(schema);
+> /*
+>   {
+>     type: "object",
+>     properties: {
+>       display_name: {
+>         type: "string",
+>         minLength: 1,
+>         maxLength: 32,
+>         pattern: "[\\s\\S]*"
+>       },
+>       username": {
+>         type: "string",
+>         minLength: 3,
+>         maxLength: 16,
+>         pattern: "^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$"
+>       },
+>       email: {
+>         type: "string",
+>         pattern: "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$"
+>       }
+>     },
+>     required: [
+>       "display_name",
+>       "username",
+>       "email"
+>     ]
+>   }
+> */
 > ```
 
 ### Types

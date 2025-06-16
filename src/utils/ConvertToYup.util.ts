@@ -49,11 +49,11 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
     } else if (config.type === "object") {
       schema = Yup.object().typeError(({ path }: { path: string }) => (error_messages?.object?.type ?? "").split("{path}").join(path));
 
-      const nested_schema: { [key: string]: AnyObject } = {};
+      const nested_properties: AnyObject = {};
 
-      for (const [nested_key, nested_config] of Object.entries(config.properties)) nested_schema[nested_key] = build(nested_key, nested_config);
+      for (const [nested_key, nested_config] of Object.entries(config.properties)) nested_properties[nested_key] = build(nested_key, nested_config);
 
-      schema = schema.shape(nested_schema);
+      schema = schema.shape(nested_properties);
     } else if (config.type === "array") {
       schema = Yup.array().typeError(({ path }: { path: string }) => (error_messages?.array?.type ?? "").split("{path}").join(path));
 

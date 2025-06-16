@@ -33,13 +33,10 @@
     "url": "https://github.com/keift/yuppi"
   },
   "keywords": [
-    "fs",
-    "file-system",
-    "atomically",
-    "fs-extra",
-    "graceful-fs",
-    "atomic",
-    "atomic-reads",
-    "atomic-writes"
+    "validate",
+    "typecheck",
+    "yup",
+    "json-schema",
+    "openapi"
   ]
 }
