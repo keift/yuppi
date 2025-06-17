@@ -1,5 +1,8 @@
 export type Base = {
-  pattern?: RegExp;
+  pattern?: {
+    regex: string,
+    flags?: string
+  };
   default?: unknown;
   nullable: boolean;
   required: boolean;

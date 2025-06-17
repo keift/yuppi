@@ -83,7 +83,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
 
     schema = schema.nullable();
 
-    if (config.pattern !== undefined && schema.matches !== undefined) schema = schema.matches(config.pattern, ({ path }: { path: string }) => (error_messages?.base?.pattern ?? "").split("{path}").join(path));
+    if (config.pattern !== undefined && schema.matches !== undefined) schema = schema.matches(new RegExp(config.pattern?.regex ?? "[\\s\\S]*", config.pattern?.flags), ({ path }: { path: string }) => (error_messages?.base?.pattern ?? "").split("{path}").join(path).split("{pattern}").join(new RegExp(config.pattern?.regex ?? "[\\s\\S]*", config.pattern?.flags).source));
 
     if (config.default !== undefined) schema = schema.default(config.default);
 

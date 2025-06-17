@@ -165,14 +165,19 @@ Validate the properties with your Yuppi schema.
 >     type: "string",
 >     min: 3,
 >     max: 16,
->     pattern: /^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$/,
+>     pattern: {
+>       regex: "^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$"
+>     },
 >     nullable: false,
 >     required: true
 >   },
 >
 >   email: {
 >     type: "string",
->     pattern: /^[\w-\.]+@[\w-]+\.[a-z]{2,}$/i,
+>     pattern: {
+>       regex: "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$",
+>       flags: "i"
+>     },
 >     nullable: false,
 >     required: true
 >   }
@@ -196,7 +201,7 @@ Validate the properties with your Yuppi schema.
 >     */
 >   })
 >   .catch((error: YuppiTypes.ValidationError) => {
->     console.log(properties); // "Field email must match the required pattern"
+>     console.log(properties); // "Field email must match the required pattern ^[\w-\.]+@[\w-]+\.[a-z]{2,}$"
 >   });
 > ```
 
@@ -228,14 +233,19 @@ Convert your Yuppi schema into Yup schema.
 >     type: "string",
 >     min: 3,
 >     max: 16,
->     pattern: /^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$/,
+>     pattern: {
+>       regex: "^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$"
+>     },
 >     nullable: false,
 >     required: true
 >   },
 >
 >   email: {
 >     type: "string",
->     pattern: /^[\w-\.]+@[\w-]+\.[a-z]{2,}$/i,
+>     pattern: {
+>       regex: "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$",
+>       flags: "i"
+>     },
 >     nullable: false,
 >     required: true
 >   }
@@ -272,14 +282,19 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >     type: "string",
 >     min: 3,
 >     max: 16,
->     pattern: /^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$/,
+>     pattern: {
+>       regex: "^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$"
+>     },
 >     nullable: false,
 >     required: true
 >   },
 >
 >   email: {
 >     type: "string",
->     pattern: /^[\w-\.]+@[\w-]+\.[a-z]{2,}$/i,
+>     pattern: {
+>       regex: "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$",
+>       flags: "i"
+>     },
 >     nullable: false,
 >     required: true
 >   }
@@ -304,7 +319,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >       },
 >       email: {
 >         type: "string",
->         pattern: "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$"
+>         pattern: "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$",
 >       }
 >     },
 >     required: [

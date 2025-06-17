@@ -15,15 +15,20 @@ const schema: YuppiTypes.Schema = {
     type: "string",
     min: 3,
     max: 16,
-    pattern: /^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$/,
+    pattern: {
+      regex: "^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$"
+    },
     nullable: false,
     required: true
   },
 
   email: {
     type: "string",
-    pattern: /^[\w-\.]+@[\w-]+\.[a-z]{2,}$/i,
-    nullable: true,
+    pattern: {
+      regex: "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$",
+      flags: "i"
+    },
+    nullable: false,
     required: true
   }
 };
