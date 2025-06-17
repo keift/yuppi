@@ -34,4 +34,4 @@ Yupp.validate(schema, properties_1)
     if (error.name !== "ValidationError") {
       console.log("✅ [Min] Checks successful! 2/2");
     } else throw new Error("❌ [Min] 2/2");
-  })
+  });
