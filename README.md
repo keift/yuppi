@@ -22,7 +22,7 @@
 
 <div align="center">
   <br/>
-  <img src="https://i.ibb.co/kVmjj374/logo.png" width="350px"/>
+  <img src="https://i.ibb.co/S4LGsD64/unknown.png" width="350px"/>
   <br/>
   <br/>
   <img src="https://img.shields.io/npm/v/yuppi?label=version&color=%23633BFF"/>
