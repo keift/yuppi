@@ -10,7 +10,7 @@
   "types": "./dist/main.d.ts",
   "scripts": {
     "dev": "bun run --watch ./examples/yuppi.example.ts",
-    "tests": "bun run lint && npm run ./tests/ConvertToJSONSchema.test.ts && npm run ./tests/Validate.test.ts && npm run ./tests/ValidationError.test.ts",
+    "tests": "bun run lint && bun test",
     "prettier": "prettier --write ./",
     "build": "tsup",
     "lint": "eslint ./"

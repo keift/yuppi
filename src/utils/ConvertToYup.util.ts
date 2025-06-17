@@ -11,7 +11,6 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
     if (config.type === "string") {
       schema = Yup.string().typeError(({ path }: { path: string }) => (error_messages?.string?.type ?? "").split("{path}").join(path));
 
-      schema = schema.trim();
       if (config.min !== undefined)
         schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) =>
           (error_messages?.string?.min ?? "")
