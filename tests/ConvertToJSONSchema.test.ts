@@ -29,20 +29,8 @@ const schema: YuppiTypes.Schema = {
   }
 };
 
-const properties: YuppiTypes.AnyObject = {
-  display_name: "Fırat",
-  username: "fir4tozden",
-  email: "fir4tozden@!gmail.com"
-};
+const conversion: YuppiTypes.JSONSchema = Yupp.convertToJSONSchema(schema);
 
-Yupp.validate(schema, properties)
-  .then((properties: YuppiTypes.AnyObject) => {
-    console.log(JSON.stringify(properties));
-  })
-  .catch((error: YuppiTypes.ValidationError) => {
-    console.log(error.message);
-  });
+if (conversion.properties.username.pattern !== Patterns.Username) throw new Error("❌ [ConvertToJSONSchema]");
 
-const typebox_schema: YuppiTypes.JSONSchema = Yupp.convertToJSONSchema(schema);
-
-console.log(typebox_schema);
+console.log("✅ [ConvertToJSONSchema] Checks successful!");
