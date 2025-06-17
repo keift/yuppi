@@ -184,6 +184,7 @@ Validate the properties with your Yuppi schema.
 >   email: {
 >     type: "string",
 >     pattern: Patterns.Email,
+>     lowercase: true,
 >     nullable: false,
 >     required: true
 >   }
@@ -292,6 +293,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >   email: {
 >     type: "string",
 >     pattern: Patterns.Email,
+>     lowercase: true,
 >     nullable: false,
 >     required: true
 >   }
