@@ -9,11 +9,11 @@
 [Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [Void]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Undefined
 [YuppiOptionsDefault]: ./src/defaults/YuppiOptions.default.ts
-[AnyObject]: ./src/types/AnyObject.type.ts
-[JSONSchema]: ./src/types/JSONSchema.type.ts
+[AnyObject]: https://github.com/jquense/yup/blob/master/src/util/objectTypes.ts#L7
+[JSONSchema]: https://github.com/sinclairzx81/typebox/blob/master/src/type/object/object.ts#L78
 [Schema]: ./src/types/Schema.type.ts
-[ValidateOptions]: ./src/types/ValidateOptions.type.ts
-[ValidationError]: ./src/types/ValidationError.type.ts
+[ValidateOptions]: https://github.com/jquense/yup/blob/master/src/types.ts#L47
+[ValidationError]: https://github.com/jquense/yup/blob/master/src/ValidationError.ts#L53
 [YuppiOptions]: ./src/types/YuppiOptions.type.ts
 
 <div align="center">
@@ -43,6 +43,7 @@
   - [Telegram](https://t.me/keiftt)
   - [Twitter](https://x.com/keiftttt)
   - [GitHub](https://github.com/keift)
+- [License](#license)
 
 ## About
 
@@ -183,7 +184,7 @@ Validate the properties with your Yuppi schema.
 >   email: "fir4tozden@gmail.com"
 > };
 >
-> const validation: YuppiTypes.AnyObject = Yupp.validate(schema, properties)
+> Yupp.validate(schema, properties)
 >   .then((properties: YuppiTypes.AnyObject) => {
 >     console.log(properties);
 >     /*
@@ -240,7 +241,7 @@ Convert your Yuppi schema into Yup schema.
 >   }
 > };
 >
-> const conversion: YuppiTypes.AnyObject = Yupp.convertToYup(schema);
+> Yupp.convertToYup(schema);
 > ```
 
 <br/>
@@ -284,7 +285,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >   }
 > };
 >
-> const conversion: YuppiTypes.JSONSchema = Yupp.convertToJSONSchema(schema);
+> Yupp.convertToJSONSchema(schema);
 > /*
 >   {
 >     type: "object",
