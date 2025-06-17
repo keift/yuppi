@@ -334,7 +334,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 | ------------- |
 | [Email]       |
 | [PhoneNumber] |
-| [URL] |
+| [URL]         |
 | [Username]    |
 
 ### Types
