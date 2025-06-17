@@ -208,7 +208,7 @@ Validate the properties with your Yuppi schema.
 >     */
 >   })
 >   .catch((error: YuppiTypes.ValidationError) => {
->     console.log(properties); // "Field email must match the required pattern ^[\w-\.]+@[\w-]+\.[a-z]{2,}$"
+>     console.log(properties); // "Field email must match the required pattern ^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
 >   });
 > ```
 
@@ -318,7 +318,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >       },
 >       email: {
 >         type: "string",
->         pattern: "^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$",
+>         pattern: "^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
 >       }
 >     },
 >     required: [
