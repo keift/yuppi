@@ -8,6 +8,10 @@
 [Function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
 [Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [Void]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Undefined
+[Email]: ./src/patterns/Email.pattern.ts
+[PhoneNumber]: ./src/patterns/PhoneNumber.pattern.ts
+[URL]: ./src/patterns/URL.pattern.ts
+[Username]: ./src/patterns/Username.pattern.ts
 [YuppiOptionsDefault]: ./src/defaults/YuppiOptions.default.ts
 [AnyObject]: https://github.com/jquense/yup/blob/master/src/util/objectTypes.ts#L7
 [JSONSchema]: https://github.com/sinclairzx81/typebox/blob/master/src/type/object/object.ts#L78
@@ -37,6 +41,7 @@
   - [Import](#import)
   - [Constructors](#constructors)
   - [Methods](#methods)
+  - [Patterns](#patterns)
   - [Types](#types)
 - [Links](#links)
   - [Discord](https://discord.gg/keift)
@@ -94,6 +99,12 @@ Yuppi
 │   ├── convertToYup(schema)
 │   └── convertToJSONSchema(schema)
 │
+├── Patterns
+│   ├── Email
+│   ├── PhoneNumber
+│   ├── URL
+│   └── Username
+│
 └── type Types
     │
     ├── AnyObject
@@ -111,13 +122,13 @@ Briefly as follows.
 > TypeScript
 >
 > ```typescript
-> import { Yuppi, type Types as YuppiTypes } from "yuppi";
+> import { Yuppi, Patterns, type Types as YuppiTypes } from "yuppi";
 > ```
 >
 > JavaScript
 >
 > ```javascript
-> import { Yuppi } from "yuppi";
+> import { Yuppi, Patterns } from "yuppi";
 > ```
 
 ### Constructors
@@ -165,19 +176,14 @@ Validate the properties with your Yuppi schema.
 >     type: "string",
 >     min: 3,
 >     max: 16,
->     pattern: {
->       regex: "^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$"
->     },
+>     pattern: Patterns.Username,
 >     nullable: false,
 >     required: true
 >   },
 >
 >   email: {
 >     type: "string",
->     pattern: {
->       regex: "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$",
->       flags: "i"
->     },
+>     pattern: Patterns.Email,
 >     nullable: false,
 >     required: true
 >   }
@@ -233,19 +239,15 @@ Convert your Yuppi schema into Yup schema.
 >     type: "string",
 >     min: 3,
 >     max: 16,
->     pattern: {
->       regex: "^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$"
->     },
+>     pattern: Patterns.Username,
 >     nullable: false,
 >     required: true
 >   },
 >
 >   email: {
 >     type: "string",
->     pattern: {
->       regex: "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$",
->       flags: "i"
->     },
+>     pattern: Patterns.Email,
+>     lowercase: true,
 >     nullable: false,
 >     required: true
 >   }
@@ -282,19 +284,14 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >     type: "string",
 >     min: 3,
 >     max: 16,
->     pattern: {
->       regex: "^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$"
->     },
+>     pattern: Patterns.Username,
 >     nullable: false,
 >     required: true
 >   },
 >
 >   email: {
 >     type: "string",
->     pattern: {
->       regex: "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$",
->       flags: "i"
->     },
+>     pattern: Patterns.Email,
 >     nullable: false,
 >     required: true
 >   }
@@ -319,7 +316,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >       },
 >       email: {
 >         type: "string",
->         pattern: "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$",
+>         pattern: "^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$",
 >       }
 >     },
 >     required: [
@@ -330,6 +327,15 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >   }
 > */
 > ```
+
+### Patterns
+
+| Pattern       |
+| ------------- |
+| [Email]       |
+| [PhoneNumber] |
+| [URL] |
+| [Username]    |
 
 ### Types
 

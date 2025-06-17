@@ -1,4 +1,4 @@
-import { Yuppi, type Types as YuppiTypes } from "../src/main";
+import { Yuppi, Patterns, type Types as YuppiTypes } from "../src/main";
 
 const Yupp: Yuppi = new Yuppi();
 
@@ -15,19 +15,15 @@ const schema: YuppiTypes.Schema = {
     type: "string",
     min: 3,
     max: 16,
-    pattern: {
-      regex: "^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$"
-    },
+    pattern: Patterns.Username,
     nullable: false,
     required: true
   },
 
   email: {
     type: "string",
-    pattern: {
-      regex: "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$",
-      flags: "i"
-    },
+    pattern: Patterns.Email,
+    lowercase: true,
     nullable: false,
     required: true
   }

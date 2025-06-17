@@ -11,6 +11,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
     if (config.type === "string") {
       schema = Yup.string().typeError(({ path }: { path: string }) => (error_messages?.string?.type ?? "").split("{path}").join(path));
 
+      schema = schema.trim();
       if (config.min !== undefined)
         schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) =>
           (error_messages?.string?.min ?? "")
@@ -31,6 +32,8 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
             .split("{plural_suffix}")
             .join(max > 1 ? "s" : "")
         );
+      if (config.lowercase === true) schema = schema.lowercase();
+      if (config.uppercase === true) schema = schema.uppercase();
     } else if (config.type === "number") {
       schema = Yup.number().typeError(({ path }: { path: string }) => (error_messages?.number?.type ?? "").split("{path}").join(path));
 
@@ -84,12 +87,12 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
     schema = schema.nullable();
 
     if (config.pattern !== undefined && schema.matches !== undefined)
-      schema = schema.matches(new RegExp(config.pattern?.regex ?? "[\\s\\S]*", config.pattern?.flags), ({ path }: { path: string }) =>
+      schema = schema.matches(new RegExp(config.pattern ?? "[\\s\\S]*"), ({ path }: { path: string }) =>
         (error_messages?.base?.pattern ?? "")
           .split("{path}")
           .join(path)
           .split("{pattern}")
-          .join(new RegExp(config.pattern?.regex ?? "[\\s\\S]*", config.pattern?.flags).source)
+          .join(new RegExp(config.pattern ?? "[\\s\\S]*").source)
       );
 
     if (config.default !== undefined) schema = schema.default(config.default);

@@ -1,8 +1,5 @@
 export type Base = {
-  pattern?: {
-    regex: string;
-    flags?: string;
-  };
+  pattern?: string;
   default?: unknown;
   nullable: boolean;
   required: boolean;
@@ -12,6 +9,8 @@ export type String = Base & {
   type: "string";
   min?: number;
   max?: number;
+  lowercase?: boolean;
+  uppercase?: boolean;
 };
 
 export type Number = Base & {
@@ -29,8 +28,8 @@ export type Boolean = Base & {
 
 export type Date = Base & {
   type: "date";
-  min?: string | globalThis.Date;
-  max?: string | globalThis.Date;
+  min?: string;
+  max?: string;
 };
 
 export type Object = Base & {
