@@ -153,9 +153,9 @@ Yuppi schema builder.
 
 Validate the properties with your Yuppi schema.
 
-> | Parameter  | Default |Description                                |
+> | Parameter | Default |Description |
 > | ---------- | |------------------------------------------ |
-> | schema     | |[Schema]<br/>Yuppi schema.                 |
+> | schema | |[Schema]<br/>Yuppi schema. |
 > | properties | |[AnyObject]<br/>Properties to be validate. |
 >
 > returns [Promise]<[AnyObject]>
@@ -218,9 +218,9 @@ Validate the properties with your Yuppi schema.
 
 Convert your Yuppi schema into Yup schema.
 
-> | Parameter | Default |Description                |
+> | Parameter | Default |Description |
 > | --------- | |-------------------------- |
-> | schema    | |[Schema]<br/>Yuppi schema. |
+> | schema | |[Schema]<br/>Yuppi schema. |
 >
 > returns [AnyObject]
 >
@@ -263,9 +263,9 @@ Convert your Yuppi schema into Yup schema.
 
 Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 
-> | Parameter |Default | Description                |
+> | Parameter |Default | Description |
 > | --------- || -------------------------- |
-> | schema    || [Schema]<br/>Yuppi schema. |
+> | schema || [Schema]<br/>Yuppi schema. |
 >
 > returns [AnyObject]
 >
