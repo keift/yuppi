@@ -1,7 +1,7 @@
 export type Base = {
   pattern?: {
-    regex: string,
-    flags?: string
+    regex: string;
+    flags?: string;
   };
   default?: unknown;
   nullable: boolean;
