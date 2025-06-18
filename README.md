@@ -159,7 +159,7 @@ Validate the properties with your Yuppi schema.
 > | schema     |         | [Schema]<br/>Yuppi schema.                 |
 > | properties |         | [AnyObject]<br/>Properties to be validate. |
 >
-> returns [Promise]<[AnyObject]>
+> returns <[AnyObject]>
 >
 > Example:
 >
@@ -197,20 +197,20 @@ Validate the properties with your Yuppi schema.
 >   email: "fir4tozden@gmail.com"
 > };
 >
-> Yupp.validate(schema, properties)
->   .then((properties: YuppiTypes.AnyObject) => {
->     console.log(properties);
->     /*
->       {
->         display_name: "Fırat",
->         username: "fir4tozden",
->         email: "fir4tozden@gmail.com"
->       }
->     */
->   })
->   .catch((error: YuppiTypes.ValidationError) => {
->     console.log(properties); // "Field email must match the required pattern ^[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$"
->   });
+> try {
+>   const validation = Yupp.validate(schema, properties)
+>
+>   console.log(properties);
+>   /*
+>     {
+>       display_name: "Fırat",
+>       username: "fir4tozden",
+>       email: "fir4tozden@gmail.com"
+>     }
+>   */
+> } catch((error: YuppiTypes.ValidationError)) {
+>   console.log(error.message); // "Field email must match the required pattern ^[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$"
+> }
 > ```
 
 <br/>
