@@ -159,7 +159,7 @@ Validate the properties with your Yuppi schema.
 > | schema     |         | [Schema]<br/>Yuppi schema.                 |
 > | properties |         | [AnyObject]<br/>Properties to be validate. |
 >
-> returns <[AnyObject]>
+> returns [AnyObject]
 >
 > Example:
 >
