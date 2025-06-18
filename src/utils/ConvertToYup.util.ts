@@ -5,11 +5,31 @@ import type { Schema, Types } from "../types/Schema.type";
 import type { YuppiOptions } from "../types/YuppiOptions.type";
 
 export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error_messages"]): AnyObject => {
+  const base = (schema: AnyObject, key: string, config: Types): AnyObject => {
+    if (config.required) schema = schema.required(({ path }: { path: string }) => (error_messages?.base?.required ?? "").split("{path}").join(path));
+
+    if (config.nullable) schema = schema.nullable(({ path }: { path: string }) => (error_messages?.base?.nullable ?? "").split("{path}").join(path));
+
+    if (config.default !== undefined) schema = schema.default(config.default);
+
+    if (config.pattern !== undefined && schema.matches !== undefined)
+      schema = schema.matches(new RegExp(config.pattern ?? "[\\s\\S]*"), ({ path }: { path: string }) =>
+        (error_messages?.base?.pattern ?? "")
+          .split("{path}")
+          .join(path)
+          .split("{pattern}")
+          .join(new RegExp(config.pattern ?? "[\\s\\S]*").source)
+      );
+
+    return schema;
+  };
+
   const build = (key: string, config: Types): AnyObject => {
     let schema: AnyObject;
 
     if (config.type === "string") {
       schema = Yup.string().typeError(({ path }: { path: string }) => (error_messages?.string?.type ?? "").split("{path}").join(path));
+      schema = base(schema, key, config);
 
       if (config.min !== undefined)
         schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) =>
@@ -35,6 +55,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
       if (config.uppercase === true) schema = schema.uppercase();
     } else if (config.type === "number") {
       schema = Yup.number().typeError(({ path }: { path: string }) => (error_messages?.number?.type ?? "").split("{path}").join(path));
+      schema = base(schema, key, config);
 
       if (config.min !== undefined) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.number?.min ?? "").split("{path}").join(path).split("{min}").join(min.toString()));
       if (config.max !== undefined) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.number?.max ?? "").split("{path}").join(path).split("{max}").join(max.toString()));
@@ -43,13 +64,16 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
       if (config.negative === true) schema = schema.negative(({ path }: { path: string }) => (error_messages?.number?.negative ?? "").split("{path}").join(path));
     } else if (config.type === "boolean") {
       schema = Yup.boolean().typeError(({ path }: { path: string }) => (error_messages?.boolean?.type ?? "").split("{path}").join(path));
+      schema = base(schema, key, config);
     } else if (config.type === "date") {
       schema = Yup.date().typeError(({ path }: { path: string }) => (error_messages?.date?.type ?? "").split("{path}").join(path));
+      schema = base(schema, key, config);
 
       if (config.min !== undefined) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.date?.min ?? "").split("{path}").join(path).split("{min}").join(new Date(min).toISOString()));
       if (config.max !== undefined) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.date?.max ?? "").split("{path}").join(path).split("{max}").join(new Date(max).toISOString()));
     } else if (config.type === "object") {
       schema = Yup.object().typeError(({ path }: { path: string }) => (error_messages?.object?.type ?? "").split("{path}").join(path));
+      schema = base(schema, key, config);
 
       const nested_properties: AnyObject = {};
 
@@ -58,6 +82,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
       schema = schema.shape(nested_properties);
     } else if (config.type === "array") {
       schema = Yup.array().typeError(({ path }: { path: string }) => (error_messages?.array?.type ?? "").split("{path}").join(path));
+      schema = base(schema, key, config);
 
       if (config.min !== undefined)
         schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) =>
@@ -82,28 +107,6 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
 
       schema = schema.of(build(key, config.items));
     } else throw new Error(`Unsupported schema type for ${key}`);
-
-    schema = schema.nullable();
-
-    if (config.pattern !== undefined && schema.matches !== undefined)
-      schema = schema.matches(new RegExp(config.pattern ?? "[\\s\\S]*"), ({ path }: { path: string }) =>
-        (error_messages?.base?.pattern ?? "")
-          .split("{path}")
-          .join(path)
-          .split("{pattern}")
-          .join(new RegExp(config.pattern ?? "[\\s\\S]*").source)
-      );
-
-    if (config.default !== undefined) schema = schema.default(config.default);
-
-    if (!config.nullable && config.default !== null)
-      schema = schema.test(
-        "nullable",
-        ({ path }: { path: string }) => (error_messages?.base?.nullable ?? "").split("{path}").join(path),
-        (value: unknown) => value !== null
-      );
-
-    if (config.required) schema = schema.required(({ path }: { path: string }) => (error_messages?.base?.required ?? "").split("{path}").join(path));
 
     return schema;
   };
