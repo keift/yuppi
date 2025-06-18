@@ -4,18 +4,19 @@ const Yupp: Yuppi = new Yuppi();
 
 const schema: YuppiTypes.Schema = {
   field: {
-    type: "string",
+    type: "date",
+    max: "2025-01-01",
     nullable: false,
     required: true
   }
 };
 
 const correct_properties: YuppiTypes.AnyObject = {
-  field: "test"
+  field: "2025-01-01"
 };
 
 const faulty_properties: YuppiTypes.AnyObject = {
-  field: []
+  field: "2025-01-02"
 };
 
 Yupp.validate(schema, correct_properties)

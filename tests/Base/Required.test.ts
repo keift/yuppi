@@ -14,15 +14,14 @@ const correct_properties: YuppiTypes.AnyObject = {
   field: "test"
 };
 
-const faulty_properties: YuppiTypes.AnyObject = {
-  field: []
-};
+const faulty_properties: YuppiTypes.AnyObject = {};
 
 Yupp.validate(schema, correct_properties)
   .then(() => {
     console.log("✅ Success 1/2");
   })
-  .catch(() => {
+  .catch((error: YuppiTypes.ValidationError) => {
+    console.log(error);
     throw new Error("❌ Error 1/2");
   });
 

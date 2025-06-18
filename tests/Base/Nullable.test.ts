@@ -2,7 +2,15 @@ import { Yuppi, type Types as YuppiTypes } from "../../src/main";
 
 const Yupp: Yuppi = new Yuppi();
 
-const schema: YuppiTypes.Schema = {
+const correct_schema: YuppiTypes.Schema = {
+  field: {
+    type: "string",
+    nullable: true,
+    required: true
+  }
+};
+
+const faulty_schema: YuppiTypes.Schema = {
   field: {
     type: "string",
     nullable: false,
@@ -10,23 +18,20 @@ const schema: YuppiTypes.Schema = {
   }
 };
 
-const correct_properties: YuppiTypes.AnyObject = {
-  field: "test"
+const properties: YuppiTypes.AnyObject = {
+  field: null
 };
 
-const faulty_properties: YuppiTypes.AnyObject = {
-  field: []
-};
-
-Yupp.validate(schema, correct_properties)
+Yupp.validate(correct_schema, properties)
   .then(() => {
     console.log("✅ Success 1/2");
   })
-  .catch(() => {
+  .catch((error: YuppiTypes.ValidationError) => {
+    console.log(error);
     throw new Error("❌ Error 1/2");
   });
 
-Yupp.validate(schema, faulty_properties)
+Yupp.validate(faulty_schema, properties)
   .then(() => {
     throw new Error("❌ Error 2/2");
   })

@@ -5,6 +5,7 @@ const Yupp: Yuppi = new Yuppi();
 const schema: YuppiTypes.Schema = {
   field: {
     type: "string",
+    max: 4,
     nullable: false,
     required: true
   }
@@ -15,7 +16,7 @@ const correct_properties: YuppiTypes.AnyObject = {
 };
 
 const faulty_properties: YuppiTypes.AnyObject = {
-  field: []
+  field: "testt"
 };
 
 Yupp.validate(schema, correct_properties)

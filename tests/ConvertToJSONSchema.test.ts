@@ -31,6 +31,6 @@ const schema: YuppiTypes.Schema = {
 
 const conversion: YuppiTypes.JSONSchema = Yupp.convertToJSONSchema(schema);
 
-if (conversion.properties.username.pattern !== Patterns.Username) throw new Error("❌ [ConvertToJSONSchema]");
+if (conversion.properties.username.pattern !== Patterns.Username) throw new Error("❌ Error");
 
-console.log("✅ [ConvertToJSONSchema] Checks successful!");
+console.log("✅ Success");

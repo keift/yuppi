@@ -1,21 +1,22 @@
-import { Yuppi, type Types as YuppiTypes } from "../../src/main";
+import { Yuppi, Patterns, type Types as YuppiTypes } from "../../src/main";
 
 const Yupp: Yuppi = new Yuppi();
 
 const schema: YuppiTypes.Schema = {
   field: {
     type: "string",
+    pattern: Patterns.Email,
     nullable: false,
     required: true
   }
 };
 
 const correct_properties: YuppiTypes.AnyObject = {
-  field: "test"
+  field: "fir4tozden@gmail.com"
 };
 
 const faulty_properties: YuppiTypes.AnyObject = {
-  field: []
+  field: "fir4tozden@!gmail.com"
 };
 
 Yupp.validate(schema, correct_properties)

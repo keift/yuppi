@@ -4,14 +4,14 @@ const Yupp: Yuppi = new Yuppi();
 
 const schema: YuppiTypes.Schema = {
   field: {
-    type: "string",
+    type: "boolean",
     nullable: false,
     required: true
   }
 };
 
 const correct_properties: YuppiTypes.AnyObject = {
-  field: "test"
+  field: true
 };
 
 const faulty_properties: YuppiTypes.AnyObject = {

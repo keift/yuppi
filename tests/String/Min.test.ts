@@ -5,33 +5,34 @@ const Yupp: Yuppi = new Yuppi();
 const schema: YuppiTypes.Schema = {
   field: {
     type: "string",
+    min: 4,
     nullable: false,
     required: true
   }
 };
 
-const properties_0: YuppiTypes.AnyObject = {
+const correct_properties: YuppiTypes.AnyObject = {
   field: "test"
 };
 
-const properties_1: YuppiTypes.AnyObject = {
-  field: ["test"]
+const faulty_properties: YuppiTypes.AnyObject = {
+  field: "tes"
 };
 
-Yupp.validate(schema, properties_0)
+Yupp.validate(schema, correct_properties)
   .then(() => {
-    console.log("✅ [Min] Checks successful! 1/2");
+    console.log("✅ Success 1/2");
   })
   .catch(() => {
-    throw new Error("❌ [Min] 1/2");
+    throw new Error("❌ Error 1/2");
   });
 
-Yupp.validate(schema, properties_1)
+Yupp.validate(schema, faulty_properties)
   .then(() => {
-    throw new Error("❌ [Min] 2/2");
+    throw new Error("❌ Error 2/2");
   })
   .catch((error: YuppiTypes.ValidationError) => {
-    if (error.name !== "ValidationError") {
-      console.log("✅ [Min] Checks successful! 2/2");
-    } else throw new Error("❌ [Min] 2/2");
+    if (error.name === "ValidationError") {
+      console.log("✅ Success 2/2");
+    } else throw new Error("❌ Error 2/2");
   });
