@@ -8,11 +8,11 @@
 [Function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
 [Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [Void]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Undefined
+[YuppiOptionsDefault]: ./src/defaults/YuppiOptions.default.ts
 [Email]: ./src/patterns/Email.pattern.ts
 [PhoneNumber]: ./src/patterns/PhoneNumber.pattern.ts
 [URL]: ./src/patterns/URL.pattern.ts
 [Username]: ./src/patterns/Username.pattern.ts
-[YuppiOptionsDefault]: ./src/defaults/YuppiOptions.default.ts
 [AnyObject]: https://github.com/jquense/yup/blob/master/src/util/objectTypes.ts#L7
 [JSONSchema]: https://github.com/sinclairzx81/typebox/blob/master/src/type/object/object.ts#L78
 [Schema]: ./src/types/Schema.type.ts
@@ -198,7 +198,7 @@ Validate the properties with your Yuppi schema.
 > };
 >
 > try {
->   const validation = Yupp.validate(schema, properties)
+>   const validation = Yupp.validate(schema, properties);
 >
 >   console.log(properties);
 >   /*
