@@ -23,20 +23,20 @@ const faulty_properties: YuppiTypes.AnyObject = {
   field: [[]]
 };
 
-Yupp.validate(schema, correct_properties)
-  .then(() => {
-    console.log("✅ Success 1/2");
-  })
-  .catch(() => {
-    throw new Error("❌ Error 1/2");
-  });
+try {
+  Yupp.validate(schema, correct_properties);
 
-Yupp.validate(schema, faulty_properties)
-  .then(() => {
-    throw new Error("❌ Error 2/2");
-  })
-  .catch((error: YuppiTypes.ValidationError) => {
-    if (error.name === "ValidationError") {
-      console.log("✅ Success 2/2");
-    } else throw new Error("❌ Error 2/2");
-  });
+  console.log("✅ Success 1/2");
+} catch {
+  throw new Error("❌ Error 1/2");
+}
+
+try {
+  Yupp.validate(schema, faulty_properties);
+
+  throw new Error("❌ Error 2/2");
+} catch (error: unknown) {
+  if ((error as YuppiTypes.ValidationError).name === "ValidationError") {
+    console.log("✅ Success 2/2");
+  } else throw new Error("❌ Error 2/2");
+}

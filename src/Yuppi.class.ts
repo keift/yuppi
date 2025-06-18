@@ -17,9 +17,9 @@ export class Yuppi {
     this.options = _.merge({}, YuppiOptionsDefault, options);
   }
 
-  public async validate(schema: Schema, properties: AnyObject): Promise<AnyObject> {
+  public validate(schema: Schema, properties: AnyObject): AnyObject {
     const yup_schema: AnyObject = convertToYup(schema, this.options.error_messages);
-    const validation: AnyObject = await yup_schema.validate(properties, this.options.validate_options);
+    const validation: AnyObject = yup_schema.validateSync(properties, this.options.validate_options);
 
     return validation;
   }
