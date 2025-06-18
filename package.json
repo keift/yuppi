@@ -9,7 +9,6 @@
   "module": "./dist/main.mjs",
   "types": "./dist/main.d.ts",
   "scripts": {
-    "dev": "bun run --watch ./examples/yuppi.example.ts",
     "tests": "bun run lint && bun test",
     "prettier": "prettier --write ./",
     "build": "tsup",
