@@ -49,6 +49,3 @@ export const YuppiOptionsDefault: YuppiOptions = {
     stripUnknown: true
   }
 };
-
-
-
