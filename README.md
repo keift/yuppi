@@ -198,9 +198,7 @@ Validate the properties with your Yuppi schema.
 > };
 >
 > try {
->   const validation = Yupp.validate(schema, properties);
->
->   console.log(properties);
+>   Yupp.validate(schema, properties);
 >   /*
 >     {
 >       display_name: "Fırat",
