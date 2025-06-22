@@ -45,6 +45,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
       schema = base(schema, key, config);
 
       schema = schema.transform((property: unknown) => (typeof property === "string" ? property.trim() : property));
+
       if (config.min !== undefined)
         schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) =>
           (error_messages?.string?.min ?? "")
@@ -55,6 +56,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
             .split("{plural_suffix}")
             .join(min > 1 ? "s" : "")
         );
+
       if (config.max !== undefined)
         schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) =>
           (error_messages?.string?.max ?? "")
@@ -65,7 +67,9 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
             .split("{plural_suffix}")
             .join(max > 1 ? "s" : "")
         );
+
       if (config.lowercase === true) schema = schema.transform((property: unknown) => (typeof property === "string" ? property.toLowerCase() : property));
+
       if (config.uppercase === true) schema = schema.transform((property: unknown) => (typeof property === "string" ? property.toUpperCase() : property));
 
       return schema;
@@ -74,9 +78,13 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
       schema = base(schema, key, config);
 
       if (config.min !== undefined) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.number?.min ?? "").split("{path}").join(path).split("{min}").join(min.toString()));
+
       if (config.max !== undefined) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.number?.max ?? "").split("{path}").join(path).split("{max}").join(max.toString()));
+
       if (config.integer === true) schema = schema.integer(({ path }: { path: string }) => (error_messages?.number?.integer ?? "").split("{path}").join(path));
+
       if (config.positive === true) schema = schema.positive(({ path }: { path: string }) => (error_messages?.number?.positive ?? "").split("{path}").join(path));
+
       if (config.negative === true) schema = schema.negative(({ path }: { path: string }) => (error_messages?.number?.negative ?? "").split("{path}").join(path));
 
       return schema;
@@ -90,6 +98,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
       schema = base(schema, key, config);
 
       if (config.min !== undefined) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.date?.min ?? "").split("{path}").join(path).split("{min}").join(new Date(min).toISOString()));
+
       if (config.max !== undefined) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.date?.max ?? "").split("{path}").join(path).split("{max}").join(new Date(max).toISOString()));
 
       return schema;
@@ -118,6 +127,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
             .split("{plural_suffix}")
             .join(min > 1 ? "s" : "")
         );
+
       if (config.max !== undefined)
         schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) =>
           (error_messages?.array?.max ?? "")
