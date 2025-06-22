@@ -19,8 +19,8 @@ export const YuppiOptionsDefault: YuppiOptions = {
       min: "Field {path} must be greater than or equal to {min}",
       max: "Field {path} must be less than or equal to {max}",
       integer: "Field {path} must be an integer",
-      positive: "Field {path} must be a positive number",
-      negative: "Field {path} must be a negative number"
+      positive: "Field {path} must be a positive",
+      negative: "Field {path} must be a negative"
     },
 
     boolean: {
