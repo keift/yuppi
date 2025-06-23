@@ -15,7 +15,7 @@
     "lint": "eslint ./"
   },
   "dependencies": {
-    "@sinclair/typebox": "^0.34.35",
+    "@sinclair/typebox": "^0.34.36",
     "@types/lodash": "^4.17.18",
     "lodash": "^4.17.21",
     "yup": "^1.6.1"
