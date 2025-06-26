@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@sinclair/typebox": "^0.34.35",
-    "@types/lodash": "^4.17.18",
+    "@types/lodash": "^4.17.19",
     "lodash": "^4.17.21",
     "yup": "^1.6.1"
   },
