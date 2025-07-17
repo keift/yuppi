@@ -21,7 +21,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
         }
       );
 
-    if (!config.nullable) schema = schema.nonNullable(({ path }: { path: string }) => (error_messages?.base?.nullable ?? "").split("{path}").join(path));
+    if (!config.nullable || config.default === null) schema = schema.nonNullable(({ path }: { path: string }) => (error_messages?.base?.nullable ?? "").split("{path}").join(path));
 
     if (config.default !== undefined) schema = schema.default(config.default);
 
