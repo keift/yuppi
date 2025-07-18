@@ -1,12 +1,14 @@
 import { Type, type TString, type TNumber, type TInteger, type TBoolean, type TObject, type TArray, type TSchema, type TUnion, type TNull } from "@sinclair/typebox";
 
+import { Any as AnyPattern } from "../patterns/Any.pattern";
+
 import type { AnyObject } from "../types/AnyObject.type";
 import type { Schema, Types } from "../types/Schema.type";
 
 export const convertToJSONSchema = (schema: Schema): TObject => {
   const build = (key: string, config: Types): TSchema => {
     if (config.type === "string") {
-      let schema: TString | TUnion<[TString, TNull]> = Type.String({ minLength: config.min, maxLength: config.max, pattern: new RegExp(config.pattern ?? "[\\s\\S]*").source, default: config.default });
+      let schema: TString | TUnion<[TString, TNull]> = Type.String({ minLength: config.min, maxLength: config.max, pattern: new RegExp(config.pattern ?? AnyPattern).source, default: config.default });
 
       if (config.nullable) schema = Type.Union([schema, Type.Null()]);
 
@@ -24,7 +26,7 @@ export const convertToJSONSchema = (schema: Schema): TObject => {
 
       return config.required ? schema : Type.Optional(schema);
     } else if (config.type === "date") {
-      let schema: TString | TUnion<[TString, TNull]> = Type.String({ format: "date-time", minimum: config.min, maximum: config.max, pattern: new RegExp(config.pattern ?? "[\\s\\S]*").source, default: config.default });
+      let schema: TString | TUnion<[TString, TNull]> = Type.String({ format: "date-time", minimum: config.min, maximum: config.max, pattern: new RegExp(config.pattern ?? AnyPattern).source, default: config.default });
 
       if (config.nullable) schema = Type.Union([schema, Type.Null()]);
 

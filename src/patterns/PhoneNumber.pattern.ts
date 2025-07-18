@@ -1,3 +1,1 @@
-import type { Base } from "../types/Schema.type";
-
-export const PhoneNumber: Base["pattern"] = "^\\d{4}\\d{7,12}$";
+export const PhoneNumber: string = "^\\d{4}-\\d{7,12}$";

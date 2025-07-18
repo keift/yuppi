@@ -1,5 +1,7 @@
 import * as Yup from "yup";
 
+import { Any as AnyPattern } from "../patterns/Any.pattern";
+
 import type { AnyObject } from "../types/AnyObject.type";
 import type { Schema, Types } from "../types/Schema.type";
 import type { YuppiOptions } from "../types/YuppiOptions.type";
@@ -26,12 +28,12 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
     if (config.default !== undefined) schema = schema.default(config.default);
 
     if (config.pattern !== undefined && schema.matches !== undefined)
-      schema = schema.matches(new RegExp(config.pattern ?? "[\\s\\S]*"), ({ path }: { path: string }) =>
+      schema = schema.matches(new RegExp(config.pattern ?? AnyPattern), ({ path }: { path: string }) =>
         (error_messages?.base?.pattern ?? "")
           .split("{path}")
           .join(path)
           .split("{pattern}")
-          .join(new RegExp(config.pattern ?? "[\\s\\S]*").source)
+          .join(new RegExp(config.pattern ?? AnyPattern).source)
       );
 
     return schema;

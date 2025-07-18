@@ -9,8 +9,11 @@
 [Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [Void]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Undefined
 [YuppiOptionsDefault]: ./src/defaults/YuppiOptions.default.ts
+[Any]: ./src/patterns/Any.pattern.ts
+[Domain]: ./src/patterns/Domain.pattern.ts
 [Email]: ./src/patterns/Email.pattern.ts
 [PhoneNumber]: ./src/patterns/PhoneNumber.pattern.ts
+[URI]: ./src/patterns/URI.pattern.ts
 [URL]: ./src/patterns/URL.pattern.ts
 [Username]: ./src/patterns/Username.pattern.ts
 [AnyObject]: https://github.com/jquense/yup/blob/master/src/util/objectTypes.ts#L7
@@ -207,7 +210,7 @@ Validate the properties with your Yuppi schema.
 >     }
 >   */
 > } catch((error: YuppiTypes.ValidationError)) {
->   console.log(error.message); // "Field email must match the required pattern ^[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$"
+>   console.log(error.message); // "Field email must match the required pattern ^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$"
 > }
 > ```
 
@@ -317,7 +320,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >       },
 >       email: {
 >         type: "string",
->         pattern: "^[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$",
+>         pattern: "^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$",
 >       }
 >     },
 >     required: [
@@ -331,12 +334,15 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 
 ### Patterns
 
-| Pattern       |
-| ------------- |
-| [Email]       |
-| [PhoneNumber] |
-| [URL]         |
-| [Username]    |
+| Pattern       | Description                     | Examples                                                                                                   |
+| ------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| [Any]         | Everything will pass.           | `"Yuppi!"` ✅\n`" "` ✅                                                                                    |
+| [Domain]      | Domain names.                   | `"google.com"` ✅\n`"www.google.com"` ✅\n`"https://google.com"` ❌                                        |
+| [Email]       | Emails.                         | `"fir4tozden@gmail.com"` ✅\n`"fir4tozden@mail.google.com"` ✅\n`"fir4tozden+2@gmail.com"` ❌              |
+| [PhoneNumber] | Country code and phone numbers. | `"0090-555555555"` ✅\n`"90-5555555555"` ❌                                                                |
+| [URI]         | Protocol free links.            | `"mongodb://admin:11111111@cluster0.0000000.mongodb.net"` ✅\n`"https://google.com"` ✅\n`"google.com"` ❌ |
+| [URL]         | HTTP only links.                | `"https://google.com"` ✅\n`"http://google.com"` ✅\n`"google.com"` ❌                                     |
+| [Username]    | Usernames like Twitter.         | `"fir4tozden"` ✅\n`"Fir4tozden"` ✅\n`"fir4t ozden"` ❌                                                   |
 
 ### Types
 
