@@ -336,13 +336,13 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 
 | Pattern       | Description                     | Examples                                                                                                   |
 | ------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| [Any]         | Everything will pass.           | `"Yuppi!"` ✅\n`" "` ✅                                                                                    |
-| [Domain]      | Domain names.                   | `"google.com"` ✅\n`"www.google.com"` ✅\n`"https://google.com"` ❌                                        |
-| [Email]       | Emails.                         | `"fir4tozden@gmail.com"` ✅\n`"fir4tozden@mail.google.com"` ✅\n`"fir4tozden+2@gmail.com"` ❌              |
-| [PhoneNumber] | Country code and phone numbers. | `"0090-555555555"` ✅\n`"90-5555555555"` ❌                                                                |
-| [URI]         | Protocol free links.            | `"mongodb://admin:11111111@cluster0.0000000.mongodb.net"` ✅\n`"https://google.com"` ✅\n`"google.com"` ❌ |
-| [URL]         | HTTP only links.                | `"https://google.com"` ✅\n`"http://google.com"` ✅\n`"google.com"` ❌                                     |
-| [Username]    | Usernames like Twitter.         | `"fir4tozden"` ✅\n`"Fir4tozden"` ✅\n`"fir4t ozden"` ❌                                                   |
+| [Any]         | Everything will pass.           | `"Yuppi!"` ✅<br/>`" "` ✅                                                                                    |
+| [Domain]      | Domain names.                   | `"google.com"` ✅<br/>`"www.google.com"` ✅<br/>`"https://google.com"` ❌                                        |
+| [Email]       | Emails.                         | `"fir4tozden@gmail.com"` ✅<br/>`"fir4tozden@mail.google.com"` ✅<br/>`"fir4tozden+2@gmail.com"` ❌              |
+| [PhoneNumber] | Country code and phone numbers. | `"0090-555555555"` ✅<br/>`"90-5555555555"` ❌                                                                |
+| [URI]         | Protocol free links.            | `"mongodb://admin:11111111@cluster0.0000000.mongodb.net"` ✅<br/>`"https://google.com"` ✅<br/>`"google.com"` ❌ |
+| [URL]         | HTTP only links.                | `"https://google.com"` ✅<br/>`"http://google.com"` ✅<br/>`"google.com"` ❌                                     |
+| [Username]    | Usernames like Twitter.         | `"fir4tozden"` ✅<br/>`"Fir4tozden"` ✅<br/>`"fir4t ozden"` ❌                                                   |
 
 ### Types
 
