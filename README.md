@@ -12,9 +12,9 @@
 [Any]: ./src/patterns/Any.pattern.ts
 [Domain]: ./src/patterns/Domain.pattern.ts
 [Email]: ./src/patterns/Email.pattern.ts
+[HTTP]: ./src/patterns/HTTP.pattern.ts
 [PhoneNumber]: ./src/patterns/PhoneNumber.pattern.ts
 [URI]: ./src/patterns/URI.pattern.ts
-[URL]: ./src/patterns/URL.pattern.ts
 [Username]: ./src/patterns/Username.pattern.ts
 [AnyObject]: https://github.com/jquense/yup/blob/master/src/util/objectTypes.ts#L7
 [JSONSchema]: https://github.com/sinclairzx81/typebox/blob/master/src/type/object/object.ts#L78
@@ -337,11 +337,11 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 | Pattern       | Description                     | Examples                                                                                            |
 | ------------- | ------------------------------- | --------------------------------------------------------------------------------------------------- |
 | [Any]         | Everything will pass.           | `"Yuppi!"` ✅<br/>`" "` ✅                                                                          |
-| [Domain]      | Domains.                   | `"google.com"` ✅<br/>`"www.google.com"` ✅<br/>`"https://google.com"` ❌                           |
+| [Domain]      | Domains.                        | `"google.com"` ✅<br/>`"www.google.com"` ✅<br/>`"https://google.com"` ❌                           |
 | [Email]       | Emails.                         | `"fir4tozden@gmail.com"` ✅<br/>`"fir4tozden@mail.google.com"` ✅<br/>`"fir4tozden+2@gmail.com"` ❌ |
+| [HTTP]        | HTTP only links.                | `"https://google.com"` ✅<br/>`"http://google.com"` ✅<br/>`"google.com"` ❌                        |
 | [PhoneNumber] | Country code and phone numbers. | `"0090-555555555"` ✅<br/>`"90-5555555555"` ❌                                                      |
 | [URI]         | Protocol free links.            | `"mongodb://cluster0.0000000.mongodb.net"` ✅<br/>`"https://google.com"` ✅<br/>`"google.com"` ❌   |
-| [URL]         | HTTP only links.                | `"https://google.com"` ✅<br/>`"http://google.com"` ✅<br/>`"google.com"` ❌                        |
 | [Username]    | Usernames like Twitter.         | `"fir4tozden"` ✅<br/>`"Fir4tozden"` ✅<br/>`"fir4t ozden"` ❌                                      |
 
 ### Types
