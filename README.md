@@ -104,9 +104,12 @@ Yuppi
 │   └── convertToJSONSchema(schema)
 │
 ├── Patterns
+│   ├── Any
+│   ├── Domain
 │   ├── Email
+│   ├── HTTP
 │   ├── PhoneNumber
-│   ├── URL
+│   ├── URI
 │   └── Username
 │
 └── type Types
