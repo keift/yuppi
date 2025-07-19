@@ -341,7 +341,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 | ------------- | ------------------------------ | --------------------------------------------------------------------------------------------------- |
 | [Any]         | Everything will pass.          | `"Yuppi!"` ✅<br/>`" "` ✅                                                                          |
 | [Domain]      | Domains.                       | `"google.com"` ✅<br/>`"www.google.com"` ✅<br/>`"https://google.com"` ❌                           |
-| [Email]       | Emails.                        | `"fir4tozden@gmail.com"` ✅<br/>`"fir4tozden@mail.google.com"` ✅<br/>`"fir4tozden+2@gmail.com"` ❌ |
+| [Email]       | Emails.                        | `"fir4tozden@gmail.com"` ✅<br/>`"fir4tozden+2@gmail.com"` ❌ |
 | [HTTP]        | HTTP only links.               | `"https://google.com"` ✅<br/>`"http://google.com"` ✅<br/>`"google.com"` ❌                        |
 | [PhoneNumber] | Country code and phone number. | `"0090-555555555"` ✅<br/>`"90-5555555555"` ❌                                                      |
 | [URI]         | Protocol free links.           | `"mongodb://mongodb.net"` ✅<br/>`"https://google.com"` ✅<br/>`"google.com"` ❌   |
