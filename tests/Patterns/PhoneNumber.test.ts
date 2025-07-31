@@ -15,4 +15,3 @@ for (let i: number = 0; i < faulty_properties.length; i++) {
     console.log(`✅ Success ${i + 1}/${faulty_properties.length} [FAULTY_PROPERTIES]`);
   } else throw new Error(`❌ Error ${i + 1}/${faulty_properties.length} [FAULTY_PROPERTIES]`);
 }
-
