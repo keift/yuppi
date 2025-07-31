@@ -1,6 +1,6 @@
 {
   "name": "yuppi",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Schemas that can be converted to Yup and JSON Schema.",
   "license": "MIT",
   "homepage": "https://github.com/keift/yuppi",
@@ -21,11 +21,11 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
-    "jiti": "^2.4.2",
+    "jiti": "^2.5.1",
     "prettier": "^3.6.2",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.37.0"
+    "typescript-eslint": "^8.38.0"
   },
   "repository": {
     "type": "git",
