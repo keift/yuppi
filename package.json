@@ -18,7 +18,7 @@
     "@sinclair/typebox": "^0.34.38",
     "@types/lodash": "^4.17.20",
     "lodash": "^4.17.21",
-    "yup": "^1.6.1"
+    "yup": "^1.7.0"
   },
   "devDependencies": {
     "jiti": "^2.5.1",
