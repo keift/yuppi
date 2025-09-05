@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.2.3 → v1.2.4
+## v1.2.3 → v1.2.4
 
 - Added:
   - **Added `enum` to String type.** Allows to accept only predefined strings.
