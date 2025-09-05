@@ -30,7 +30,6 @@ export type Boolean = Base & {
 
 export type Date = Base & {
   type: "date";
-  enum?: string[];
   min?: string;
   max?: string;
 };
