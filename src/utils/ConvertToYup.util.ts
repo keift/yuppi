@@ -48,6 +48,12 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
 
       schema = schema.transform((property: unknown) => (typeof property === "string" ? property.trim() : property));
 
+      if (config.enum !== undefined)
+        schema = schema.oneOf(
+          config.enum.map((item) => item.trim()),
+          ({ path }: { path: string }) => (error_messages?.string?.enum ?? "").split("{path}").join(path)
+        );
+
       if (config.min !== undefined)
         schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) =>
           (error_messages?.string?.min ?? "")
@@ -78,6 +84,8 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
     } else if (config.type === "number") {
       schema = Yup.number().typeError(({ path }: { path: string }) => (error_messages?.number?.type ?? "").split("{path}").join(path));
       schema = base(schema, key, config);
+
+      if (config.enum !== undefined) schema = schema.oneOf(config.enum, ({ path }: { path: string }) => (error_messages?.number?.enum ?? "").split("{path}").join(path));
 
       if (config.min !== undefined) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.number?.min ?? "").split("{path}").join(path).split("{min}").join(min.toString()));
 

@@ -10,12 +10,14 @@ export type YuppiOptions = {
 
     string?: {
       type?: string;
+      enum?: string;
       min?: string;
       max?: string;
     };
 
     number?: {
       type?: string;
+      enum?: string;
       min?: string;
       max?: string;
       integer?: string;

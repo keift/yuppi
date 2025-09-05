@@ -10,12 +10,14 @@ export const YuppiOptionsDefault: YuppiOptions = {
 
     string: {
       type: "Field {path} must be a string",
+      enum: "Field {path} must be one of the allowed values",
       min: "Field {path} must be at least {min} character{plural_suffix}",
       max: "Field {path} must be at most {max} character{plural_suffix}"
     },
 
     number: {
       type: "Field {path} must be a number",
+      enum: "Field {path} must be one of the allowed values",
       min: "Field {path} must be greater than or equal to {min}",
       max: "Field {path} must be less than or equal to {max}",
       integer: "Field {path} must be an integer",

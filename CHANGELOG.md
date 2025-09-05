@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.3 → v1.2.4
+
+- Added:
+  - **Added `enum` to String type.** Allows to accept only predefined strings.
+  - **Added `enum` to Number type.** Allows to accept only predefined numbers.
+
 ## v1.1.2 → v1.2.0
 
 - Added:

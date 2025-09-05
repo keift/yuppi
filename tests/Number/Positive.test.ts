@@ -23,7 +23,7 @@ const faulty_properties: YuppiTypes.AnyObject[] = [
   }
 ];
 
-for (let i: number = 0; i < correct_properties.length; i++) {
+for (let i = 0; i < correct_properties.length; i++) {
   try {
     Yupp.validate(schema, correct_properties[i]);
 
@@ -33,7 +33,7 @@ for (let i: number = 0; i < correct_properties.length; i++) {
   }
 }
 
-for (let i: number = 0; i < faulty_properties.length; i++) {
+for (let i = 0; i < faulty_properties.length; i++) {
   try {
     Yupp.validate(schema, faulty_properties[i]);
 

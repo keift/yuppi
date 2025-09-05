@@ -1,1 +1,1 @@
-export const PhoneNumber: string = "^\\d{4}-\\d{7,12}$";
+export const PhoneNumber = "^\\d{4}-\\d{7,12}$";

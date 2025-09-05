@@ -4,7 +4,8 @@ const Yupp: Yuppi = new Yuppi();
 
 const schema: YuppiTypes.Schema = {
   field: {
-    type: "string",
+    type: "number",
+    enum: [0],
     nullable: false,
     required: true
   }
@@ -12,11 +13,15 @@ const schema: YuppiTypes.Schema = {
 
 const correct_properties: YuppiTypes.AnyObject[] = [
   {
-    field: "test"
+    field: 0
   }
 ];
 
-const faulty_properties: YuppiTypes.AnyObject[] = [{}];
+const faulty_properties: YuppiTypes.AnyObject[] = [
+  {
+    field: 1
+  }
+];
 
 for (let i = 0; i < correct_properties.length; i++) {
   try {

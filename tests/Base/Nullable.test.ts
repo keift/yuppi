@@ -34,7 +34,7 @@ const properties: YuppiTypes.AnyObject = {
   field: null
 };
 
-for (let i: number = 0; i < correct_schemas.length; i++) {
+for (let i = 0; i < correct_schemas.length; i++) {
   try {
     Yupp.validate(correct_schemas[i], properties);
 
@@ -44,7 +44,7 @@ for (let i: number = 0; i < correct_schemas.length; i++) {
   }
 }
 
-for (let i: number = 0; i < faulty_schemas.length; i++) {
+for (let i = 0; i < faulty_schemas.length; i++) {
   try {
     Yupp.validate(faulty_schemas[i], properties);
 

@@ -15,17 +15,15 @@
     "lint": "eslint ./"
   },
   "dependencies": {
-    "@sinclair/typebox": "^0.34.38",
+    "@sinclair/typebox": "^0.34.41",
     "@types/lodash": "^4.17.20",
     "lodash": "^4.17.21",
     "yup": "^1.7.0"
   },
   "devDependencies": {
-    "jiti": "^2.5.1",
+    "neatlint": "^1.0.0",
     "prettier": "^3.6.2",
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.39.1"
+    "tsup": "^8.5.0"
   },
   "repository": {
     "type": "git",

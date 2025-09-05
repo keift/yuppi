@@ -1,1 +1,1 @@
-export const Any: string = "[\\s\\S]*";
+export const Any = "[\\s\\S]*";
