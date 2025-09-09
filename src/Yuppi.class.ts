@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+
 import _ from "lodash";
 
 import { convertToYup } from "./utils/ConvertToYup.util";

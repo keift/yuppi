@@ -41,6 +41,7 @@ export const convertToJSONSchema = (schema: Schema): TObject => {
       if (config.nullable) schema = Type.Union([schema, Type.Null()]);
 
       return config.required ? schema : Type.Optional(schema);
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     } else if (config.type === "array") {
       let schema: TArray | TUnion<[TArray, TNull]> = Type.Array(build(key, config.items), { minItems: config.min, maxItems: config.max, default: config.default });
 

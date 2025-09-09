@@ -5,7 +5,7 @@ export type Base = {
   required: boolean;
 };
 
-export type String = Base & {
+export type _String = Base & {
   type: "string";
   enum?: string[];
   min?: number;
@@ -14,7 +14,7 @@ export type String = Base & {
   uppercase?: boolean;
 };
 
-export type Number = Base & {
+export type _Number = Base & {
   type: "number";
   enum?: number[];
   min?: number;
@@ -24,30 +24,28 @@ export type Number = Base & {
   negative?: boolean;
 };
 
-export type Boolean = Base & {
+export type _Boolean = Base & {
   type: "boolean";
 };
 
-export type Date = Base & {
+export type _Date = Base & {
   type: "date";
   min?: string;
   max?: string;
 };
 
-export type Object = Base & {
+export type _Object = Base & {
   type: "object";
   properties: Schema;
 };
 
-export type Array = Base & {
+export type _Array = Base & {
   type: "array";
   min?: number;
   max?: number;
   items: Types;
 };
 
-export type Types = String | Number | Boolean | Date | Object | Array;
+export type Types = _String | _Number | _Boolean | _Date | _Object | _Array;
 
-export type Schema = {
-  [key: string]: Types;
-};
+export type Schema = Record<string, Types>;

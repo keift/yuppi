@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+
 import * as Yup from "yup";
 
 import { Any as AnyPattern } from "../patterns/Any.pattern";
@@ -123,6 +126,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error
       schema = schema.shape(nested_properties);
 
       return schema;
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     } else if (config.type === "array") {
       schema = Yup.array().typeError(({ path }: { path: string }) => (error_messages?.array?.type ?? "").split("{path}").join(path));
       schema = base(schema, key, config);

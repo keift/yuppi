@@ -38,9 +38,9 @@ for (let i = 0; i < correct_schemas.length; i++) {
   try {
     Yupp.validate(correct_schemas[i], properties);
 
-    console.log(`✅ Success ${i + 1}/${correct_schemas.length} [CORRECT_SCHEMAS]`);
+    console.log(`✅ Success ${(i + 1).toString()}/${correct_schemas.length.toString()} [CORRECT_SCHEMAS]`);
   } catch {
-    throw new Error(`❌ Error ${i + 1}/${correct_schemas.length} [CORRECT_SCHEMAS]`);
+    throw new Error(`❌ Error ${(i + 1).toString()}/${correct_schemas.length.toString()} [CORRECT_SCHEMAS]`);
   }
 }
 
@@ -48,10 +48,10 @@ for (let i = 0; i < faulty_schemas.length; i++) {
   try {
     Yupp.validate(faulty_schemas[i], properties);
 
-    throw new Error(`❌ Error ${i + 1}/${faulty_schemas.length} [FAULTY_SCHEMAS]`);
+    throw new Error(`❌ Error ${(i + 1).toString()}/${faulty_schemas.length.toString()} [FAULTY_SCHEMAS]`);
   } catch (error: unknown) {
     if ((error as YuppiTypes.ValidationError).name === "ValidationError") {
-      console.log(`✅ Success ${i + 1}/${faulty_schemas.length} [FAULTY_SCHEMAS]`);
-    } else throw new Error(`❌ Error ${i + 1}/${faulty_schemas.length} [FAULTY_SCHEMAS]`);
+      console.log(`✅ Success ${(i + 1).toString()}/${faulty_schemas.length.toString()} [FAULTY_SCHEMAS]`);
+    } else throw new Error(`❌ Error ${(i + 1).toString()}/${faulty_schemas.length.toString()} [FAULTY_SCHEMAS]`);
   }
 }
