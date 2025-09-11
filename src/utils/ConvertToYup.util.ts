@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 import * as Yup from "yup";
 
@@ -9,7 +10,7 @@ import type { AnyObject } from "../types/AnyObject.type";
 import type { Schema, Types } from "../types/Schema.type";
 import type { YuppiOptions } from "../types/YuppiOptions.type";
 
-export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error_messages"]): AnyObject => {
+export const convertToYup = (schema: Schema, error_messages: YuppiOptions["error_messages"]) => {
   const base = (schema: AnyObject, key: string, config: Types): AnyObject => {
     schema = schema.nullable();
 

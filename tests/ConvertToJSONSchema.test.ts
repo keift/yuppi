@@ -1,8 +1,8 @@
-import { Yuppi, Patterns, type Types as YuppiTypes } from "../src/main";
+import { Yuppi, Patterns, type Schema, type JSONSchema } from "../src/main";
 
 const Yupp: Yuppi = new Yuppi();
 
-const schema: YuppiTypes.Schema = {
+const schema: Schema = {
   display_name: {
     type: "string",
     min: 1,
@@ -29,7 +29,7 @@ const schema: YuppiTypes.Schema = {
   }
 };
 
-const conversion: YuppiTypes.JSONSchema = Yupp.convertToJSONSchema(schema);
+const conversion: JSONSchema = Yupp.convertToJSONSchema(schema);
 
 if (conversion.properties.username.pattern !== Patterns.Username) throw new Error("❌ Error");
 

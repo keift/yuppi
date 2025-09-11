@@ -112,31 +112,21 @@ Yuppi
 │   ├── URI
 │   └── Username
 │
-└── type Types
-    │
-    ├── AnyObject
-    ├── JSONSchema
-    ├── Schema
-    ├── ValidateOptions
-    ├── ValidationError
-    └── YuppiOptions
+├── type AnyObject
+├── type JSONSchema
+├── type Schema
+├── type ValidateOptions
+├── type ValidationError
+└── type YuppiOptions
 ```
 
 ### Import
 
 Briefly as follows.
 
-> TypeScript
->
-> ```typescript
-> import { Yuppi, Patterns, type Types as YuppiTypes } from "yuppi";
-> ```
->
-> JavaScript
->
-> ```javascript
-> import { Yuppi, Patterns } from "yuppi";
-> ```
+```typescript
+import { Yuppi, Patterns } from "yuppi";
+```
 
 ### Constructors
 
@@ -170,7 +160,7 @@ Validate the properties with your Yuppi schema.
 > Example:
 >
 > ```typescript
-> const schema: YuppiTypes.Schema = {
+> const schema: Schema = {
 >   display_name: {
 >     type: "string",
 >     min: 1,
@@ -197,7 +187,7 @@ Validate the properties with your Yuppi schema.
 >   }
 > };
 >
-> const properties: YuppiTypes.AnyObject = {
+> const properties: AnyObject = {
 >   display_name: "Fırat",
 >   username: "fir4tozden",
 >   email: "fir4tozden@gmail.com"
@@ -212,7 +202,7 @@ Validate the properties with your Yuppi schema.
 >       email: "fir4tozden@gmail.com"
 >     }
 >   */
-> } catch((error: YuppiTypes.ValidationError)) {
+> } catch((error: ValidationError)) {
 >   console.log(error.message); // "Field email must match the required pattern ^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$"
 > }
 > ```
@@ -232,7 +222,7 @@ Convert your Yuppi schema into Yup schema.
 > Example:
 >
 > ```typescript
-> const schema: YuppiTypes.Schema = {
+> const schema: Schema = {
 >   display_name: {
 >     type: "string",
 >     min: 1,
@@ -277,7 +267,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 > Example:
 >
 > ```typescript
-> const schema: YuppiTypes.Schema = {
+> const schema: Schema = {
 >   display_name: {
 >     type: "string",
 >     min: 1,

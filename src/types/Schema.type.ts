@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/array-type */
+
 export type Base = {
   pattern?: string;
   default?: unknown;
@@ -5,7 +7,7 @@ export type Base = {
   required: boolean;
 };
 
-export type _String = Base & {
+export type String = Base & {
   type: "string";
   enum?: string[];
   min?: number;
@@ -14,7 +16,7 @@ export type _String = Base & {
   uppercase?: boolean;
 };
 
-export type _Number = Base & {
+export type Number = Base & {
   type: "number";
   enum?: number[];
   min?: number;
@@ -24,28 +26,28 @@ export type _Number = Base & {
   negative?: boolean;
 };
 
-export type _Boolean = Base & {
+export type Boolean = Base & {
   type: "boolean";
 };
 
-export type _Date = Base & {
+export type Date = Base & {
   type: "date";
   min?: string;
   max?: string;
 };
 
-export type _Object = Base & {
+export type Object = Base & {
   type: "object";
   properties: Schema;
 };
 
-export type _Array = Base & {
+export type Array = Base & {
   type: "array";
   min?: number;
   max?: number;
   items: Types;
 };
 
-export type Types = _String | _Number | _Boolean | _Date | _Object | _Array;
+export type Types = String | Number | Boolean | Date | Object | Array;
 
 export type Schema = Record<string, Types>;

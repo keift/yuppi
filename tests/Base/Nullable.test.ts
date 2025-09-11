@@ -1,8 +1,8 @@
-import { Yuppi, type Types as YuppiTypes } from "../../src/main";
+import { Yuppi, type Schema, type AnyObject, type ValidationError } from "../../src/main";
 
 const Yupp: Yuppi = new Yuppi();
 
-const correct_schemas: YuppiTypes.Schema[] = [
+const correct_schemas: Schema[] = [
   {
     field: {
       type: "string",
@@ -20,7 +20,7 @@ const correct_schemas: YuppiTypes.Schema[] = [
   }
 ];
 
-const faulty_schemas: YuppiTypes.Schema[] = [
+const faulty_schemas: Schema[] = [
   {
     field: {
       type: "string",
@@ -30,7 +30,7 @@ const faulty_schemas: YuppiTypes.Schema[] = [
   }
 ];
 
-const properties: YuppiTypes.AnyObject = {
+const properties: AnyObject = {
   field: null
 };
 
@@ -50,7 +50,7 @@ for (let i = 0; i < faulty_schemas.length; i++) {
 
     throw new Error(`❌ Error ${(i + 1).toString()}/${faulty_schemas.length.toString()} [FAULTY_SCHEMAS]`);
   } catch (error: unknown) {
-    if ((error as YuppiTypes.ValidationError).name === "ValidationError") {
+    if ((error as ValidationError).name === "ValidationError") {
       console.log(`✅ Success ${(i + 1).toString()}/${faulty_schemas.length.toString()} [FAULTY_SCHEMAS]`);
     } else throw new Error(`❌ Error ${(i + 1).toString()}/${faulty_schemas.length.toString()} [FAULTY_SCHEMAS]`);
   }

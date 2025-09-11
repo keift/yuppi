@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 import _ from "lodash";
 
@@ -20,14 +19,14 @@ export class Yuppi {
     this.options = _.merge({}, YuppiOptionsDefault, options);
   }
 
-  public validate(schema: Schema, properties: AnyObject): AnyObject {
-    const yup_schema: AnyObject = convertToYup(schema, this.options.error_messages);
-    const validation: AnyObject = yup_schema.validateSync(properties, this.options.validate_options);
+  public validate(schema: Schema, properties: AnyObject) {
+    const yup_schema = convertToYup(schema, this.options.error_messages);
+    const validation = yup_schema.validateSync(properties, this.options.validate_options);
 
     return validation;
   }
 
-  public convertToYup(schema: Schema): AnyObject {
+  public convertToYup(schema: Schema) {
     return convertToYup(schema, this.options.error_messages);
   }
 
