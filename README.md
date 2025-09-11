@@ -262,7 +262,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 > | --------- | ------- | -------------------------- |
 > | schema    |         | [Schema]<br/>Yuppi schema. |
 >
-> returns [AnyObject]
+> returns [JSONSchema]
 >
 > Example:
 >
