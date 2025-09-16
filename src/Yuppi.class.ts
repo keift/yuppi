@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-
 import _ from "lodash";
 
 import { convertToYup } from "./utils/ConvertToYup.util";

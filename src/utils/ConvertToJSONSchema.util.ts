@@ -5,7 +5,7 @@ import { Any as AnyPattern } from "../patterns/Any.pattern";
 import type { AnyObject } from "../types/AnyObject.type";
 import type { Schema, Types } from "../types/Schema.type";
 
-export const convertToJSONSchema = (schema: Schema): TObject => {
+export const convertToJSONSchema = (schema: Schema) => {
   const build = (key: string, config: Types): TSchema => {
     if (config.type === "string") {
       let schema: TString | TUnion<[TString, TNull]> = Type.String({ enum: config.enum, minLength: config.min, maxLength: config.max, pattern: new RegExp(config.pattern ?? AnyPattern).source, default: config.default });

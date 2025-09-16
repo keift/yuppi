@@ -1,4 +1,4 @@
-import { Yuppi, type Schema, type AnyObject, type ValidationError } from "../../src/main";
+import { Yuppi, type Schema, type ValidationError } from "../../src/main";
 
 const Yupp: Yuppi = new Yuppi();
 
@@ -30,7 +30,7 @@ const faulty_schemas: Schema[] = [
   }
 ];
 
-const properties: AnyObject = {
+const properties = {
   field: null
 };
 
