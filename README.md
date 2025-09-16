@@ -141,7 +141,7 @@ Yuppi schema builder.
 > Example:
 >
 > ```typescript
-> const Yupp: Yuppi = new Yuppi();
+> const Yupp = new Yuppi();
 > ```
 
 ### Methods
@@ -187,7 +187,7 @@ Validate the properties with your Yuppi schema.
 >   }
 > };
 >
-> const properties: AnyObject = {
+> const properties = {
 >   display_name: "Fırat",
 >   username: "fir4tozden",
 >   email: "fir4tozden@gmail.com"
