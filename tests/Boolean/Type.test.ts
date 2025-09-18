@@ -37,7 +37,7 @@ for (let i = 0; i < faulty_properties.length; i++) {
     Yupp.validate(schema, faulty_properties[i]);
 
     throw new Error(`❌ Error ${(i + 1).toString()}/${faulty_properties.length.toString()} [FAULTY_PROPERTIES]`);
-  } catch (error: unknown) {
+  } catch (error) {
     if ((error as ValidationError).name === 'ValidationError') {
       console.log(`✅ Success ${(i + 1).toString()}/${faulty_properties.length.toString()} [FAULTY_PROPERTIES]`);
     } else throw new Error(`❌ Error ${(i + 1).toString()}/${faulty_properties.length.toString()} [FAULTY_PROPERTIES]`);
