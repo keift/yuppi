@@ -125,7 +125,7 @@ Yuppi
 Briefly as follows.
 
 ```typescript
-import { Yuppi, Patterns } from "yuppi";
+import { Yuppi, Patterns } from 'yuppi';
 ```
 
 ### Constructors
@@ -224,7 +224,7 @@ Convert your Yuppi schema into Yup schema.
 > ```typescript
 > const schema: Schema = {
 >   display_name: {
->     type: "string",
+>     type: 'string',
 >     min: 1,
 >     max: 32,
 >     nullable: false,
@@ -232,7 +232,7 @@ Convert your Yuppi schema into Yup schema.
 >   },
 >
 >   username: {
->     type: "string",
+>     type: 'string',
 >     min: 3,
 >     max: 16,
 >     pattern: Patterns.Username,
@@ -241,7 +241,7 @@ Convert your Yuppi schema into Yup schema.
 >   },
 >
 >   email: {
->     type: "string",
+>     type: 'string',
 >     pattern: Patterns.Email,
 >     lowercase: true,
 >     nullable: false,
@@ -269,7 +269,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 > ```typescript
 > const schema: Schema = {
 >   display_name: {
->     type: "string",
+>     type: 'string',
 >     min: 1,
 >     max: 32,
 >     nullable: false,
@@ -277,7 +277,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >   },
 >
 >   username: {
->     type: "string",
+>     type: 'string',
 >     min: 3,
 >     max: 16,
 >     pattern: Patterns.Username,
@@ -286,7 +286,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >   },
 >
 >   email: {
->     type: "string",
+>     type: 'string',
 >     pattern: Patterns.Email,
 >     lowercase: true,
 >     nullable: false,

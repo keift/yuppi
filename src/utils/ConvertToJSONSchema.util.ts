@@ -1,37 +1,37 @@
-import { Type, type TString, type TNumber, type TInteger, type TBoolean, type TObject, type TArray, type TSchema, type TUnion, type TNull } from "@sinclair/typebox";
+import { Type, type TString, type TNumber, type TInteger, type TBoolean, type TObject, type TArray, type TSchema, type TUnion, type TNull } from '@sinclair/typebox';
 
-import { Any as AnyPattern } from "../patterns/Any.pattern";
+import { Any as AnyPattern } from '../patterns/Any.pattern';
 
-import type { AnyObject } from "../types/AnyObject.type";
-import type { Schema, Types } from "../types/Schema.type";
+import type { AnyObject } from '../types/AnyObject.type';
+import type { Schema, Types } from '../types/Schema.type';
 
 export const convertToJSONSchema = (schema: Schema) => {
   const build = (key: string, config: Types): TSchema => {
-    if (config.type === "string") {
+    if (config.type === 'string') {
       let schema: TString | TUnion<[TString, TNull]> = Type.String({ enum: config.enum, minLength: config.min, maxLength: config.max, pattern: new RegExp(config.pattern ?? AnyPattern).source, default: config.default });
 
       if (config.nullable) schema = Type.Union([schema, Type.Null()]);
 
       return config.required ? schema : Type.Optional(schema);
-    } else if (config.type === "number") {
+    } else if (config.type === 'number') {
       let schema: TNumber | TInteger | TUnion<[TNumber | TInteger, TNull]> = config.integer === true ? Type.Integer({ enum: config.enum, minimum: config.min, maximum: config.max, default: config.default }) : Type.Number({ enum: config.enum, minimum: config.min, maximum: config.max, default: config.default });
 
       if (config.nullable) schema = Type.Union([schema, Type.Null()]);
 
       return config.required ? schema : Type.Optional(schema);
-    } else if (config.type === "boolean") {
+    } else if (config.type === 'boolean') {
       let schema: TBoolean | TUnion<[TBoolean, TNull]> = Type.Boolean({ default: config.default });
 
       if (config.nullable) schema = Type.Union([schema, Type.Null()]);
 
       return config.required ? schema : Type.Optional(schema);
-    } else if (config.type === "date") {
-      let schema: TString | TUnion<[TString, TNull]> = Type.String({ format: "date-time", minimum: config.min, maximum: config.max, pattern: new RegExp(config.pattern ?? AnyPattern).source, default: config.default });
+    } else if (config.type === 'date') {
+      let schema: TString | TUnion<[TString, TNull]> = Type.String({ format: 'date-time', minimum: config.min, maximum: config.max, pattern: new RegExp(config.pattern ?? AnyPattern).source, default: config.default });
 
       if (config.nullable) schema = Type.Union([schema, Type.Null()]);
 
       return config.required ? schema : Type.Optional(schema);
-    } else if (config.type === "object") {
+    } else if (config.type === 'object') {
       const nested_properties: AnyObject = {};
 
       for (const [nested_key, nested_config] of Object.entries(config.properties)) nested_properties[nested_key] = build(nested_key, nested_config);
@@ -42,7 +42,7 @@ export const convertToJSONSchema = (schema: Schema) => {
 
       return config.required ? schema : Type.Optional(schema);
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    } else if (config.type === "array") {
+    } else if (config.type === 'array') {
       let schema: TArray | TUnion<[TArray, TNull]> = Type.Array(build(key, config.items), { minItems: config.min, maxItems: config.max, default: config.default });
 
       if (config.nullable) schema = Type.Union([schema, Type.Null()]);

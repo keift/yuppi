@@ -1,10 +1,10 @@
-import { Yuppi, Patterns, type Schema, type JSONSchema } from "../src/main";
+import { Yuppi, Patterns, type Schema, type JSONSchema } from '../src/main';
 
 const Yupp: Yuppi = new Yuppi();
 
 const schema: Schema = {
   display_name: {
-    type: "string",
+    type: 'string',
     min: 1,
     max: 32,
     nullable: false,
@@ -12,7 +12,7 @@ const schema: Schema = {
   },
 
   username: {
-    type: "string",
+    type: 'string',
     min: 3,
     max: 16,
     pattern: Patterns.Username,
@@ -21,7 +21,7 @@ const schema: Schema = {
   },
 
   email: {
-    type: "string",
+    type: 'string',
     pattern: Patterns.Email,
     lowercase: true,
     nullable: false,
@@ -31,6 +31,6 @@ const schema: Schema = {
 
 const conversion: JSONSchema = Yupp.convertToJSONSchema(schema);
 
-if (conversion.properties.username.pattern !== Patterns.Username) throw new Error("❌ Error");
+if (conversion.properties.username.pattern !== Patterns.Username) throw new Error('❌ Error');
 
-console.log("✅ Success");
+console.log('✅ Success');

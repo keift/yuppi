@@ -8,7 +8,7 @@ export type Base = {
 };
 
 export type String = Base & {
-  type: "string";
+  type: 'string';
   enum?: string[];
   min?: number;
   max?: number;
@@ -17,7 +17,7 @@ export type String = Base & {
 };
 
 export type Number = Base & {
-  type: "number";
+  type: 'number';
   enum?: number[];
   min?: number;
   max?: number;
@@ -27,22 +27,22 @@ export type Number = Base & {
 };
 
 export type Boolean = Base & {
-  type: "boolean";
+  type: 'boolean';
 };
 
 export type Date = Base & {
-  type: "date";
+  type: 'date';
   min?: string;
   max?: string;
 };
 
 export type Object = Base & {
-  type: "object";
+  type: 'object';
   properties: Schema;
 };
 
 export type Array = Base & {
-  type: "array";
+  type: 'array';
   min?: number;
   max?: number;
   items: Types;

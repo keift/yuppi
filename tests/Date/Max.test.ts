@@ -1,11 +1,11 @@
-import { Yuppi, type Schema, type ValidationError } from "../../src/main";
+import { Yuppi, type Schema, type ValidationError } from '../../src/main';
 
 const Yupp: Yuppi = new Yuppi();
 
 const schema: Schema = {
   field: {
-    type: "date",
-    max: "2025-01-01",
+    type: 'date',
+    max: '2025-01-01',
     nullable: false,
     required: true
   }
@@ -13,13 +13,13 @@ const schema: Schema = {
 
 const correct_properties = [
   {
-    field: "2025-01-01"
+    field: '2025-01-01'
   }
 ];
 
 const faulty_properties = [
   {
-    field: "2025-01-02"
+    field: '2025-01-02'
   }
 ];
 
@@ -39,7 +39,7 @@ for (let i = 0; i < faulty_properties.length; i++) {
 
     throw new Error(`❌ Error ${(i + 1).toString()}/${faulty_properties.length.toString()} [FAULTY_PROPERTIES]`);
   } catch (error: unknown) {
-    if ((error as ValidationError).name === "ValidationError") {
+    if ((error as ValidationError).name === 'ValidationError') {
       console.log(`✅ Success ${(i + 1).toString()}/${faulty_properties.length.toString()} [FAULTY_PROPERTIES]`);
     } else throw new Error(`❌ Error ${(i + 1).toString()}/${faulty_properties.length.toString()} [FAULTY_PROPERTIES]`);
   }
