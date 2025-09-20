@@ -21,7 +21,7 @@
     "yup": "^1.7.0"
   },
   "devDependencies": {
-    "neatlint": "^1.1.10",
+    "neatlint": "^1.1.11",
     "prettier": "^3.6.2",
     "tsup": "^8.5.0"
   },
