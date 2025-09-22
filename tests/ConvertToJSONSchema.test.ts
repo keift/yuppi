@@ -1,4 +1,4 @@
-import { Yuppi, Patterns, type Schema, type JSONSchema } from '../src/main';
+import { Yuppi, Patterns, type Schema } from '../src/main';
 
 const Yupp: Yuppi = new Yuppi();
 
@@ -29,8 +29,31 @@ const schema: Schema = {
   }
 };
 
-const conversion: JSONSchema = Yupp.convertToJSONSchema(schema);
+const example_json_schema = {
+  type: 'object',
+  properties: {
+    display_name: {
+      minLength: 1,
+      maxLength: 32,
+      pattern: '[\\s\\S]*',
+      type: 'string'
+    },
+    username: {
+      minLength: 3,
+      maxLength: 16,
+      pattern: '^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$',
+      type: 'string'
+    },
+    email: {
+      pattern: '^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$',
+      type: 'string'
+    }
+  },
+  required: ['display_name', 'username', 'email']
+};
 
-if (conversion.properties.username.pattern !== Patterns.Username) throw new Error('❌ Error');
+const conversion = Yupp.convertToJSONSchema(schema);
+
+if (JSON.stringify(conversion) !== JSON.stringify(example_json_schema)) throw new Error('❌ Error');
 
 console.log('✅ Success');

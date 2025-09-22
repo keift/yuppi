@@ -3,7 +3,6 @@ import type { YuppiOptions } from '../types/YuppiOptions.type';
 export const YuppiOptionsDefault: YuppiOptions = {
   error_messages: {
     base: {
-      pattern: 'Field {path} must match the required pattern {pattern}',
       nullable: 'Field {path} cannot be null',
       required: 'Field {path} is required'
     },
@@ -11,6 +10,7 @@ export const YuppiOptionsDefault: YuppiOptions = {
     string: {
       type: 'Field {path} must be a string',
       enum: 'Field {path} must be one of the allowed values',
+      pattern: 'Field {path} must match the required pattern {pattern}',
       min: 'Field {path} must be at least {min} character{plural_suffix}',
       max: 'Field {path} must be at most {max} character{plural_suffix}'
     },

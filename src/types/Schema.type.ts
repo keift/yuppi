@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/array-type */
 
 export type Base = {
-  pattern?: string;
   default?: unknown;
   nullable: boolean;
   required: boolean;
@@ -10,6 +9,7 @@ export type Base = {
 export type String = Base & {
   type: 'string';
   enum?: string[];
+  pattern?: string;
   min?: number;
   max?: number;
   lowercase?: boolean;

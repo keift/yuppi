@@ -17,13 +17,13 @@ export class Yuppi {
     this.options = _.merge({}, YuppiOptionsDefault, options);
   }
 
-  public validate(schema: Schema, properties: AnyObject): AnyObject {
+  public validate(schema: Schema, properties: AnyObject) {
     const yup_schema = convertToYup(schema, this.options.error_messages);
 
     return yup_schema.validateSync(properties, this.options.validate_options);
   }
 
-  public convertToYup(schema: Schema): AnyObject {
+  public convertToYup(schema: Schema) {
     return convertToYup(schema, this.options.error_messages);
   }
 

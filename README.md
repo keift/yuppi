@@ -307,7 +307,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >         maxLength: 32,
 >         pattern: "[\\s\\S]*"
 >       },
->       username": {
+>       username: {
 >         type: "string",
 >         minLength: 3,
 >         maxLength: 16,

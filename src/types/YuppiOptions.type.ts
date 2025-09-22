@@ -3,7 +3,6 @@ import type { ValidateOptions } from './ValidateOptions.type';
 export type YuppiOptions = {
   error_messages?: {
     base?: {
-      pattern?: string;
       nullable?: string;
       required?: string;
     };
@@ -11,6 +10,7 @@ export type YuppiOptions = {
     string?: {
       type?: string;
       enum?: string;
+      pattern?: string;
       min?: string;
       max?: string;
     };
