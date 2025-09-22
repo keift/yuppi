@@ -1,6 +1,6 @@
 import { Yuppi, Patterns, type Schema, type ValidationError } from '../../src/main';
 
-const Yupp: Yuppi = new Yuppi();
+const Yupp = new Yuppi();
 
 const schema: Schema = {
   field: {
