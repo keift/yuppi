@@ -1,8 +1,8 @@
 import { Patterns } from '../../src/main';
 
-const correct_properties: string[] = ['fir4tozden@gmail.com', 'fir4tozden-2@gmail.com', 'fir4tozden@mail.google.com'];
+const correct_properties = ['fir4tozden@gmail.com', 'fir4tozden-2@gmail.com', 'fir4tozden@mail.google.com'];
 
-const faulty_properties: string[] = ['fir4tozden gmail.com', 'fir4tozden@gmail', 'fir4tozden@gmail..com', 'fir4tozden+2@gmail.com'];
+const faulty_properties = ['fir4tozden gmail.com', 'fir4tozden@gmail', 'fir4tozden@gmail..com', 'fir4tozden+2@gmail.com'];
 
 for (let i = 0; i < correct_properties.length; i++) {
   if (new RegExp(Patterns.Email).test(correct_properties[i])) {

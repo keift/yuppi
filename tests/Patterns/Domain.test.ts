@@ -1,8 +1,8 @@
 import { Patterns } from '../../src/main';
 
-const correct_properties: string[] = ['google.com', 'www.google.com', 'www.www.google.com'];
+const correct_properties = ['google.com', 'www.google.com', 'www.www.google.com'];
 
-const faulty_properties: string[] = ['google..com', 'www..google.com', 'www..www.google.com', 'https://google.com', 'google.com/search'];
+const faulty_properties = ['google..com', 'www..google.com', 'www..www.google.com', 'https://google.com', 'google.com/search'];
 
 for (let i = 0; i < correct_properties.length; i++) {
   if (new RegExp(Patterns.Domain).test(correct_properties[i])) {
