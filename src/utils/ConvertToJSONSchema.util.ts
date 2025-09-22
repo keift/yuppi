@@ -1,4 +1,4 @@
-import { Type, type TString, type TNumber, type TInteger, type TBoolean, type TObject, type TArray, type TSchema, type TUnion, type TNull } from '@sinclair/typebox';
+import { Type, type TSchema, type TString, type TNumber, type TInteger, type TBoolean, type TObject, type TArray, type TUnion, type TNull } from '@sinclair/typebox';
 
 import { Any as AnyPattern } from '../patterns/Any.pattern';
 

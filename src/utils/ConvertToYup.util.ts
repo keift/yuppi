@@ -10,7 +10,7 @@ import type { Schema, Types } from '../types/Schema.type';
 import type { YuppiOptions } from '../types/YuppiOptions.type';
 
 export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error_messages']) => {
-  const base = (schema: AnyObject, key: string, config: Types): AnyObject => {
+  const base = (schema: AnyObject, key: string, config: Types) => {
     schema = schema.nullable();
 
     if (config.required)
@@ -42,7 +42,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
     return schema;
   };
 
-  const build = (key: string, config: Types): AnyObject => {
+  const build = (key: string, config: Types) => {
     let schema: AnyObject;
 
     if (config.type === 'string') {
