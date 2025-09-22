@@ -2,7 +2,6 @@ import { Type, type TString, type TNumber, type TInteger, type TBoolean, type TO
 
 import { Any as AnyPattern } from '../patterns/Any.pattern';
 
-import type { AnyObject } from '../types/AnyObject.type';
 import type { Schema, Types } from '../types/Schema.type';
 
 export const convertToJSONSchema = (schema: Schema) => {
@@ -32,7 +31,7 @@ export const convertToJSONSchema = (schema: Schema) => {
 
       return config.required ? schema : Type.Optional(schema);
     } else if (config.type === 'object') {
-      const nested_properties: AnyObject = {};
+      const nested_properties: Record<string, TSchema> = {};
 
       for (const [nested_key, nested_config] of Object.entries(config.properties)) nested_properties[nested_key] = build(nested_key, nested_config);
 
@@ -51,7 +50,7 @@ export const convertToJSONSchema = (schema: Schema) => {
     } else throw new Error(`Unsupported schema type for ${key}`);
   };
 
-  const properties: AnyObject = {};
+  const properties: Record<string, TSchema> = {};
 
   for (const [key, config] of Object.entries(schema)) properties[key] = build(key, config);
 

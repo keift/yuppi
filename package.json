@@ -18,7 +18,7 @@
     "@sinclair/typebox": "^0.34.41",
     "@types/lodash": "^4.17.20",
     "lodash": "^4.17.21",
-    "yup": "^1.7.0"
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "neatlint": "^1.1.11",
