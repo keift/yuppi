@@ -2,7 +2,6 @@
 
 export type String = {
   type: 'string';
-
   enum?: string[];
   pattern?: string;
   min?: number;
@@ -16,7 +15,6 @@ export type String = {
 
 export type Number = {
   type: 'number';
-
   enum?: number[];
   min?: number;
   max?: number;
@@ -37,7 +35,6 @@ export type Boolean = {
 
 export type Date = {
   type: 'date';
-
   min?: string;
   max?: string;
   default?: string;
@@ -47,7 +44,6 @@ export type Date = {
 
 export type Object = {
   type: 'object';
-
   properties: Schema;
   default?: Schema;
   nullable: boolean;
@@ -56,7 +52,6 @@ export type Object = {
 
 export type Array = {
   type: 'array';
-
   min?: number;
   max?: number;
   items: Types;
