@@ -2,26 +2,26 @@
 
 export type String = {
   type: 'string';
-  default?: string;
+  
   enum?: string[];
   pattern?: string;
   min?: number;
   max?: number;
   lowercase?: boolean;
-  uppercase?: boolean;
+  uppercase?: boolean;default?: string;
   nullable: boolean;
   required: boolean;
 };
 
 export type Number = {
   type: 'number';
-  default?: number;
+  
   enum?: number[];
   min?: number;
   max?: number;
   integer?: boolean;
   positive?: boolean;
-  negative?: boolean;
+  negative?: boolean;default?: number;
   nullable: boolean;
   required: boolean;
 };
@@ -35,27 +35,27 @@ export type Boolean = {
 
 export type Date = {
   type: 'date';
-  default?: string;
+  
   min?: string;
-  max?: string;
+  max?: string;default?: string;
   nullable: boolean;
   required: boolean;
 };
 
 export type Object = {
   type: 'object';
-  default?: Schema;
-  properties: Schema;
+  
+  properties: Schema;default?: Schema;
   nullable: boolean;
   required: boolean;
 };
 
 export type Array = {
   type: 'array';
-  default?: Types;
+  
   min?: number;
   max?: number;
-  items: Types;
+  items: Types;default?: Types;
   nullable: boolean;
   required: boolean;
 };
