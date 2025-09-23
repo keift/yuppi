@@ -63,3 +63,5 @@ export type Array = {
 export type Types = String | Number | Boolean | Date | Object | Array;
 
 export type Schema = Record<string, Types>;
+
+
