@@ -8,7 +8,7 @@ export type String = {
   max?: number;
   lowercase?: boolean;
   uppercase?: boolean;
-  default?: string;
+  default?: string | null;
   nullable: boolean;
   required: boolean;
 };
@@ -21,14 +21,14 @@ export type Number = {
   integer?: boolean;
   positive?: boolean;
   negative?: boolean;
-  default?: number;
+  default?: number | null;
   nullable: boolean;
   required: boolean;
 };
 
 export type Boolean = {
   type: 'boolean';
-  default?: boolean;
+  default?: boolean | null;
   nullable: boolean;
   required: boolean;
 };
@@ -37,7 +37,7 @@ export type Date = {
   type: 'date';
   min?: string;
   max?: string;
-  default?: string;
+  default?: string | null;
   nullable: boolean;
   required: boolean;
 };
@@ -45,7 +45,7 @@ export type Date = {
 export type Object = {
   type: 'object';
   properties: Schema;
-  default?: Schema;
+  default?: Record<string, unknown> | null;
   nullable: boolean;
   required: boolean;
 };
@@ -55,7 +55,7 @@ export type Array = {
   min?: number;
   max?: number;
   items: Types;
-  default?: Types;
+  default?: unknown[] | null;
   nullable: boolean;
   required: boolean;
 };
