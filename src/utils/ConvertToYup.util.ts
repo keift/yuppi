@@ -16,7 +16,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
     if (config.required)
       schema = schema.test(
         'required',
-        ({ path }: { path: string }) => (error_messages?.base?.required ?? '').split('{path}').join(path),
+        ({ path }: { path: string }) => (error_messages?.base?.required ?? '').replaceAll('{path}', path),
         (property: unknown) => {
           if (property === undefined) return false;
           if (typeof property === 'string' && property.trim() === '') return false;
@@ -26,7 +26,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
         }
       );
 
-    if (!config.nullable && config.default !== null) schema = schema.nonNullable(({ path }: { path: string }) => (error_messages?.base?.nullable ?? '').split('{path}').join(path));
+    if (!config.nullable && config.default !== null) schema = schema.nonNullable(({ path }: { path: string }) => (error_messages?.base?.nullable ?? '').replaceAll('{path}', path));
 
     if (config.default) schema = schema.default(config.default);
 
@@ -37,7 +37,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
     let schema: AnyObject;
 
     if (config.type === 'string') {
-      schema = Yup.string().typeError(({ path }: { path: string }) => (error_messages?.string?.type ?? '').split('{path}').join(path));
+      schema = Yup.string().typeError(({ path }: { path: string }) => (error_messages?.string?.type ?? '').replaceAll('{path}', path));
       schema = base(schema, key, config);
 
       schema = schema.transform((property: unknown) => (typeof property === 'string' ? property.trim() : property));
@@ -45,38 +45,25 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
       if (config.enum)
         schema = schema.oneOf(
           config.enum.map((item) => item.trim()),
-          ({ path }: { path: string }) => (error_messages?.string?.enum ?? '').split('{path}').join(path)
+          ({ path }: { path: string }) => (error_messages?.string?.enum ?? '').replaceAll('{path}', path)
         );
 
-      if (config.pattern)
-        schema = schema.matches(new RegExp(config.pattern ?? AnyPattern), ({ path }: { path: string }) =>
-          (error_messages?.string?.pattern ?? '')
-            .split('{path}')
-            .join(path)
-            .split('{pattern}')
-            .join(new RegExp(config.pattern ?? AnyPattern).source)
-        );
+      if (config.pattern) schema = schema.matches(new RegExp(config.pattern ?? AnyPattern), ({ path }: { path: string }) => (error_messages?.string?.pattern ?? '').replaceAll('{path}', path).replaceAll('{pattern}', new RegExp(config.pattern ?? AnyPattern).source));
 
       if (config.min)
         schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) =>
           (error_messages?.string?.min ?? '')
-            .split('{path}')
-            .join(path)
-            .split('{min}')
-            .join(min.toString())
-            .split('{plural_suffix}')
-            .join(min > 1 ? 's' : '')
+            .replaceAll('{path}', path)
+            .replaceAll('{min}', min.toString())
+            .replaceAll('{plural_suffix}', min > 1 ? 's' : '')
         );
 
       if (config.max)
         schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) =>
           (error_messages?.string?.max ?? '')
-            .split('{path}')
-            .join(path)
-            .split('{max}')
-            .join(max.toString())
-            .split('{plural_suffix}')
-            .join(max > 1 ? 's' : '')
+            .replaceAll('{path}', path)
+            .replaceAll('{max}', max.toString())
+            .replaceAll('{plural_suffix}', max > 1 ? 's' : '')
         );
 
       if (config.lowercase) schema = schema.transform((property: unknown) => (typeof property === 'string' ? property.toLowerCase() : property));
@@ -85,38 +72,38 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
 
       return schema;
     } else if (config.type === 'number') {
-      schema = Yup.number().typeError(({ path }: { path: string }) => (error_messages?.number?.type ?? '').split('{path}').join(path));
+      schema = Yup.number().typeError(({ path }: { path: string }) => (error_messages?.number?.type ?? '').replaceAll('{path}', path));
       schema = base(schema, key, config);
 
-      if (config.enum) schema = schema.oneOf(config.enum, ({ path }: { path: string }) => (error_messages?.number?.enum ?? '').split('{path}').join(path));
+      if (config.enum) schema = schema.oneOf(config.enum, ({ path }: { path: string }) => (error_messages?.number?.enum ?? '').replaceAll('{path}', path));
 
-      if (config.min) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.number?.min ?? '').split('{path}').join(path).split('{min}').join(min.toString()));
+      if (config.min) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.number?.min ?? '').replaceAll('{path}', path).replaceAll('{min}', min.toString()));
 
-      if (config.max) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.number?.max ?? '').split('{path}').join(path).split('{max}').join(max.toString()));
+      if (config.max) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.number?.max ?? '').replaceAll('{path}', path).replaceAll('{max}', max.toString()));
 
-      if (config.integer) schema = schema.integer(({ path }: { path: string }) => (error_messages?.number?.integer ?? '').split('{path}').join(path));
+      if (config.integer) schema = schema.integer(({ path }: { path: string }) => (error_messages?.number?.integer ?? '').replaceAll('{path}', path));
 
-      if (config.positive) schema = schema.positive(({ path }: { path: string }) => (error_messages?.number?.positive ?? '').split('{path}').join(path));
+      if (config.positive) schema = schema.positive(({ path }: { path: string }) => (error_messages?.number?.positive ?? '').replaceAll('{path}', path));
 
-      if (config.negative) schema = schema.negative(({ path }: { path: string }) => (error_messages?.number?.negative ?? '').split('{path}').join(path));
+      if (config.negative) schema = schema.negative(({ path }: { path: string }) => (error_messages?.number?.negative ?? '').replaceAll('{path}', path));
 
       return schema;
     } else if (config.type === 'boolean') {
-      schema = Yup.boolean().typeError(({ path }: { path: string }) => (error_messages?.boolean?.type ?? '').split('{path}').join(path));
+      schema = Yup.boolean().typeError(({ path }: { path: string }) => (error_messages?.boolean?.type ?? '').replaceAll('{path}', path));
       schema = base(schema, key, config);
 
       return schema;
     } else if (config.type === 'date') {
-      schema = Yup.date().typeError(({ path }: { path: string }) => (error_messages?.date?.type ?? '').split('{path}').join(path));
+      schema = Yup.date().typeError(({ path }: { path: string }) => (error_messages?.date?.type ?? '').replaceAll('{path}', path));
       schema = base(schema, key, config);
 
-      if (config.min) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.date?.min ?? '').split('{path}').join(path).split('{min}').join(new Date(min).toISOString()));
+      if (config.min) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.date?.min ?? '').replaceAll('{path}', path).replaceAll('{min}', new Date(min).toISOString()));
 
-      if (config.max) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.date?.max ?? '').split('{path}').join(path).split('{max}').join(new Date(max).toISOString()));
+      if (config.max) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.date?.max ?? '').replaceAll('{path}', path).replaceAll('{max}', new Date(max).toISOString()));
 
       return schema;
     } else if (config.type === 'object') {
-      schema = Yup.object().typeError(({ path }: { path: string }) => (error_messages?.object?.type ?? '').split('{path}').join(path));
+      schema = Yup.object().typeError(({ path }: { path: string }) => (error_messages?.object?.type ?? '').replaceAll('{path}', path));
       schema = base(schema, key, config);
 
       const nested_properties: AnyObject = {};
@@ -128,29 +115,23 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
       return schema;
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     } else if (config.type === 'array') {
-      schema = Yup.array().typeError(({ path }: { path: string }) => (error_messages?.array?.type ?? '').split('{path}').join(path));
+      schema = Yup.array().typeError(({ path }: { path: string }) => (error_messages?.array?.type ?? '').replaceAll('{path}', path));
       schema = base(schema, key, config);
 
       if (config.min)
         schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) =>
           (error_messages?.array?.min ?? '')
-            .split('{path}')
-            .join(path)
-            .split('{min}')
-            .join(min.toString())
-            .split('{plural_suffix}')
-            .join(min > 1 ? 's' : '')
+            .replaceAll('{path}', path)
+            .replaceAll('{min}', min.toString())
+            .replaceAll('{plural_suffix}', min > 1 ? 's' : '')
         );
 
       if (config.max)
         schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) =>
           (error_messages?.array?.max ?? '')
-            .split('{path}')
-            .join(path)
-            .split('{max}')
-            .join(max.toString())
-            .split('{plural_suffix}')
-            .join(max > 1 ? 's' : '')
+            .replaceAll('{path}', path)
+            .replaceAll('{max}', max.toString())
+            .replaceAll('{plural_suffix}', max > 1 ? 's' : '')
         );
 
       schema = schema.of(build(key, config.items));
