@@ -1,7 +1,5 @@
 import { Type, type TAnySchema } from '@sinclair/typebox';
 
-import { Any as AnyPattern } from '../patterns/Any.pattern';
-
 import type { Schema, Types } from '../types/Schema.type';
 
 export const convertToJSONSchema = (schema: Schema) => {
@@ -17,7 +15,7 @@ export const convertToJSONSchema = (schema: Schema) => {
     let schema: TAnySchema;
 
     if (config.type === 'string') {
-      schema = Type.String({ enum: config.enum, minLength: config.min, maxLength: config.max, pattern: new RegExp(config.pattern ?? AnyPattern).source, default: config.default });
+      schema = Type.String({ enum: config.enum, minLength: config.min, maxLength: config.max, pattern: config.pattern ? new RegExp(config.pattern).source : undefined, default: config.default });
       schema = base(schema, key, config);
 
       return schema;

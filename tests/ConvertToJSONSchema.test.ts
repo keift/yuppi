@@ -35,7 +35,6 @@ const example_json_schema = {
     display_name: {
       minLength: 1,
       maxLength: 32,
-      pattern: '[\\s\\S]*',
       type: 'string'
     },
     username: {

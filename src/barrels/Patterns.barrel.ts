@@ -1,4 +1,3 @@
-export { Any } from '../patterns/Any.pattern';
 export { Domain } from '../patterns/Domain.pattern';
 export { Email } from '../patterns/Email.pattern';
 export { HTTP } from '../patterns/HTTP.pattern';

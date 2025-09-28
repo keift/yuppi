@@ -9,7 +9,6 @@
 [Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [Void]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Undefined
 [YuppiOptionsDefault]: ./src/defaults/YuppiOptions.default.ts
-[Any]: ./src/patterns/Any.pattern.ts
 [Domain]: ./src/patterns/Domain.pattern.ts
 [Email]: ./src/patterns/Email.pattern.ts
 [HTTP]: ./src/patterns/HTTP.pattern.ts
@@ -305,7 +304,6 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >         type: "string",
 >         minLength: 1,
 >         maxLength: 32,
->         pattern: "[\\s\\S]*"
 >       },
 >       username: {
 >         type: "string",
@@ -331,7 +329,6 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 
 | Pattern       | Description                    | Examples                                                                         |
 | ------------- | ------------------------------ | -------------------------------------------------------------------------------- |
-| [Any]         | Everything will pass.          | `"Yuppi!"` ✅<br/>`" "` ✅                                                       |
 | [Domain]      | Domains.                       | `"google.com"` ✅<br/>`"www.google.com"` ✅<br/>`"https://google.com"` ❌        |
 | [Email]       | Emails.                        | `"fir4tozden@gmail.com"` ✅<br/>`"fir4tozden+2@gmail.com"` ❌                    |
 | [HTTP]        | HTTP only links.               | `"https://google.com"` ✅<br/>`"http://google.com"` ✅<br/>`"google.com"` ❌     |

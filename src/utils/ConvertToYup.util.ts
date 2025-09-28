@@ -3,8 +3,6 @@
 
 import * as Yup from 'yup';
 
-import { Any as AnyPattern } from '../patterns/Any.pattern';
-
 import type { AnyObject } from '../types/AnyObject.type';
 import type { Schema, Types } from '../types/Schema.type';
 import type { YuppiOptions } from '../types/YuppiOptions.type';
@@ -48,7 +46,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
           ({ path }: { path: string }) => (error_messages?.string?.enum ?? '').replaceAll('{path}', path)
         );
 
-      if (config.pattern) schema = schema.matches(new RegExp(config.pattern ?? AnyPattern), ({ path }: { path: string }) => (error_messages?.string?.pattern ?? '').replaceAll('{path}', path).replaceAll('{pattern}', new RegExp(config.pattern ?? AnyPattern).source));
+      if (config.pattern) schema = schema.matches(new RegExp(config.pattern), ({ path }: { path: string }) => (error_messages?.string?.pattern ?? '').replaceAll('{path}', path).replaceAll('{pattern}', config.pattern ? new RegExp(config.pattern).source : ''));
 
       if (config.min)
         schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) =>
