@@ -203,9 +203,9 @@ Validate the properties with your Yuppi schema.
 >     }
 >   */
 > } catch (error) {
->   const message = (error as ValidationError).message;
+>   const errors = (error as ValidationError).errors;
 >
->   console.log(message); // "Field email must match the required pattern ^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$"
+>   console.log(errors[0]); // "Field email must match the required pattern ^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$"
 > }
 > ```
 
