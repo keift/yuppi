@@ -30,6 +30,7 @@ const schema: Schema = {
 };
 
 const example_json_schema = {
+  additionalProperties: false,
   type: 'object',
   properties: {
     display_name: {

@@ -56,5 +56,5 @@ export const convertToJSONSchema = (schema: Schema) => {
 
   for (const [key, config] of Object.entries(schema)) properties[key] = build(key, config);
 
-  return Type.Object(properties);
+  return Type.Object(properties, { additionalProperties: false });
 };

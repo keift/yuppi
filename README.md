@@ -209,6 +209,36 @@ Validate the properties with your Yuppi schema.
 
 <br/>
 
+`Yuppi.declare(schema, name)`
+
+Validate the properties with your Yuppi schema.
+
+> | Parameter | Default | Description                    |
+> | --------- | ------- | ------------------------------ |
+> | schema    |         | [Schema]<br/>Yuppi schema.     |
+> | name      |         | [String]<br/>Declaration name. |
+>
+> returns [Void]
+>
+> Example:
+>
+> ```typescript
+> import type { User } from './yuppi/types/user';
+>
+> Yupp.declare(schema, 'user');
+>
+> const user: User = Yupp.validate(schema, properties);
+> /*
+>   interface User {
+>     display_name: string;
+>     username: string;
+>     email: string;
+>   }
+> */
+> ```
+
+<br/>
+
 `Yuppi.convertToYup(schema)`
 
 Convert your Yuppi schema into Yup schema.
@@ -222,33 +252,6 @@ Convert your Yuppi schema into Yup schema.
 > Example:
 >
 > ```typescript
-> const schema: Schema = {
->   display_name: {
->     type: 'string',
->     min: 1,
->     max: 32,
->     nullable: false,
->     required: true
->   },
->
->   username: {
->     type: 'string',
->     min: 3,
->     max: 16,
->     pattern: Patterns.Username,
->     nullable: false,
->     required: true
->   },
->
->   email: {
->     type: 'string',
->     pattern: Patterns.Email,
->     lowercase: true,
->     nullable: false,
->     required: true
->   }
-> };
->
 > Yupp.convertToYup(schema);
 > ```
 
@@ -267,33 +270,6 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 > Example:
 >
 > ```typescript
-> const schema: Schema = {
->   display_name: {
->     type: 'string',
->     min: 1,
->     max: 32,
->     nullable: false,
->     required: true
->   },
->
->   username: {
->     type: 'string',
->     min: 3,
->     max: 16,
->     pattern: Patterns.Username,
->     nullable: false,
->     required: true
->   },
->
->   email: {
->     type: 'string',
->     pattern: Patterns.Email,
->     lowercase: true,
->     nullable: false,
->     required: true
->   }
-> };
->
 > Yupp.convertToJSONSchema(schema);
 > /*
 >   {
@@ -320,6 +296,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >       "username",
 >       "email"
 >     ]
+>     additionalProperties: false
 >   }
 > */
 > ```

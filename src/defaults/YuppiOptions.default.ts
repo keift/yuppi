@@ -1,6 +1,8 @@
 import type { YuppiOptions } from '../types/YuppiOptions.type';
 
 export const YuppiOptionsDefault: YuppiOptions = {
+  folder_path: './',
+
   error_messages: {
     base: {
       nullable: 'Field {path} cannot be null',
