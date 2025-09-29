@@ -99,6 +99,7 @@ Yuppi
 ├── new Yuppi(options?)
 │   │
 │   ├── validate(schema, properties)
+│   ├── declare(schema, name)
 │   ├── convertToYup(schema)
 │   └── convertToJSONSchema(schema)
 │
@@ -211,7 +212,7 @@ Validate the properties with your Yuppi schema.
 
 `Yuppi.declare(schema, name)`
 
-Validate the properties with your Yuppi schema.
+Declare your Yuppi schema for TypeScript.
 
 > | Parameter | Default | Description                    |
 > | --------- | ------- | ------------------------------ |
