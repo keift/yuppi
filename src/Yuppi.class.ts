@@ -21,7 +21,7 @@ export class Yuppi {
   }
 
   public validate(schema: Schema, properties: AnyObject) {
-    const yup_schema = convertToYup(schema, this.options.error_messages);
+    const yup_schema = this.convertToYup(schema);
 
     return yup_schema.validateSync(properties, this.options.validate_options);
   }
