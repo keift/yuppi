@@ -224,9 +224,9 @@ Declare your Yuppi schema for TypeScript.
 > Example:
 >
 > ```typescript
-> import type { User } from './yuppi/types/user';
+> import type { User } from './yuppi/types/User';
 >
-> Yupp.declare(schema, 'user');
+> Yupp.declare(schema, 'User');
 >
 > const user = Yupp.validate(schema, properties) as User;
 > /*

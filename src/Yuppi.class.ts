@@ -5,6 +5,7 @@ import path from 'path';
 
 import { convertToJSONSchema } from './utils/ConvertToJSONSchema.util';
 import { convertToYup } from './utils/ConvertToYup.util';
+import { pascalCase } from './utils/PascalCase.util';
 
 import { YuppiOptionsDefault } from './defaults/YuppiOptions.default';
 
@@ -27,7 +28,7 @@ export class Yuppi {
   }
 
   public declare(schema: Schema, name: string) {
-    name = name.toLowerCase();
+    name = pascalCase(name);
 
     const types_dir = path.join(this.options.folder_path ?? './', 'yuppi', 'types');
     const banner_comment = `/* eslint-disable */

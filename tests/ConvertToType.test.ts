@@ -29,6 +29,6 @@ const schema: Schema = {
   }
 };
 
-Yupp.declare(schema, 'user');
+Yupp.declare(schema, 'User');
 
 console.log('✅ Success');
