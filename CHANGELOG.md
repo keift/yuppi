@@ -9,7 +9,6 @@
 ## v1.1.2 → v1.2.0
 
 - Added:
-  - **Pattern `Any` added.** This pattern can accept anything.
   - **Pattern `Domain` added.** This pattern only accepts domain names.
   - **Pattern `URI` added.** This pattern accepts links with any protocol.
 

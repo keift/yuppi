@@ -1,6 +1,6 @@
 {
   "name": "yuppi",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "description": "Schemas that can be converted to Yup and JSON Schema.",
   "license": "MIT",
   "homepage": "https://github.com/keift/yuppi",
@@ -31,6 +31,7 @@
   },
   "keywords": [
     "validate",
+    "validation",
     "typecheck",
     "yup",
     "json-schema",

@@ -103,7 +103,6 @@ Yuppi
 │   └── convertToJSONSchema(schema)
 │
 ├── Patterns
-│   ├── Any
 │   ├── Domain
 │   ├── Email
 │   ├── HTTP
