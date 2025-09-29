@@ -39,7 +39,7 @@ export const convertToJSONSchema = (schema: Schema) => {
 
       for (const [nested_key, nested_config] of Object.entries(config.properties)) nested_properties[nested_key] = build(nested_key, nested_config);
 
-      schema = Type.Object(nested_properties);
+      schema = Type.Object(nested_properties, { additionalProperties: false });
       schema = base(schema, key, config);
 
       return schema;

@@ -228,7 +228,7 @@ Declare your Yuppi schema for TypeScript.
 >
 > Yupp.declare(schema, 'user');
 >
-> const user: User = Yupp.validate(schema, properties);
+> const user = Yupp.validate(schema, properties) as User;
 > /*
 >   interface User {
 >     display_name: string;
