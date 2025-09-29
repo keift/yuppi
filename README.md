@@ -296,7 +296,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >       "display_name",
 >       "username",
 >       "email"
->     ]
+>     ],
 >     additionalProperties: false
 >   }
 > */
