@@ -11,6 +11,10 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
   const base = (schema: AnyObject, key: string, config: Types) => {
     schema = schema.nullable();
 
+    if (config.default) schema = schema.default(config.default);
+
+    if (!config.nullable && config.default !== null) schema = schema.nonNullable(({ path }: { path: string }) => (error_messages?.base?.nullable ?? '').replaceAll('{path}', path));
+
     if (config.required)
       schema = schema.test(
         'required',
@@ -23,10 +27,6 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
           return true;
         }
       );
-
-    if (!config.nullable && config.default !== null) schema = schema.nonNullable(({ path }: { path: string }) => (error_messages?.base?.nullable ?? '').replaceAll('{path}', path));
-
-    if (config.default) schema = schema.default(config.default);
 
     return schema;
   };

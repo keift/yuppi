@@ -4,9 +4,9 @@ import type { Schema, Types } from '../types/Schema.type';
 
 export const convertToJSONSchema = (schema: Schema) => {
   const base = (schema: TAnySchema, key: string, config: Types) => {
-    if (!config.required) schema = Type.Optional(schema);
-
     if (config.nullable || config.default === null) schema = Type.Union([schema, Type.Null()]);
+
+    if (!config.required) schema = Type.Optional(schema);
 
     return schema;
   };
