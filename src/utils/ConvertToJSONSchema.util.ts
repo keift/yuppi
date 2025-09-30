@@ -16,21 +16,25 @@ export const convertToJSONSchema = (schema: Schema) => {
 
     if (config.type === 'string') {
       schema = Type.String({ enum: config.enum, minLength: config.min, maxLength: config.max, pattern: config.pattern ? new RegExp(config.pattern).source : undefined, default: config.default });
+
       schema = base(schema, key, config);
 
       return schema;
     } else if (config.type === 'number') {
-      schema = config.integer === true ? Type.Integer({ enum: config.enum, minimum: config.min, maximum: config.max, default: config.default }) : Type.Number({ enum: config.enum, minimum: config.min, maximum: config.max, default: config.default });
+      schema = config.integer === true ? Type.Integer({ enum: config.enum, minimum: config.min, maximum: config.max, positive: config.positive, negative: config.negative, default: config.default }) : Type.Number({ enum: config.enum, minimum: config.min, maximum: config.max, positive: config.positive, negative: config.negative, default: config.default });
+
       schema = base(schema, key, config);
 
       return schema;
     } else if (config.type === 'boolean') {
       schema = Type.Boolean({ default: config.default });
+
       schema = base(schema, key, config);
 
       return schema;
     } else if (config.type === 'date') {
       schema = Type.String({ format: 'date-time', minimum: config.min, maximum: config.max, default: config.default });
+
       schema = base(schema, key, config);
 
       return schema;
@@ -39,13 +43,15 @@ export const convertToJSONSchema = (schema: Schema) => {
 
       for (const [nested_key, nested_config] of Object.entries(config.properties)) nested_properties[nested_key] = build(nested_key, nested_config);
 
-      schema = Type.Object(nested_properties, { additionalProperties: false });
+      schema = Type.Object(nested_properties, { default: config.default, additionalProperties: false });
+
       schema = base(schema, key, config);
 
       return schema;
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     } else if (config.type === 'array') {
       schema = Type.Array(build(key, config.items), { minItems: config.min, maxItems: config.max, default: config.default });
+
       schema = base(schema, key, config);
 
       return schema;
