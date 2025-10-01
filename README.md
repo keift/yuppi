@@ -18,7 +18,7 @@
 [AnyObject]: https://github.com/jquense/yup/blob/master/src/util/objectTypes.ts#L7
 [JSONSchema]: https://github.com/sinclairzx81/typebox/blob/master/src/type/object/object.ts#L78
 [Schema]: ./src/types/Schema.type.ts
-[ValidateOptions]: https://github.com/jquense/yup/blob/master/src/types.ts#L47
+[ValidateOptions]: https://github.com/jquense/yup/blob/master/src/types.ts#L48
 [ValidationError]: https://github.com/jquense/yup/blob/master/src/ValidationError.ts#L53
 [YuppiOptions]: ./src/types/YuppiOptions.type.ts
 
