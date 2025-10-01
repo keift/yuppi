@@ -17,7 +17,7 @@
   "dependencies": {
     "@sinclair/typebox": "^0.34.41",
     "@types/lodash": "^4.17.20",
-    "@types/node": "^24.6.0",
+    "@types/node": "^24.6.1",
     "json-schema-to-typescript": "^15.0.4",
     "lodash": "^4.17.21",
     "yup": "^1.7.1"
