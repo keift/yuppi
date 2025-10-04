@@ -16,14 +16,14 @@
   },
   "dependencies": {
     "@sinclair/typebox": "^0.34.41",
-    "@types/lodash": "^4.17.20",
-    "@types/node": "^24.6.1",
+    "@types/lodash.merge": "^4.6.9",
+    "@types/node": "^24.6.2",
     "json-schema-to-typescript": "^15.0.4",
-    "lodash": "^4.17.21",
+    "lodash.merge": "^4.6.2",
     "yup": "^1.7.1"
   },
   "devDependencies": {
-    "neatlint": "^1.1.17",
+    "neatlint": "^1.1.18",
     "prettier": "^3.6.2",
     "tsup": "^8.5.0"
   },

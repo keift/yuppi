@@ -1,5 +1,5 @@
 import { compile, type JSONSchema as JSONSchema2 } from 'json-schema-to-typescript';
-import _ from 'lodash';
+import merge from 'lodash.merge';
 import fs from 'fs';
 import path from 'path';
 
@@ -18,7 +18,7 @@ export class Yuppi {
   private readonly options: YuppiOptions;
 
   public constructor(options: YuppiOptions = YuppiOptionsDefault) {
-    this.options = _.merge({}, YuppiOptionsDefault, options);
+    this.options = merge({}, YuppiOptionsDefault, options);
   }
 
   public validate(schema: Schema, properties: AnyObject) {
