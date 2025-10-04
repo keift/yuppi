@@ -3,7 +3,7 @@
 ## v1.2.12 → v1.3.0
 
 - Added:
-  - **Added `declare()` method.** Declare your Yuppi schema for TypeScript.
+  - **Added `Yuppi.declare()` method.** Declare your Yuppi schema for TypeScript.
   - **Added `enum` to String type.** Allows to accept only predefined strings.
   - **Added `enum` to Number type.** Allows to accept only predefined numbers.
 
