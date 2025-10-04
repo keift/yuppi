@@ -5,7 +5,6 @@ const Yupp = new Yuppi({ folder_path: './tests' });
 const schema: Schema = {
   display_name: {
     type: 'string',
-    min: 1,
     max: 32,
     nullable: false,
     required: true
