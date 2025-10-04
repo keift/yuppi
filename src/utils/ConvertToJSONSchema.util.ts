@@ -21,6 +21,9 @@ export const convertToJSONSchema = (schema: Schema) => {
 
       return schema;
     } else if (config.type === 'number') {
+      if (config.positive) config.min = 1;
+      if (config.negative) config.max = -1;
+
       schema = config.integer === true ? Type.Integer({ enum: config.enum, minimum: config.min, maximum: config.max, positive: config.positive, negative: config.negative, default: config.default }) : Type.Number({ enum: config.enum, minimum: config.min, maximum: config.max, positive: config.positive, negative: config.negative, default: config.default });
 
       schema = base(schema, key, config);
