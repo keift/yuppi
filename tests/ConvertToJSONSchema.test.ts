@@ -5,7 +5,6 @@ const Yupp = new Yuppi();
 const schema: Schema = {
   display_name: {
     type: 'string',
-    min: 1,
     max: 32,
     nullable: false,
     required: true
@@ -34,7 +33,6 @@ const example_json_schema = {
   type: 'object',
   properties: {
     display_name: {
-      minLength: 1,
       maxLength: 32,
       type: 'string'
     },
