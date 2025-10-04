@@ -62,6 +62,7 @@ Schemas that can be converted to Yup and JSON Schema.
 - Contains ready regex patterns
 - Portable schemas as a JSON file
 - Works with Yup, stable and secure
+- Schemas can be declared for TypeScript
 - It is strict and therefore does not accept more than one type
 - Error messages are ready to be understood but can be edited if desired
 - Can be converted to Yup and [JSON Schema](https://json-schema.org). JSON Schema is OpenAPI compatible
