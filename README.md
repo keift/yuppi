@@ -162,7 +162,6 @@ Validate the properties with your Yuppi schema.
 > const schema: Schema = {
 >   display_name: {
 >     type: 'string',
->     min: 1,
 >     max: 32,
 >     nullable: false,
 >     required: true
@@ -278,7 +277,6 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >     properties: {
 >       display_name: {
 >         type: "string",
->         minLength: 1,
 >         maxLength: 32,
 >       },
 >       username: {
