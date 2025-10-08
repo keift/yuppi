@@ -4,3 +4,5 @@ registry = "https://registry.npmjs.org/"
 registry = "https://registry.npmjs.org/"
 [install]
 registry = "https://registry.npmjs.org/"
+[install]
+registry = "https://registry.npmjs.org/"
