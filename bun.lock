@@ -12,7 +12,7 @@
         "yup": "^1.7.1",
       },
       "devDependencies": {
-        "neatlint": "^1.1.18",
+        "neatlint": "^1.1.19",
         "prettier": "^3.6.2",
         "tsup": "^8.5.0",
       },
