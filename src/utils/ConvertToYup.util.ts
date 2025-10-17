@@ -12,7 +12,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
     schema = schema.nullable();
     schema = schema.optional();
 
-    if (config.default) schema = schema.default(config.default);
+    if (config.default !== undefined) schema = schema.default(config.default);
 
     if (!config.nullable && config.default !== null) schema = schema.nonNullable(({ path }: { path: string }) => (error_messages?.base?.nullable ?? '').replaceAll('{path}', path));
 
@@ -45,9 +45,9 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
           ({ path }: { path: string }) => (error_messages?.string?.enum ?? '').replaceAll('{path}', path)
         );
 
-      if (config.pattern) schema = schema.matches(new RegExp(config.pattern), ({ path }: { path: string }) => (error_messages?.string?.pattern ?? '').replaceAll('{path}', path).replaceAll('{pattern}', config.pattern ? new RegExp(config.pattern).source : ''));
+      if (config.pattern !== undefined) schema = schema.matches(new RegExp(config.pattern), ({ path }: { path: string }) => (error_messages?.string?.pattern ?? '').replaceAll('{path}', path).replaceAll('{pattern}', config.pattern !== undefined ? new RegExp(config.pattern).source : ''));
 
-      if (config.min)
+      if (config.min !== undefined)
         schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) =>
           (error_messages?.string?.min ?? '')
             .replaceAll('{path}', path)
@@ -55,7 +55,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
             .replaceAll('{plural_suffix}', min > 1 ? 's' : '')
         );
 
-      if (config.max)
+      if (config.max !== undefined)
         schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) =>
           (error_messages?.string?.max ?? '')
             .replaceAll('{path}', path)
@@ -63,9 +63,9 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
             .replaceAll('{plural_suffix}', max > 1 ? 's' : '')
         );
 
-      if (config.lowercase) schema = schema.transform((property: unknown) => (typeof property === 'string' ? property.toLowerCase() : property));
+      if (config.lowercase === true) schema = schema.transform((property: unknown) => (typeof property === 'string' ? property.toLowerCase() : property));
 
-      if (config.uppercase) schema = schema.transform((property: unknown) => (typeof property === 'string' ? property.toUpperCase() : property));
+      if (config.uppercase === true) schema = schema.transform((property: unknown) => (typeof property === 'string' ? property.toUpperCase() : property));
 
       schema = base(schema, key, config);
 
@@ -75,15 +75,15 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
 
       if (config.enum) schema = schema.oneOf(config.enum, ({ path }: { path: string }) => (error_messages?.number?.enum ?? '').replaceAll('{path}', path));
 
-      if (config.min) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.number?.min ?? '').replaceAll('{path}', path).replaceAll('{min}', min.toString()));
+      if (config.min !== undefined) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.number?.min ?? '').replaceAll('{path}', path).replaceAll('{min}', min.toString()));
 
-      if (config.max) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.number?.max ?? '').replaceAll('{path}', path).replaceAll('{max}', max.toString()));
+      if (config.max !== undefined) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.number?.max ?? '').replaceAll('{path}', path).replaceAll('{max}', max.toString()));
 
-      if (config.integer) schema = schema.integer(({ path }: { path: string }) => (error_messages?.number?.integer ?? '').replaceAll('{path}', path));
+      if (config.integer === true) schema = schema.integer(({ path }: { path: string }) => (error_messages?.number?.integer ?? '').replaceAll('{path}', path));
 
-      if (config.positive) schema = schema.positive(({ path }: { path: string }) => (error_messages?.number?.positive ?? '').replaceAll('{path}', path));
+      if (config.positive === true) schema = schema.positive(({ path }: { path: string }) => (error_messages?.number?.positive ?? '').replaceAll('{path}', path));
 
-      if (config.negative) schema = schema.negative(({ path }: { path: string }) => (error_messages?.number?.negative ?? '').replaceAll('{path}', path));
+      if (config.negative === true) schema = schema.negative(({ path }: { path: string }) => (error_messages?.number?.negative ?? '').replaceAll('{path}', path));
 
       schema = base(schema, key, config);
 
@@ -97,9 +97,9 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
     } else if (config.type === 'date') {
       schema = Yup.date().typeError(({ path }: { path: string }) => (error_messages?.date?.type ?? '').replaceAll('{path}', path));
 
-      if (config.min) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.date?.min ?? '').replaceAll('{path}', path).replaceAll('{min}', new Date(min).toISOString()));
+      if (config.min !== undefined) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.date?.min ?? '').replaceAll('{path}', path).replaceAll('{min}', new Date(min).toISOString()));
 
-      if (config.max) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.date?.max ?? '').replaceAll('{path}', path).replaceAll('{max}', new Date(max).toISOString()));
+      if (config.max !== undefined) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.date?.max ?? '').replaceAll('{path}', path).replaceAll('{max}', new Date(max).toISOString()));
 
       schema = base(schema, key, config);
 
@@ -120,7 +120,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
     } else if (config.type === 'array') {
       schema = Yup.array().typeError(({ path }: { path: string }) => (error_messages?.array?.type ?? '').replaceAll('{path}', path));
 
-      if (config.min)
+      if (config.min !== undefined)
         schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) =>
           (error_messages?.array?.min ?? '')
             .replaceAll('{path}', path)
@@ -128,7 +128,7 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
             .replaceAll('{plural_suffix}', min > 1 ? 's' : '')
         );
 
-      if (config.max)
+      if (config.max !== undefined)
         schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) =>
           (error_messages?.array?.max ?? '')
             .replaceAll('{path}', path)

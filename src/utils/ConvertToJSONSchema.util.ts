@@ -15,26 +15,18 @@ export const convertToJSONSchema = (schema: Schema) => {
     let schema: TAnySchema;
 
     if (config.type === 'string') {
-      schema = Type.String({ enum: config.enum, minLength: config.min, maxLength: config.max, pattern: config.pattern ? new RegExp(config.pattern).source : undefined, default: config.default });
+      schema = Type.String({ enum: config.enum, minLength: config.min, maxLength: config.max, pattern: config.pattern !== undefined ? new RegExp(config.pattern).source : undefined, default: config.default });
 
       schema = base(schema, key, config);
 
       return schema;
     } else if (config.type === 'number') {
-      let exclusive_minimum = false;
-      let exclusive_maximum = false;
+      let exclusive_minimum = undefined;
+      let exclusive_maximum = undefined;
 
-      if (config.positive && config.min === null) {
-        config.min = 0;
+      if (config.positive === true && config.min === undefined) exclusive_minimum = 0;
 
-        exclusive_minimum = true;
-      }
-
-      if (config.negative && config.max === null) {
-        config.max = 0;
-
-        exclusive_maximum = true;
-      }
+      if (config.negative === true && config.max === undefined) exclusive_maximum = 0;
 
       schema = config.integer === true ? Type.Integer({ enum: config.enum, minimum: config.min, maximum: config.max, exclusiveMinimum: exclusive_minimum, exclusiveMaximum: exclusive_maximum, positive: config.positive, negative: config.negative, default: config.default }) : Type.Number({ enum: config.enum, minimum: config.min, maximum: config.max, exclusiveMinimum: exclusive_minimum, exclusiveMaximum: exclusive_maximum, positive: config.positive, negative: config.negative, default: config.default });
 
