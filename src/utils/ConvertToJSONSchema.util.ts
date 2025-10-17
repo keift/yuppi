@@ -21,10 +21,22 @@ export const convertToJSONSchema = (schema: Schema) => {
 
       return schema;
     } else if (config.type === 'number') {
-      if (config.positive) config.min = 1;
-      if (config.negative) config.max = -1;
+      let exclusive_minimum = false;
+      let exclusive_maximum = false;
 
-      schema = config.integer === true ? Type.Integer({ enum: config.enum, minimum: config.min, maximum: config.max, positive: config.positive, negative: config.negative, default: config.default }) : Type.Number({ enum: config.enum, minimum: config.min, maximum: config.max, positive: config.positive, negative: config.negative, default: config.default });
+      if (config.positive) {
+        config.min = 0;
+
+        exclusive_minimum = true;
+      }
+
+      if (config.negative) {
+        config.max = 0;
+
+        exclusive_maximum = true;
+      }
+
+      schema = config.integer === true ? Type.Integer({ enum: config.enum, minimum: config.min, maximum: config.max, exclusiveMinimum: exclusive_minimum, exclusiveMaximum: exclusive_maximum, positive: config.positive, negative: config.negative, default: config.default }) : Type.Number({ enum: config.enum, minimum: config.min, maximum: config.max, exclusiveMinimum: exclusive_minimum, exclusiveMaximum: exclusive_maximum, positive: config.positive, negative: config.negative, default: config.default });
 
       schema = base(schema, key, config);
 
