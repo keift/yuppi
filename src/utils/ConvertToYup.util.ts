@@ -150,4 +150,3 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
 
   return Yup.object().shape(properties);
 };
-
