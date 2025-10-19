@@ -145,7 +145,6 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
   };
 
   const properties: AnyObject = {};
-
   for (const [key, config] of Object.entries(schema)) properties[key] = build(key, config);
 
   return Yup.object().shape(properties);
