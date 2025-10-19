@@ -40,7 +40,7 @@ export const convertToJSONSchema = (schema: Schema) => {
 
       return schema;
     } else if (config.type === 'date') {
-      schema = Type.String({ format: 'date-time', minimum: config.min, maximum: config.max, default: config.default });
+      schema = Type.String({ format: 'date-time', formatMinimum: config.min !== undefined ? new Date(config.min).toISOString() : undefined, formatMaximum: config.max !== undefined ? new Date(config.max).toISOString() : undefined, default: config.default });
 
       schema = base(schema, key, config);
 
