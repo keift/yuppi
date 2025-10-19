@@ -97,9 +97,9 @@ export const convertToYup = (schema: Schema, error_messages: YuppiOptions['error
     } else if (config.type === 'date') {
       schema = Yup.date().typeError(({ path }: { path: string }) => (error_messages?.date?.type ?? '').replaceAll('{path}', path));
 
-      if (config.min !== undefined) schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) => (error_messages?.date?.min ?? '').replaceAll('{path}', path).replaceAll('{min}', new Date(min).toISOString()));
+      if (config.min !== undefined) schema = schema.min(config.min, ({ path, min }: { path: string; min: string }) => (error_messages?.date?.min ?? '').replaceAll('{path}', path).replaceAll('{min}', new Date(min).toISOString()));
 
-      if (config.max !== undefined) schema = schema.max(config.max, ({ path, max }: { path: string; max: number }) => (error_messages?.date?.max ?? '').replaceAll('{path}', path).replaceAll('{max}', new Date(max).toISOString()));
+      if (config.max !== undefined) schema = schema.max(config.max, ({ path, max }: { path: string; max: string }) => (error_messages?.date?.max ?? '').replaceAll('{path}', path).replaceAll('{max}', new Date(max).toISOString()));
 
       schema = base(schema, key, config);
 
