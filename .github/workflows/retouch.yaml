@@ -22,7 +22,7 @@ jobs:
       - name: Delete lockfile
         run: rm -rf ./bun.lock
 
-      - name: Recreate lockfile
+      - name: Install dependencies
         run: bun install
 
       - name: Run Prettier
