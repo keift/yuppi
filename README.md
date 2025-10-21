@@ -15,11 +15,11 @@
 [URI]: ./src/patterns/URI.pattern.ts
 [Username]: ./src/patterns/Username.pattern.ts
 [YuppiOptionsDefault]: ./src/defaults/YuppiOptions.default.ts
-[AnyObject]: https://github.com/jquense/yup/blob/master/src/util/objectTypes.ts#L7
-[JSONSchema]: https://github.com/sinclairzx81/typebox/blob/master/src/type/object/object.ts#L78
+[AnyObject]: ./src/types/AnyObject.type.ts
+[JSONSchema]: ./src/types/JSONSchema.type.ts
 [Schema]: ./src/types/Schema.type.ts
-[ValidateOptions]: https://github.com/jquense/yup/blob/master/src/types.ts#L48
-[ValidationError]: https://github.com/jquense/yup/blob/master/src/ValidationError.ts#L53
+[ValidateOptions]: ./src/types/ValidateOptions.type.ts
+[ValidationError]: ./src/types/ValidationError.type.ts
 [YuppiOptions]: ./src/types/YuppiOptions.type.ts
 
 <div align="center">
