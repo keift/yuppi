@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 1,
   "workspaces": {
     "": {
       "name": "yuppi",
@@ -12,7 +13,7 @@
         "yup": "^1.7.1",
       },
       "devDependencies": {
-        "neatlint": "^1.1.25",
+        "neatlint": "^1.1.26",
         "prettier": "^3.6.2",
         "tsup": "^8.5.0",
       },
@@ -377,7 +378,7 @@
 
     "natural-compare": ["natural-compare@1.4.0", "", {}, "sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw=="],
 
-    "neatlint": ["neatlint@1.1.25", "", { "dependencies": { "@eslint/js": "latest", "@types/lodash.merge": "^4.6.9", "eslint": "latest", "jiti": "latest", "lodash.merge": "^4.6.2", "typescript": "latest", "typescript-eslint": "latest" } }, "sha512-MaCiE2JemolF0InDIXNHvzMSLpnaSSUpHhJBcRHz0h6Wh5F89ZfP9a04BKlGaYpVExDJZ8XtUtH2wDlQLEWF1g=="],
+    "neatlint": ["neatlint@1.1.26", "", { "dependencies": { "@eslint/js": "latest", "@types/lodash.merge": "^4.6.9", "@types/node": "latest", "eslint": "latest", "jiti": "latest", "lodash.merge": "^4.6.2", "typescript": "latest", "typescript-eslint": "latest" } }, "sha512-eJJjtEzRUYzjY7Okqb2t5Pft2HGNz0Hw+KVW18nijw9d0g+vsvdaBCyFSeaR8+LGpawzojwalqQjSAPElOx7YQ=="],
 
     "object-assign": ["object-assign@4.1.1", "", {}, "sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg=="],
 
