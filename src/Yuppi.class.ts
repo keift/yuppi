@@ -40,11 +40,11 @@ export class Yuppi {
  */`;
 
     void (async () => {
-      const type_file = await compile(this.convertToJSONSchema(schema) as JSONSchema2, name, { bannerComment: banner_comment });
+      const type = await compile(this.convertToJSONSchema(schema) as JSONSchema2, name, { bannerComment: banner_comment });
 
       fs.mkdirSync(types_dir, { recursive: true });
 
-      fs.writeFileSync(path.join(types_dir, `${name}.d.ts`), type_file);
+      fs.writeFileSync(path.join(types_dir, `${name}.d.ts`), type);
     })();
   }
 
