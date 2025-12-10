@@ -39,12 +39,13 @@ export class Yuppi {
  * Use \`Yuppi.declare()\` to regenerate this type.
  */`;
 
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    compile(this.convertToJSONSchema(schema) as JSONSchema2, name, { bannerComment: banner_comment }).then((type) => {
+    void (async () => {
+      const type_file = await compile(this.convertToJSONSchema(schema) as JSONSchema2, name, { bannerComment: banner_comment });
+
       fs.mkdirSync(types_dir, { recursive: true });
 
-      fs.writeFileSync(path.join(types_dir, `${name}.d.ts`), type);
-    });
+      fs.writeFileSync(path.join(types_dir, `${name}.d.ts`), type_file);
+    })();
   }
 
   public convertToYup(schema: Schema) {
