@@ -24,7 +24,7 @@
 
 <div align="center">
   <br/>
-  <img src="https://i.ibb.co/B5bQXHSM/unknown.png" width="350px"/>
+  <img src="./assets/logo.png" width="350px"/>
   <br/>
   <br/>
   <img src="https://img.shields.io/npm/v/yuppi?label=version&color=%23633BFF"/>
