@@ -73,10 +73,10 @@ You can install it as follows.
 
 ```shell
 // NPM
-npm install yuppi
+npm add yuppi
 
 // PNPM
-pnpm install yuppi
+pnpm add yuppi
 
 // Yarn
 yarn add yuppi
@@ -85,7 +85,7 @@ yarn add yuppi
 bun add yuppi
 
 // Deno
-deno install npm:yuppi
+deno add npm:yuppi
 ```
 
 ## Documentation
