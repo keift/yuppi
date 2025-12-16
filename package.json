@@ -23,9 +23,9 @@
     "yup": "^1.7.1"
   },
   "devDependencies": {
-    "neatlint": "^1.2.1",
-    "prettier": "^3.7.4",
-    "tsup": "^8.5.1"
+    "neatlint": "latest",
+    "prettier": "latest",
+    "tsup": "latest"
   },
   "repository": {
     "type": "git",
