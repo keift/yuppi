@@ -85,7 +85,7 @@ yarn add yuppi
 bun add yuppi
 
 // Deno
-deno add npm:yuppi
+deno add yuppi
 ```
 
 ## Documentation
