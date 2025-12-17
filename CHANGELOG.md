@@ -3,21 +3,21 @@
 ## v1.2.12 → v1.3.0
 
 - Added:
-  - **Added `Yuppi.declare()` method.** Declare your Yuppi schema for TypeScript.
-  - **Added `enum` to String type.** Allows to accept only predefined strings.
-  - **Added `enum` to Number type.** Allows to accept only predefined numbers.
+  - **`Yuppi.declare()` method.** Declare your Yuppi schema for TypeScript.
+  - **`enum` in string type.** Allows to accept only predefined strings.
+  - **`enum` in number type.** Allows to accept only predefined numbers.
 
 ## v1.2.3 → v1.2.4
 
 - Added:
-  - **Added `enum` to String type.** Allows to accept only predefined strings.
-  - **Added `enum` to Number type.** Allows to accept only predefined numbers.
+  - **`enum` to string type.** Allows to accept only predefined strings.
+  - **`enum` to number type.** Allows to accept only predefined numbers.
 
 ## v1.1.2 → v1.2.0
 
 - Added:
-  - **Pattern `Domain` added.** This pattern only accepts domain names.
-  - **Pattern `URI` added.** This pattern accepts links with any protocol.
+  - **Pattern `Domain`.** This pattern only accepts domain names.
+  - **Pattern `URI`.** This pattern accepts links with any protocol.
 
 - Changes:
   - **If default is null, it becomes nullable.** When the default is null, it is assumed that the property may also be null.
