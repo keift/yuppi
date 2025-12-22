@@ -76,19 +76,19 @@ Schemas that can be converted to Yup and JSON Schema.
 You can install it as follows.
 
 ```shell
-// NPM
+# NPM
 npm add yuppi
 
-// PNPM
+# PNPM
 pnpm add yuppi
 
-// Yarn
+# Yarn
 yarn add yuppi
 
-// Bun
+# Bun
 bun add yuppi
 
-// Deno
+# Deno
 deno add yuppi
 ```
 
