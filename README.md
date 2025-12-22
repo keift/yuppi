@@ -2,7 +2,6 @@
 [Number]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
 [Boolean]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 [Object]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
-[Array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 [Date]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
 [Buffer]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
 [Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
@@ -138,9 +137,9 @@ import { Yuppi, Patterns } from 'yuppi';
 
 Yuppi schema builder.
 
-> | Parameter | Default               | Description                                          |
-> | --------- | --------------------- | ---------------------------------------------------- |
-> | options   | [YuppiOptionsDefault] | [YuppiOptions] (optional)<br/>Constructor's options. |
+> | Parameter | Type           | Default               | Description            |
+> | --------- | -------------- | --------------------- | ---------------------- |
+> | options?  | [YuppiOptions] | [YuppiOptionsDefault] | Constructor's options. |
 >
 > Example:
 >
@@ -154,10 +153,10 @@ Yuppi schema builder.
 
 Validate the properties with your Yuppi schema.
 
-> | Parameter  | Default | Description                                |
-> | ---------- | ------- | ------------------------------------------ |
-> | schema     |         | [Schema]<br/>Yuppi schema.                 |
-> | properties |         | [AnyObject]<br/>Properties to be validate. |
+> | Parameter  | Type        | Default | Description                |
+> | ---------- | ----------- | ------- | -------------------------- |
+> | schema     | [Schema]    |         | Yuppi schema.              |
+> | properties | [AnyObject] |         | Properties to be validate. |
 >
 > returns [AnyObject]
 >
@@ -218,10 +217,10 @@ Validate the properties with your Yuppi schema.
 
 Declare your Yuppi schema for TypeScript.
 
-> | Parameter | Default | Description                    |
-> | --------- | ------- | ------------------------------ |
-> | schema    |         | [Schema]<br/>Yuppi schema.     |
-> | name      |         | [String]<br/>Declaration name. |
+> | Parameter | Type     | Default | Description       |
+> | --------- | -------- | ------- | ----------------- |
+> | schema    | [Schema] |         | Yuppi schema.     |
+> | name      | [String] |         | Declaration name. |
 >
 > returns [Void]
 >
@@ -248,9 +247,9 @@ Declare your Yuppi schema for TypeScript.
 
 Convert your Yuppi schema into Yup schema.
 
-> | Parameter | Default | Description                |
-> | --------- | ------- | -------------------------- |
-> | schema    |         | [Schema]<br/>Yuppi schema. |
+> | Parameter | Type     | Default | Description   |
+> | --------- | -------- | ------- | ------------- |
+> | schema    | [Schema] |         | Yuppi schema. |
 >
 > returns [AnyObject]
 >
@@ -266,9 +265,9 @@ Convert your Yuppi schema into Yup schema.
 
 Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 
-> | Parameter | Default | Description                |
-> | --------- | ------- | -------------------------- |
-> | schema    |         | [Schema]<br/>Yuppi schema. |
+> | Parameter | Type     | Default | Description   |
+> | --------- | -------- | ------- | ------------- |
+> | schema    | [Schema] |         | Yuppi schema. |
 >
 > returns [JSONSchema]
 >
