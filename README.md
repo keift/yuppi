@@ -108,6 +108,7 @@ Yuppi
 │   └── convertToJSONSchema(schema)
 │
 ├── Patterns
+│   │
 │   ├── Domain
 │   ├── Email
 │   ├── HTTP
