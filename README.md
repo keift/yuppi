@@ -295,11 +295,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >         pattern: "^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$"
 >       }
 >     },
->     required: [
->       "display_name",
->       "username",
->       "email"
->     ],
+>     required: [ "display_name", "username", "email" ],
 >     additionalProperties: false
 >   }
 > */

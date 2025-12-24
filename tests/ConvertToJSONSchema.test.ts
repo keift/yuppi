@@ -31,6 +31,7 @@ const schema: Schema = {
 const example_json_schema = {
   additionalProperties: false,
   type: 'object',
+  required: ['display_name', 'username', 'email'],
   properties: {
     display_name: {
       maxLength: 32,
@@ -46,8 +47,7 @@ const example_json_schema = {
       pattern: '^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$',
       type: 'string'
     }
-  },
-  required: ['display_name', 'username', 'email']
+  }
 };
 
 const conversion = Yupp.convertToJSONSchema(schema);
