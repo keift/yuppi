@@ -21,8 +21,8 @@ export const convertToJSONSchema = (schema: Schema) => {
 
       return schema;
     } else if (config.type === 'number') {
-      let exclusive_minimum = undefined;
-      let exclusive_maximum = undefined;
+      let exclusive_minimum;
+      let exclusive_maximum;
 
       if (config.positive === true && config.min === undefined) exclusive_minimum = 0;
 
