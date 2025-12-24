@@ -282,7 +282,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >     properties: {
 >       display_name: {
 >         type: "string",
->         maxLength: 32,
+>         maxLength: 32
 >       },
 >       username: {
 >         type: "string",
@@ -292,7 +292,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >       },
 >       email: {
 >         type: "string",
->         pattern: "^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$",
+>         pattern: "^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$"
 >       }
 >     },
 >     required: [
