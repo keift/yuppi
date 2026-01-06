@@ -98,7 +98,7 @@ deno add yuppi
 Briefly as follows.
 
 ```typescript
-Yuppi
+yuppi
 │
 ├── new Yuppi(options?)
 │   │

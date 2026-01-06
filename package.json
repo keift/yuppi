@@ -22,8 +22,8 @@
     "yup": "^1.7.1"
   },
   "devDependencies": {
-    "neatlint": "latest",
     "prettier": "latest",
+    "rulint": "latest",
     "tsup": "latest"
   },
   "repository": {
