@@ -15,7 +15,7 @@
     "lint": "eslint ./"
   },
   "dependencies": {
-    "@sinclair/typebox": "^0.34.46",
+    "@sinclair/typebox": "^0.34.47",
     "@types/lodash.merge": "^4.6.9",
     "json-schema-to-typescript": "^15.0.4",
     "lodash.merge": "^4.6.2",
