@@ -36,7 +36,7 @@ const properties = {
 
 for (let i = 0; i < correct_schemas.length; i++) {
   try {
-    Yupp.validate(correct_schemas[i], properties);
+    await Yupp.validate(correct_schemas[i], properties);
 
     console.log(`✅ Success ${(i + 1).toString()}/${correct_schemas.length.toString()} [CORRECT_SCHEMAS]`);
   } catch {
@@ -46,7 +46,7 @@ for (let i = 0; i < correct_schemas.length; i++) {
 
 for (let i = 0; i < faulty_schemas.length; i++) {
   try {
-    Yupp.validate(faulty_schemas[i], properties);
+    await Yupp.validate(faulty_schemas[i], properties);
 
     throw new Error(`❌ Error ${(i + 1).toString()}/${faulty_schemas.length.toString()} [FAULTY_SCHEMAS]`);
   } catch (error) {

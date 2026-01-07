@@ -159,7 +159,7 @@ Validate the properties with your Yuppi schema.
 > | schema     | [Schema]    |         | Yuppi schema.              |
 > | properties | [AnyObject] |         | Properties to be validate. |
 >
-> returns [AnyObject]
+> returns [Promise]<[AnyObject]>
 >
 > Example:
 >
@@ -197,7 +197,7 @@ Validate the properties with your Yuppi schema.
 > };
 >
 > try {
->   Yupp.validate(schema, properties);
+>   await Yupp.validate(schema, properties);
 >   /*
 >     {
 >       display_name: "Fırat",
@@ -232,7 +232,7 @@ Declare your Yuppi schema for TypeScript.
 >
 > Yupp.declare(schema, 'User');
 >
-> const user = Yupp.validate(schema, properties) as User;
+> const user = (await Yupp.validate(schema, properties)) as User;
 > /*
 >   interface User {
 >     display_name: string;

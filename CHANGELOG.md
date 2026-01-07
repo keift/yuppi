@@ -3,6 +3,7 @@
 ## v1.2.12 → v1.3.0
 
 - Added:
+  - **Asynchronous validate.** `Yuppi.validate()` method is no longer synchronous.
   - **`Yuppi.declare()` method.** Declare your Yuppi schema for TypeScript.
   - **`enum` in string type.** Allows to accept only predefined strings.
   - **`enum` in number type.** Allows to accept only predefined numbers.
