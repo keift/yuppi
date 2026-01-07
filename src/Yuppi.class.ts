@@ -1,6 +1,6 @@
 import { compile, type JSONSchema as JSONSchema2 } from 'json-schema-to-typescript';
 import merge from 'lodash.merge';
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 
 import { convertToJSONSchema } from './utils/ConvertToJSONSchema.util';
@@ -42,9 +42,9 @@ export class Yuppi {
     void (async () => {
       const type = await compile(this.convertToJSONSchema(schema) as JSONSchema2, name, { bannerComment: banner_comment });
 
-      fs.mkdirSync(types_dir, { recursive: true });
+      await fs.mkdir(types_dir, { recursive: true });
 
-      fs.writeFileSync(path.join(types_dir, `${name}.d.ts`), type);
+      await fs.writeFile(path.join(types_dir, `${name}.d.ts`), type);
     })();
   }
 
