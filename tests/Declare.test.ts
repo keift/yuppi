@@ -28,6 +28,6 @@ const schema: Schema = {
   }
 };
 
-Yupp.declare(schema, 'User');
+await Yupp.declare(schema, 'User');
 
 console.log('✅ Success');
