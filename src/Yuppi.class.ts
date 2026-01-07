@@ -27,7 +27,7 @@ export class Yuppi {
     return yup_schema.validate(properties, this.options.validate_options);
   }
 
-  public declare(schema: Schema, name: string) {
+  public async declare(schema: Schema, name: string) {
     name = pascalCase(name);
 
     const types_dir = path.join(this.options.folder_path ?? './', 'yuppi', 'types');
@@ -39,13 +39,11 @@ export class Yuppi {
  * Use \`Yuppi.declare()\` to regenerate this type.
  */`;
 
-    void (async () => {
-      const type = await compile(this.convertToJSONSchema(schema) as JSONSchema2, name, { bannerComment: banner_comment });
+    const type = await compile(this.convertToJSONSchema(schema) as JSONSchema2, name, { bannerComment: banner_comment });
 
-      await fs.mkdir(types_dir, { recursive: true });
+    await fs.mkdir(types_dir, { recursive: true });
 
-      await fs.writeFile(path.join(types_dir, `${name}.d.ts`), type);
-    })();
+    await fs.writeFile(path.join(types_dir, `${name}.d.ts`), type);
   }
 
   public convertToYup(schema: Schema) {

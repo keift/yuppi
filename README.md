@@ -223,14 +223,14 @@ Declare your Yuppi schema for TypeScript.
 > | schema    | [Schema] |         | Yuppi schema.     |
 > | name      | [String] |         | Declaration name. |
 >
-> returns [Void]
+> returns [Promise]<[Void]>
 >
 > Example:
 >
 > ```typescript
 > import type { User } from './yuppi/types/User';
 >
-> Yupp.declare(schema, 'User');
+> await Yupp.declare(schema, 'User');
 >
 > const user = (await Yupp.validate(schema, properties)) as User;
 > /*
