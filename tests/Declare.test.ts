@@ -1,6 +1,6 @@
 import { Yuppi, Patterns, type Schema } from '../src/main';
 
-const Yupp = new Yuppi({ folder_path: './tests' });
+const Yupp = new Yuppi({ folder_path: './tests/generated' });
 
 const schema: Schema = {
   display_name: {
