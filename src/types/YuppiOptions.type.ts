@@ -1,7 +1,7 @@
 import type { ValidateOptions } from './ValidateOptions.type';
 
 export type YuppiOptions = {
-  output_path?: string;
+  output_dir?: string;
 
   error_messages?: {
     base?: {
