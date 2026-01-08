@@ -30,7 +30,7 @@ export class Yuppi {
   public async declare(schema: Schema, name: string) {
     name = pascalCase(name);
 
-    const types_dir = path.join(this.options.folder_path ?? './', 'yuppi', 'types');
+    const types_dir = path.join(this.options.output_path ?? './', 'types');
     const banner_comment = `/* eslint-disable */
 
 /**

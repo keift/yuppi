@@ -1,7 +1,7 @@
 import type { YuppiOptions } from '../types/YuppiOptions.type';
 
 export const YuppiOptionsDefault: YuppiOptions = {
-  folder_path: './generated',
+  output_path: './generated/yuppi',
 
   error_messages: {
     base: {
