@@ -21,7 +21,6 @@
 [AnyObject]: ./src/types/AnyObject.type.ts
 [JSONSchema]: ./src/types/JSONSchema.type.ts
 [Schema]: ./src/types/Schema.type.ts
-[ValidateOptions]: ./src/types/ValidateOptions.type.ts
 [ValidationError]: ./src/types/ValidationError.type.ts
 [YuppiOptions]: ./src/types/YuppiOptions.type.ts
 
@@ -119,7 +118,6 @@ yuppi
 ├── type AnyObject
 ├── type JSONSchema
 ├── type Schema
-├── type ValidateOptions
 ├── type ValidationError
 └── type YuppiOptions
 ```
@@ -319,7 +317,6 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 | [AnyObject]       |
 | [JSONSchema]      |
 | [Schema]          |
-| [ValidateOptions] |
 | [ValidationError] |
 | [YuppiOptions]    |
 
