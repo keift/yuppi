@@ -47,10 +47,10 @@ export class Yuppi {
   }
 
   public convertToYup(schema: Schema) {
-    return convertToYup(schema, this.options.error_messages);
+    return convertToYup(schema, this.options);
   }
 
   public convertToJSONSchema(schema: Schema): JSONSchema {
-    return JSON.parse(JSON.stringify(convertToJSONSchema(schema))) as JSONSchema;
+    return JSON.parse(JSON.stringify(convertToJSONSchema(schema, this.options))) as JSONSchema;
   }
 }

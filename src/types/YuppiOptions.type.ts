@@ -1,4 +1,4 @@
-import type { ValidateOptions } from './ValidateOptions.type';
+import type { ValidateOptions } from 'yup';
 
 export type YuppiOptions = {
   output_dir?: string;

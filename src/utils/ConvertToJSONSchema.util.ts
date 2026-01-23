@@ -1,8 +1,9 @@
 import { Type, type TAnySchema } from '@sinclair/typebox';
 
 import type { Schema, Types } from '../types/Schema.type';
+import type { YuppiOptions } from '../types/YuppiOptions.type';
 
-export const convertToJSONSchema = (schema: Schema) => {
+export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
   const base = (schema: TAnySchema, key: string, config: Types) => {
     if (config.nullable || config.default === null) schema = Type.Union([schema, Type.Null()]);
 
@@ -50,7 +51,7 @@ export const convertToJSONSchema = (schema: Schema) => {
 
       for (const [nested_key, nested_config] of Object.entries(config.properties)) nested_properties[nested_key] = build(nested_key, nested_config);
 
-      schema = Type.Object(nested_properties, { default: config.default, additionalProperties: false });
+      schema = Type.Object(nested_properties, { default: config.default, additionalProperties: !(options.validate_options?.stripUnknown ?? false) });
 
       schema = base(schema, key, config);
 
@@ -69,5 +70,5 @@ export const convertToJSONSchema = (schema: Schema) => {
 
   for (const [key, config] of Object.entries(schema)) properties[key] = build(key, config);
 
-  return Type.Object(properties, { additionalProperties: false });
+  return Type.Object(properties, { additionalProperties: !(options.validate_options?.stripUnknown ?? false) });
 };
