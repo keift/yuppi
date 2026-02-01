@@ -14,11 +14,36 @@ import type { JSONSchema } from './types/JSONSchema.type';
 import type { Schema } from './types/Schema.type';
 import type { YuppiOptions } from './types/YuppiOptions.type';
 
+let types_dir_cleaned = false;
+
 export class Yuppi {
   private readonly options: YuppiOptions;
 
   public constructor(options: YuppiOptions = YuppiOptionsDefault) {
     this.options = merge({}, YuppiOptionsDefault, options);
+
+    void this.cleanupTypesDir();
+  }
+
+  private async cleanupTypesDir() {
+    const types_dir = path.join(this.options.output_dir ?? './', 'types');
+
+    const exists = async (path: string) => {
+      try {
+        await fs.access(path, fs.constants.F_OK);
+
+        return true;
+      } catch {
+        return false;
+      }
+    };
+
+    if ((await exists(types_dir)) && !types_dir_cleaned) {
+      types_dir_cleaned = true;
+
+      await fs.rm(types_dir, { recursive: true, force: true });
+      await fs.mkdir(types_dir, { recursive: true });
+    }
   }
 
   public validate(schema: Schema, properties: AnyObject) {
