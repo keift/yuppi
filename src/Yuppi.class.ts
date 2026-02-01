@@ -14,7 +14,7 @@ import type { JSONSchema } from './types/JSONSchema.type';
 import type { Schema } from './types/Schema.type';
 import type { YuppiOptions } from './types/YuppiOptions.type';
 
-let types_dir_cleaned = false;
+const cleaned_types_dirs = new Set<string>();
 
 export class Yuppi {
   private readonly options: YuppiOptions;
@@ -38,8 +38,8 @@ export class Yuppi {
       }
     };
 
-    if ((await exists(types_dir)) && !types_dir_cleaned) {
-      types_dir_cleaned = true;
+    if ((await exists(types_dir)) && !cleaned_types_dirs.has(types_dir)) {
+      cleaned_types_dirs.add(types_dir);
 
       await fs.rm(types_dir, { recursive: true, force: true });
       await fs.mkdir(types_dir, { recursive: true });
