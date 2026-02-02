@@ -248,7 +248,7 @@ Declare your Yuppi schema for TypeScript.
 > Example:
 >
 > ```typescript
-> import type { User } from './yuppi/types/User';
+> import type { User } from './generated/yuppi/types/User';
 >
 > await Yupp.declare(schema, 'User');
 >
