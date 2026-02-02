@@ -185,13 +185,34 @@ Validate the properties with your Yuppi schema.
 >     lowercase: true,
 >     nullable: false,
 >     required: true
->   }
+>   },
+>
+>   permissions: [
+>     {
+>       type: 'string',
+>       enum: ['*'],
+>       nullable: false,
+>       required: true
+>     },
+>     {
+>       type: 'array',
+>       items: {
+>         type: 'string',
+>         enum: ['read', 'write'],
+>         nullable: false,
+>         required: true
+>       },
+>       nullable: false,
+>       required: true
+>     }
+>   ]
 > };
 >
 > const properties = {
 >   display_name: 'Fırat',
 >   username: 'fir4tozden',
->   email: 'fir4tozden@gmail.com'
+>   email: 'fir4tozden@gmail.com',
+>   permissions: '*'
 > };
 >
 > try {
@@ -200,7 +221,8 @@ Validate the properties with your Yuppi schema.
 >     {
 >       display_name: "Fırat",
 >       username: "fir4tozden",
->       email: "fir4tozden@gmail.com"
+>       email: "fir4tozden@gmail.com",
+>       permissions: "*"
 >     }
 >   */
 > } catch (error) {
@@ -236,6 +258,7 @@ Declare your Yuppi schema for TypeScript.
 >     display_name: string;
 >     username: string;
 >     email: string;
+>     permissions: "*" | ("read" | "write")[];
 >   }
 > */
 > ```
@@ -291,11 +314,26 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >       email: {
 >         type: "string",
 >         pattern: "^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$"
+>       },
+>       permissions: {
+>         anyOf: [
+>           {
+>             type: "string",
+>             enum: ["*"]
+>           },
+>           {
+>             type: "array",
+>             items: {
+>               type: "string",
+>               enum: ["read", "write"]
+>             }
+>           }
+>         ]
 >       }
 >     },
->     required: [ "display_name", "username", "email" ],
+>     required: ["display_name", "username", "email", "permissions"],
 >     additionalProperties: false
->   }
+>   };
 > */
 > ```
 

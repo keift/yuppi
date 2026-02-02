@@ -10,4 +10,5 @@ export interface User {
   display_name: string;
   username: string;
   email: string;
+  permissions: '*' | ('read' | 'write')[];
 }

@@ -25,7 +25,27 @@ const schema: Schema = {
     lowercase: true,
     nullable: false,
     required: true
-  }
+  },
+
+  permissions: [
+    {
+      type: 'string',
+      enum: ['*'],
+      nullable: false,
+      required: true
+    },
+    {
+      type: 'array',
+      items: {
+        type: 'string',
+        enum: ['read', 'write'],
+        nullable: false,
+        required: true
+      },
+      nullable: false,
+      required: true
+    }
+  ]
 };
 
 await Yupp.declare(schema, 'User');

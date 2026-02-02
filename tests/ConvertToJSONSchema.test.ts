@@ -25,13 +25,33 @@ const schema: Schema = {
     lowercase: true,
     nullable: false,
     required: true
-  }
+  },
+
+  permissions: [
+    {
+      type: 'string',
+      enum: ['*'],
+      nullable: false,
+      required: true
+    },
+    {
+      type: 'array',
+      items: {
+        type: 'string',
+        enum: ['read', 'write'],
+        nullable: false,
+        required: true
+      },
+      nullable: false,
+      required: true
+    }
+  ]
 };
 
 const example_json_schema = {
   additionalProperties: false,
   type: 'object',
-  required: ['display_name', 'username', 'email'],
+  required: ['display_name', 'username', 'email', 'permissions'],
   properties: {
     display_name: {
       maxLength: 32,
@@ -46,11 +66,28 @@ const example_json_schema = {
     email: {
       pattern: '^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$',
       type: 'string'
+    },
+    permissions: {
+      anyOf: [
+        {
+          enum: ['*'],
+          type: 'string'
+        },
+        {
+          type: 'array',
+          items: {
+            enum: ['read', 'write'],
+            type: 'string'
+          }
+        }
+      ]
     }
   }
 };
 
 const conversion = Yupp.convertToJSONSchema(schema);
+
+console.log(JSON.stringify(conversion, null, 2));
 
 if (JSON.stringify(conversion) !== JSON.stringify(example_json_schema)) throw new Error('❌ Error');
 
