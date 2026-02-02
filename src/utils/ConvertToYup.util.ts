@@ -4,11 +4,11 @@
 import * as Yup from 'yup';
 
 import type { AnyObject } from '../types/AnyObject.type';
-import type { Schema, Types } from '../types/Schema.type';
+import type { Schema, Types, Type } from '../types/Schema.type';
 import type { YuppiOptions } from '../types/YuppiOptions.type';
 
 export const convertToYup = (schema: Schema, options: YuppiOptions) => {
-  const base = (schema: AnyObject, key: string, config: Types) => {
+  const base = (schema: AnyObject, key: string, config: Type) => {
     schema = schema.nullable();
     schema = schema.optional();
 
@@ -31,11 +31,11 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
     return schema;
   };
 
-  const build = (key: string, config: Types) => {
+  const buildSingle = (key: string, config: Type) => {
     let schema: AnyObject;
 
     if (config.type === 'string') {
-      schema = Yup.string().typeError(({ path }: { path: string }) => (options.error_messages?.string?.type ?? '').replaceAll('{path}', path));
+      schema = Yup.string().strict().typeError(({ path }: { path: string }) => (options.error_messages?.string?.type ?? '').replaceAll('{path}', path));
 
       schema = schema.transform((property: unknown) => (typeof property === 'string' ? property.trim() : property));
 
@@ -71,7 +71,7 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
 
       return schema;
     } else if (config.type === 'number') {
-      schema = Yup.number().typeError(({ path }: { path: string }) => (options.error_messages?.number?.type ?? '').replaceAll('{path}', path));
+      schema = Yup.number().strict().typeError(({ path }: { path: string }) => (options.error_messages?.number?.type ?? '').replaceAll('{path}', path));
 
       if (config.enum) schema = schema.oneOf(config.enum, ({ path }: { path: string }) => (options.error_messages?.number?.enum ?? '').replaceAll('{path}', path));
 
@@ -89,7 +89,7 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
 
       return schema;
     } else if (config.type === 'boolean') {
-      schema = Yup.boolean().typeError(({ path }: { path: string }) => (options.error_messages?.boolean?.type ?? '').replaceAll('{path}', path));
+      schema = Yup.boolean().strict().typeError(({ path }: { path: string }) => (options.error_messages?.boolean?.type ?? '').replaceAll('{path}', path));
 
       schema = base(schema, key, config);
 
@@ -105,7 +105,7 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
 
       return schema;
     } else if (config.type === 'object') {
-      schema = Yup.object().typeError(({ path }: { path: string }) => (options.error_messages?.object?.type ?? '').replaceAll('{path}', path));
+      schema = Yup.object().strict().typeError(({ path }: { path: string }) => (options.error_messages?.object?.type ?? '').replaceAll('{path}', path));
 
       const nested_properties: AnyObject = {};
 
@@ -118,7 +118,7 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
       return schema;
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     } else if (config.type === 'array') {
-      schema = Yup.array().typeError(({ path }: { path: string }) => (options.error_messages?.array?.type ?? '').replaceAll('{path}', path));
+      schema = Yup.array().strict().typeError(({ path }: { path: string }) => (options.error_messages?.array?.type ?? '').replaceAll('{path}', path));
 
       if (config.min !== undefined)
         schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) =>
@@ -141,7 +141,19 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
       schema = base(schema, key, config);
 
       return schema;
-    } else throw new Error(`Unsupported schema type for ${key}`);
+    }
+  };
+
+  const build = (key: string, config: Types) => {
+    if (!Array.isArray(config)) return buildSingle(key, config);
+
+    const schemas = config.map((config) => buildSingle(key, config) as Yup.AnySchema);
+
+    return Yup.lazy((property) => {
+      for (const schema of schemas) if (schema.isValidSync(property)) return schema;
+
+      return buildSingle(key, config[0]) as Yup.AnySchema;
+    });
   };
 
   const properties: AnyObject = {};

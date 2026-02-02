@@ -5,7 +5,7 @@ const Yupp = new Yuppi();
 const schema: Schema = {
   field: {
     type: 'number',
-    max: 1,
+    max: 0,
     nullable: false,
     required: true
   }
@@ -13,13 +13,13 @@ const schema: Schema = {
 
 const correct_properties = [
   {
-    field: 1
+    field: 0
   }
 ];
 
 const faulty_properties = [
   {
-    field: 2
+    field: 1
   }
 ];
 

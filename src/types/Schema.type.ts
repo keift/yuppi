@@ -60,6 +60,10 @@ export type Array = {
   required: boolean;
 };
 
-export type Types = String | Number | Boolean | Date | Object | Array;
+export type Type = String | Number | Boolean | Date | Object | Array;
+
+export type Union = [Type, Type, ...Type[]];
+
+export type Types = Type | Union;
 
 export type Schema = Record<string, Types>;

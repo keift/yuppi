@@ -18,7 +18,7 @@ const correct_properties = [
 
 const faulty_properties = [
   {
-    field: []
+    field: 'test'
   }
 ];
 

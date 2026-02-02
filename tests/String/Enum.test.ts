@@ -5,7 +5,7 @@ const Yupp = new Yuppi();
 const schema: Schema = {
   field: {
     type: 'string',
-    enum: ['a'],
+    enum: ['test'],
     nullable: false,
     required: true
   }
@@ -13,13 +13,13 @@ const schema: Schema = {
 
 const correct_properties = [
   {
-    field: 'a'
+    field: 'test'
   }
 ];
 
 const faulty_properties = [
   {
-    field: 'b'
+    field: 'testt'
   }
 ];
 

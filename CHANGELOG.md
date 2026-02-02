@@ -1,5 +1,12 @@
 # Change Log
 
+## v1.3.22 → 1.4.0
+
+- Added:
+  - **Union types.** Fields in schemas can be accepted as multiple types using arrays.
+  - **Strict validations.** Properties must conform to the required type. Casting operations have been removed.
+  - **Declare directory cleanup.** The directory where types are declared is cleaned each time, so unused types are removed.
+
 ## v1.2.12 → v1.3.0
 
 - Added:

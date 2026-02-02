@@ -1,24 +1,34 @@
-import { Yuppi, type Schema, type ValidationError } from '../../src/main';
+import { Yuppi, type Schema, type ValidationError } from '../src/main';
 
-const Yupp = new Yuppi();
+const Yupp = new Yuppi({ output_dir: './tests/generated/yuppi' });
 
 const schema: Schema = {
-  field: {
-    type: 'date',
-    nullable: false,
-    required: true
-  }
+  field: [
+    {
+      type: 'string',
+      nullable: false,
+      required: true
+    },
+    {
+      type: 'number',
+      nullable: false,
+      required: true
+    }
+  ]
 };
 
 const correct_properties = [
   {
-    field: '2025-01-01'
+    field: 'test'
+  },
+  {
+    field: 0
   }
 ];
 
 const faulty_properties = [
   {
-    field: 'test'
+    field: true
   }
 ];
 
