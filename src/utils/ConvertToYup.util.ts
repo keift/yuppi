@@ -35,7 +35,9 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
     let schema: AnyObject;
 
     if (config.type === 'string') {
-      schema = Yup.string().strict().typeError(({ path }: { path: string }) => (options.error_messages?.string?.type ?? '').replaceAll('{path}', path));
+      schema = Yup.string()
+        .strict()
+        .typeError(({ path }: { path: string }) => (options.error_messages?.string?.type ?? '').replaceAll('{path}', path));
 
       schema = schema.transform((property: unknown) => (typeof property === 'string' ? property.trim() : property));
 
@@ -71,7 +73,9 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
 
       return schema;
     } else if (config.type === 'number') {
-      schema = Yup.number().strict().typeError(({ path }: { path: string }) => (options.error_messages?.number?.type ?? '').replaceAll('{path}', path));
+      schema = Yup.number()
+        .strict()
+        .typeError(({ path }: { path: string }) => (options.error_messages?.number?.type ?? '').replaceAll('{path}', path));
 
       if (config.enum) schema = schema.oneOf(config.enum, ({ path }: { path: string }) => (options.error_messages?.number?.enum ?? '').replaceAll('{path}', path));
 
@@ -89,7 +93,9 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
 
       return schema;
     } else if (config.type === 'boolean') {
-      schema = Yup.boolean().strict().typeError(({ path }: { path: string }) => (options.error_messages?.boolean?.type ?? '').replaceAll('{path}', path));
+      schema = Yup.boolean()
+        .strict()
+        .typeError(({ path }: { path: string }) => (options.error_messages?.boolean?.type ?? '').replaceAll('{path}', path));
 
       schema = base(schema, key, config);
 
@@ -105,7 +111,9 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
 
       return schema;
     } else if (config.type === 'object') {
-      schema = Yup.object().strict().typeError(({ path }: { path: string }) => (options.error_messages?.object?.type ?? '').replaceAll('{path}', path));
+      schema = Yup.object()
+        .strict()
+        .typeError(({ path }: { path: string }) => (options.error_messages?.object?.type ?? '').replaceAll('{path}', path));
 
       const nested_properties: AnyObject = {};
 
@@ -118,7 +126,9 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
       return schema;
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     } else if (config.type === 'array') {
-      schema = Yup.array().strict().typeError(({ path }: { path: string }) => (options.error_messages?.array?.type ?? '').replaceAll('{path}', path));
+      schema = Yup.array()
+        .strict()
+        .typeError(({ path }: { path: string }) => (options.error_messages?.array?.type ?? '').replaceAll('{path}', path));
 
       if (config.min !== undefined)
         schema = schema.min(config.min, ({ path, min }: { path: string; min: number }) =>
