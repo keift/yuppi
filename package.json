@@ -1,7 +1,7 @@
 {
   "name": "yuppi",
   "version": "1.4.1",
-  "description": "Schemas that can be converted to Yup and JSON Schema.",
+  "description": "Perform validation using portable and simple schemas.",
   "license": "MIT",
   "homepage": "https://github.com/keift/yuppi",
   "bugs": "https://github.com/keift/yuppi/issues",
