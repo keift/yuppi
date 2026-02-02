@@ -56,7 +56,7 @@
 
 ## About
 
-Perform validation using portable and simple schemas.
+Portable and simple schemas for properties validation.
 
 ## Features
 

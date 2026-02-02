@@ -1,7 +1,7 @@
 {
   "name": "yuppi",
-  "version": "1.4.1",
-  "description": "Perform validation using portable and simple schemas.",
+  "version": "1.4.2",
+  "description": "Portable and simple schemas for properties validation.",
   "license": "MIT",
   "homepage": "https://github.com/keift/yuppi",
   "bugs": "https://github.com/keift/yuppi/issues",
