@@ -66,7 +66,7 @@ export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
     } else throw new Error(`Unsupported schema type for ${key}`);
   };
 
-  const build = (key: string, config: Types): TAnySchema => {
+  const build = (key: string, config: Types) => {
     if (!Array.isArray(config)) return buildSingle(key, config);
 
     const schemas = config.map((config) => buildSingle(key, config));

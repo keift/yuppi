@@ -87,8 +87,6 @@ const example_json_schema = {
 
 const conversion = Yupp.convertToJSONSchema(schema);
 
-console.log(JSON.stringify(conversion, null, 2));
-
 if (JSON.stringify(conversion) !== JSON.stringify(example_json_schema)) throw new Error('❌ Error');
 
 console.log('✅ Success');
