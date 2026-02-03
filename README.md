@@ -60,14 +60,13 @@ Portable and simple schemas for property validation.
 
 ## Features
 
-- Easy and understandable schema
+- Easy and understandable schemas
 - Contains ready regex patterns
 - Portable schemas as a JSON file
-- Works with [Yup](https://npmjs.com/package/yup), stable and secure
 - Schemas can be declared for TypeScript
-- It has union support, properties can have multiple types
+- Schemas can be converted to [JSON Schema](https://json-schema.org). JSON Schema is OpenAPI compatible
 - Error messages are ready to be understood but can be edited if desired
-- Yuppi schemas can be converted to [JSON Schema](https://json-schema.org). JSON Schema is OpenAPI compatible
+- Works with [Yup](https://npmjs.com/package/yup), stable and secure
 
 ## Installation
 
