@@ -9,6 +9,7 @@ import { pascalCase } from './utils/PascalCase.util';
 
 import { YuppiOptionsDefault } from './defaults/YuppiOptions.default';
 
+import type { AnyObject } from './types/AnyObject.type';
 import type { JSONSchema } from './types/JSONSchema.type';
 import type { Schema } from './types/Schema.type';
 import type { YuppiOptions } from './types/YuppiOptions.type';
@@ -45,7 +46,7 @@ export class Yuppi {
     }
   }
 
-  public validate(schema: Schema, properties: unknown) {
+  public validate(schema: Schema, properties: AnyObject) {
     const yup_schema = this.convertToYup(schema);
 
     return yup_schema.validate(properties, this.options.validate_options);
