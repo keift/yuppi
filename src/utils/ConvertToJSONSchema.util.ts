@@ -63,7 +63,7 @@ export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
       schema = base(schema, key, config);
 
       return schema;
-    } else throw new Error(`Unsupported schema type for ${key}`);
+    } else throw new Error(`Invalid schema type for ${key}`);
   };
 
   const build = (key: string, config: Types) => {

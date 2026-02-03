@@ -17,12 +17,19 @@
 [PhoneNumber]: ./src/patterns/PhoneNumber.pattern.ts
 [URI]: ./src/patterns/URI.pattern.ts
 [Username]: ./src/patterns/Username.pattern.ts
+
+<!---->
+
 [YuppiOptionsDefault]: ./src/defaults/YuppiOptions.default.ts
+
+<!---->
+
 [AnyObject]: ./src/types/AnyObject.type.ts
 [JSONSchema]: ./src/types/JSONSchema.type.ts
 [Schema]: ./src/types/Schema.type.ts
 [ValidationError]: ./src/types/ValidationError.type.ts
 [YuppiOptions]: ./src/types/YuppiOptions.type.ts
+[YupSchema]: ./src/types/YupSchema.type.ts
 
 <div align="center">
   <br/>
@@ -118,7 +125,8 @@ yuppi
 ├── type JSONSchema
 ├── type Schema
 ├── type ValidationError
-└── type YuppiOptions
+├── type YuppiOptions
+└── type YupSchema
 ```
 
 ### Import
@@ -272,7 +280,7 @@ Convert your Yuppi schema into Yup schema.
 > | --------- | -------- | ------- | ------------- |
 > | schema    | [Schema] |         | Yuppi schema. |
 >
-> returns [AnyObject]
+> returns [YupSchema]
 >
 > Example:
 >
@@ -356,6 +364,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 | [Schema]          |
 | [ValidationError] |
 | [YuppiOptions]    |
+| [YupSchema]       |
 
 ## Links
 

@@ -1,3 +1,3 @@
-import type { TAnySchema, TObject } from '@sinclair/typebox';
+import type { TAnySchema } from '@sinclair/typebox';
 
-export type JSONSchema = TObject<Record<string, TAnySchema>>;
+export type JSONSchema = TAnySchema;
