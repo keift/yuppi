@@ -67,7 +67,7 @@ Portable and simple schemas for property validation.
 - Schemas can be declared for TypeScript
 - It has union support, properties can have multiple types
 - Error messages are ready to be understood but can be edited if desired
-- Can be converted to Yup and [JSON Schema](https://json-schema.org). JSON Schema is OpenAPI compatible
+- Yuppi schemas can be converted to [JSON Schema](https://json-schema.org). JSON Schema is OpenAPI compatible
 
 ## Installation
 
