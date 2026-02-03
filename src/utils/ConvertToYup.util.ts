@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import type { AnyObject } from '../types/AnyObject.type';
 import type { Schema, Types, Type } from '../types/Schema.type';
 import type { YuppiOptions } from '../types/YuppiOptions.type';
+import type { YupSchema } from '../types/YupSchema.type';
 
 export const convertToYup = (schema: Schema, options: YuppiOptions) => {
   const base = (schema: AnyObject, key: string, config: Type) => {
@@ -149,12 +150,12 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
   const build = (key: string, config: Types) => {
     if (!Array.isArray(config)) return buildSingle(key, config);
 
-    const schemas = config.map((config) => buildSingle(key, config) as Yup.AnySchema);
+    const schemas = config.map((config) => buildSingle(key, config) as YupSchema);
 
     return Yup.lazy((property) => {
       for (const schema of schemas) if (schema.isValidSync(property)) return schema;
 
-      return buildSingle(key, config[0]) as Yup.AnySchema;
+      return buildSingle(key, config[0]) as YupSchema;
     });
   };
 
