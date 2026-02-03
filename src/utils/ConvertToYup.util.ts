@@ -3,11 +3,12 @@
 
 import * as Yup from 'yup';
 
+import type { AnyObject } from '../types/AnyObject.type';
 import type { Schema, Types, Type } from '../types/Schema.type';
 import type { YuppiOptions } from '../types/YuppiOptions.type';
 
 export const convertToYup = (schema: Schema, options: YuppiOptions) => {
-  const base = (schema: Yup.AnyObject, key: string, config: Type) => {
+  const base = (schema: AnyObject, key: string, config: Type) => {
     schema = schema.strict();
     schema = schema.nullable();
     schema = schema.optional();
@@ -32,7 +33,7 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
   };
 
   const buildSingle = (key: string, config: Type) => {
-    let schema: Yup.AnyObject;
+    let schema: AnyObject;
 
     if (config.type === 'string') {
       schema = Yup.string().typeError(({ path }: { path: string }) => (options.error_messages?.string?.type ?? '').replaceAll('{path}', path));
@@ -108,7 +109,7 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
     } else if (config.type === 'object') {
       schema = Yup.object().typeError(({ path }: { path: string }) => (options.error_messages?.object?.type ?? '').replaceAll('{path}', path));
 
-      const nested_properties: Yup.AnyObject = {};
+      const nested_properties: AnyObject = {};
 
       for (const [nested_key, nested_config] of Object.entries(config.properties)) nested_properties[nested_key] = build(nested_key, nested_config);
 
@@ -157,7 +158,7 @@ export const convertToYup = (schema: Schema, options: YuppiOptions) => {
     });
   };
 
-  const properties: Yup.AnyObject = {};
+  const properties: AnyObject = {};
 
   for (const [key, config] of Object.entries(schema)) properties[key] = build(key, config);
 
