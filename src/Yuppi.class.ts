@@ -13,6 +13,7 @@ import type { AnyObject } from './types/AnyObject.type';
 import type { JSONSchema } from './types/JSONSchema.type';
 import type { Schema } from './types/Schema.type';
 import type { YuppiOptions } from './types/YuppiOptions.type';
+import type { YupSchema } from './types/YupSchema.type';
 
 const cleaned_types_dirs = new Set<string>();
 
@@ -46,7 +47,7 @@ export class Yuppi {
     }
   }
 
-  public validate(schema: Schema, properties: AnyObject) {
+  public validate(schema: Schema, properties: AnyObject): AnyObject {
     const yup_schema = this.convertToYup(schema);
 
     return yup_schema.validate(properties, this.options.validate_options);
@@ -71,11 +72,11 @@ export class Yuppi {
     await fs.writeFile(path.join(types_dir, `${name}.d.ts`), type);
   }
 
-  public convertToYup(schema: Schema) {
+  public convertToYup(schema: Schema): YupSchema {
     return convertToYup(schema, this.options);
   }
 
-  public convertToJSONSchema(schema: Schema) {
+  public convertToJSONSchema(schema: Schema): JSONSchema {
     return JSON.parse(JSON.stringify(convertToJSONSchema(schema, this.options))) as JSONSchema;
   }
 }
