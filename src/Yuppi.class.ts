@@ -53,7 +53,7 @@ export class Yuppi {
     return yup_schema.validate(properties, this.options.validate_options);
   }
 
-  public async declare(schema: Schema, name: string) {
+  public async declare(schema: Schema, name: string): Promise<void> {
     name = pascalCase(name);
 
     const types_dir = path.join(this.options.output_dir ?? './', 'types');
