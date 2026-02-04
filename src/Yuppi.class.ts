@@ -47,7 +47,7 @@ export class Yuppi {
     }
   }
 
-  public validate(schema: Schema, properties: AnyObject): AnyObject {
+  public validate(schema: Schema, properties: AnyObject): Promise<AnyObject> {
     const yup_schema = this.convertToYup(schema);
 
     return yup_schema.validate(properties, this.options.validate_options);
