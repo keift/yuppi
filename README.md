@@ -143,9 +143,9 @@ import { Yuppi, Patterns } from 'yuppi';
 
 Yuppi schema builder.
 
-> | Parameter | Type           | Default               | Description            |
-> | --------- | -------------- | --------------------- | ---------------------- |
-> | options?  | [YuppiOptions] | [YuppiOptionsDefault] | Constructor's options. |
+> | Parameter  | Type           | Default               | Description            |
+> | ---------- | -------------- | --------------------- | ---------------------- |
+> | `options?` | [YuppiOptions] | [YuppiOptionsDefault] | Constructor's options. |
 >
 > Example:
 >
@@ -159,10 +159,10 @@ Yuppi schema builder.
 
 Validate the properties with your Yuppi schema.
 
-> | Parameter  | Type        | Default | Description                |
-> | ---------- | ----------- | ------- | -------------------------- |
-> | schema     | [Schema]    |         | Yuppi schema.              |
-> | properties | [AnyObject] |         | Properties to be validate. |
+> | Parameter    | Type        | Default | Description                |
+> | ------------ | ----------- | ------- | -------------------------- |
+> | `schema`     | [Schema]    |         | Yuppi schema.              |
+> | `properties` | [AnyObject] |         | Properties to be validate. |
 >
 > returns [Promise]<[AnyObject]>
 >
@@ -247,8 +247,8 @@ Declare your Yuppi schema for TypeScript.
 
 > | Parameter | Type     | Default | Description       |
 > | --------- | -------- | ------- | ----------------- |
-> | schema    | [Schema] |         | Yuppi schema.     |
-> | name      | [String] |         | Declaration name. |
+> | `schema`  | [Schema] |         | Yuppi schema.     |
+> | `name`    | [String] |         | Declaration name. |
 >
 > returns [Promise]<[Void]>
 >
@@ -278,7 +278,7 @@ Convert your Yuppi schema into Yup schema.
 
 > | Parameter | Type     | Default | Description   |
 > | --------- | -------- | ------- | ------------- |
-> | schema    | [Schema] |         | Yuppi schema. |
+> | `schema`  | [Schema] |         | Yuppi schema. |
 >
 > returns [YupSchema]
 >
@@ -296,7 +296,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 
 > | Parameter | Type     | Default | Description   |
 > | --------- | -------- | ------- | ------------- |
-> | schema    | [Schema] |         | Yuppi schema. |
+> | `schema`  | [Schema] |         | Yuppi schema. |
 >
 > returns [JSONSchema]
 >
