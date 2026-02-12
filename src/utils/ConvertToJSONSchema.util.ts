@@ -1,10 +1,11 @@
-import { Type as Typebox, type TAnySchema } from '@sinclair/typebox';
+import { Type as Typebox } from '@sinclair/typebox';
 
+import type { JSONSchema } from '../types/JSONSchema.type';
 import type { Schema, Types, Type } from '../types/Schema.type';
 import type { YuppiOptions } from '../types/YuppiOptions.type';
 
 export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
-  const base = (schema: TAnySchema, key: string, config: Type) => {
+  const base = (schema: JSONSchema, key: string, config: Type) => {
     if (config.nullable || config.default === null) schema = Typebox.Union([schema, Typebox.Null()]);
 
     if (!config.required) schema = Typebox.Optional(schema);
@@ -13,7 +14,7 @@ export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
   };
 
   const buildSingle = (key: string, config: Type) => {
-    let schema: TAnySchema;
+    let schema: JSONSchema;
 
     if (config.type === 'string') {
       schema = Typebox.String({ enum: config.enum, minLength: config.min, maxLength: config.max, pattern: config.pattern !== undefined ? new RegExp(config.pattern).source : undefined, default: config.default });
@@ -47,7 +48,7 @@ export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       return schema;
     } else if (config.type === 'object') {
-      const nested_properties: Record<string, TAnySchema> = {};
+      const nested_properties: Record<string, JSONSchema> = {};
 
       for (const [nested_key, nested_config] of Object.entries(config.properties)) nested_properties[nested_key] = build(nested_key, nested_config);
 
@@ -78,7 +79,7 @@ export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
     return optional ? Typebox.Optional(union_schema) : union_schema;
   };
 
-  const properties: Record<string, TAnySchema> = {};
+  const properties: Record<string, JSONSchema> = {};
 
   for (const [key, config] of Object.entries(schema)) properties[key] = build(key, config);
 
