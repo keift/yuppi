@@ -57,30 +57,12 @@ const example_json_schema = {
       pattern: '^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$',
       trim: true,
       lowercase: true,
-      uppercase: true,
       type: 'string'
     },
     permissions: {
       anyOf: [
         { enum: ['*'], trim: true, type: 'string' },
         { type: 'array', items: { enum: ['read', 'write'], trim: true, type: 'string' } }
-      ]
-    }
-  }
-};
-
-const example_json_schema2 = {
-  additionalProperties: false,
-  type: 'object',
-  required: ['display_name', 'username', 'email'],
-  properties: {
-    display_name: { maxLength: 32, trim: true, type: 'string' },
-    username: { minLength: 3, maxLength: 16, pattern: '^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$', trim: true, type: 'string' },
-    email: { pattern: '^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$', trim: true, lowercase: true, uppercase: true, type: 'string' },
-    permissions: {
-      anyOf: [
-        { enum: ['*'], trim: true, type: 'string' },
-        { type: 'object', properties: {} }
       ]
     }
   }
