@@ -1,27 +1,21 @@
-export type Prettify<Type> = {
-  [Key in keyof Type]: Type[Key];
+type Prettify<TargetType> = {
+  [Key in keyof TargetType]: TargetType[Key];
 } & {};
 
-type InferBaseType<Type> = Type extends { type: 'string' } ? (Type extends { enum: readonly (infer EnumValues)[] } ? EnumValues : string) : Type extends { type: 'number' } ? (Type extends { enum: readonly (infer EnumValues)[] } ? EnumValues : number) : Type extends { type: 'boolean' } ? boolean : Type extends { type: 'date' } ? Date : Type extends { type: 'object'; properties: infer Properties } ? InferSchema<Properties> : Type extends { type: 'array'; items: infer Items } ? InferType<Items>[] : never;
+type IsOptional<TargetType> = TargetType extends readonly unknown[] ? (Exclude<TargetType[number], { required: false }> extends never ? true : false) : TargetType extends { required: false } ? true : false;
 
-type ApplyNullable<Type, Definition> = Definition extends { nullable: true } ? Type | null : Type;
+type ApplyNullable<TargetType, SchemaDefinition> = SchemaDefinition extends { nullable: true } ? TargetType | null : SchemaDefinition extends { default: null } ? TargetType | null : TargetType;
 
-type InferTypeSingle<Type> = Type extends unknown ? ApplyNullable<InferBaseType<Type>, Type> : never;
+type InferTypeSingle<TypeDefinition> = TypeDefinition extends { type: 'string' } ? (TypeDefinition extends { enum: readonly (infer EnumElement)[] } ? EnumElement : string) : TypeDefinition extends { type: 'number' } ? (TypeDefinition extends { enum: readonly (infer EnumElement)[] } ? EnumElement : number) : TypeDefinition extends { type: 'boolean' } ? boolean : TypeDefinition extends { type: 'date' } ? string : TypeDefinition extends { type: 'object'; properties: infer NestedProperties } ? InferSchema<NestedProperties> : TypeDefinition extends { type: 'array'; items: infer ArrayItems } ? InferType<ArrayItems>[] : TypeDefinition extends { type: 'tuple'; items: infer TupleItems } ? (TupleItems extends readonly unknown[] ? { [Key in keyof TupleItems]: InferType<TupleItems[Key]> } : never) : never;
 
-type InferType<Type> = Type extends readonly unknown[] ? InferTypeSingle<Type[number]> : InferTypeSingle<Type>;
+type InferType<TypeDefinition> = TypeDefinition extends readonly unknown[] ? InferType<TypeDefinition[number]> : ApplyNullable<InferTypeSingle<TypeDefinition>, TypeDefinition>;
 
-type IsOptional<Type> = Type extends readonly [infer First, ...unknown[]] ? (First extends { required: false } ? ('default' extends keyof First ? false : true) : false) : Type extends { required: false } ? ('default' extends keyof Type ? false : true) : false;
+type RequiredKeys<SchemaDefinition> = {
+  [Key in keyof SchemaDefinition]: IsOptional<SchemaDefinition[Key]> extends true ? never : Key;
+}[keyof SchemaDefinition];
 
-type RequiredKeys<Schema> = {
-  [Key in keyof Schema]: IsOptional<Schema[Key]> extends true ? never : Key;
-}[keyof Schema];
+type OptionalKeys<SchemaDefinition> = Exclude<keyof SchemaDefinition, RequiredKeys<SchemaDefinition>>;
 
-type OptionalKeys<Schema> = {
-  [Key in keyof Schema]: IsOptional<Schema[Key]> extends true ? Key : never;
-}[keyof Schema];
+type InferSchemaSingle<SchemaDefinition> = Prettify<{ [Key in RequiredKeys<SchemaDefinition>]: InferType<SchemaDefinition[Key]> } & { [Key in OptionalKeys<SchemaDefinition>]?: InferType<SchemaDefinition[Key]> }>;
 
-type InferSchemaSingle<Schema> = Prettify<{ [Key in RequiredKeys<Schema>]: InferType<Schema[Key]> } & { [Key in OptionalKeys<Schema>]?: InferType<Schema[Key]> }>;
-
-type DistributeSchema<Schema> = Schema extends unknown ? InferSchemaSingle<Schema> : never;
-
-export type InferSchema<Schema> = Schema extends readonly unknown[] ? DistributeSchema<Schema[number]> : InferSchemaSingle<Schema>;
+export type InferSchema<SchemaDefinition> = SchemaDefinition extends readonly unknown[] ? InferSchemaSingle<SchemaDefinition[number]> : InferSchemaSingle<SchemaDefinition>;

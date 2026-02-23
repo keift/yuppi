@@ -5,13 +5,13 @@ const yuppi = new Yuppi({ output_dir: './tests/generated/yuppi' });
 const schema = {
   display_name: {
     type: 'string',
-    max: 32
+    maximum: 32
   },
 
   username: {
     type: 'string',
-    min: 3,
-    max: 16,
+    minimum: 3,
+    maximum: 16,
     pattern: Patterns.Username
   },
 

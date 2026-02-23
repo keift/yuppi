@@ -7,7 +7,7 @@ import type { YuppiOptions } from '../types/YuppiOptions.type';
 export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
   const buildTypeSingle = (type: TypeSingle): JSONSchema => {
     if (type.type === 'string') {
-      let json_schema: JSONSchema = Typebox.String({ enum: type.enum, minLength: type.min, maxLength: type.max, pattern: type.pattern !== undefined ? new RegExp(type.pattern).source : undefined, trim: type.trim === false ? false : true, lowercase: type.lowercase, uppercase: type.uppercase, default: type.default });
+      let json_schema: JSONSchema = Typebox.String({ enum: type.enum, minLength: type.minimum, maxLength: type.maximum, pattern: type.pattern !== undefined ? new RegExp(type.pattern).source : undefined, trim: type.trim === false ? false : true, lowercase: type.lowercase, uppercase: type.uppercase, default: type.default });
 
       if (type.nullable === true || type.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
@@ -15,15 +15,26 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       return json_schema;
     } else if (type.type === 'number') {
-      let minimum = type.min;
+      const minimum = type.minimum;
+      const maximum = type.maximum;
 
+      let exclusive_minimum;
       let exclusive_maximum;
 
-      if (type.positive === true && type.min === undefined) minimum = 0;
+      if (type.positive === true && type.minimum === undefined) exclusive_minimum = 0;
 
-      if (type.negative === true && type.max === undefined) exclusive_maximum = 0;
+      if (type.negative === true && type.maximum === undefined) exclusive_maximum = 0;
 
-      let json_schema: JSONSchema = type.integer === true ? Typebox.Integer({ enum: type.enum, minimum, maximum: type.max, exclusiveMaximum: exclusive_maximum, default: type.default }) : Typebox.Number({ enum: type.enum, minimum, maximum: type.max, exclusiveMaximum: exclusive_maximum, default: type.default });
+      const number_options = {
+        enum: type.enum,
+        minimum,
+        exclusiveMinimum: exclusive_minimum,
+        maximum,
+        exclusiveMaximum: exclusive_maximum,
+        default: type.default
+      };
+
+      let json_schema: JSONSchema = type.integer === true ? Typebox.Integer(number_options) : Typebox.Number(number_options);
 
       if (type.nullable === true || type.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
@@ -39,7 +50,7 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       return json_schema;
     } else if (type.type === 'date') {
-      let json_schema: JSONSchema = Typebox.String({ format: 'date-time', formatMinimum: type.min !== undefined ? new Date(type.min).toISOString() : undefined, formatMaximum: type.max !== undefined ? new Date(type.max).toISOString() : undefined, default: type.default });
+      let json_schema: JSONSchema = Typebox.String({ format: 'date-time', formatMinimum: type.minimum !== undefined ? new Date(type.minimum).toISOString() : undefined, formatMaximum: type.maximum !== undefined ? new Date(type.maximum).toISOString() : undefined, default: type.default });
 
       if (type.nullable === true || type.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
@@ -47,25 +58,9 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       return json_schema;
     } else if (type.type === 'object') {
-      let json_schema: JSONSchema;
+      let json_schema: JSONSchema = buildSchema(type.properties);
 
-      if (Array.isArray(type.properties)) {
-        const schemas = type.properties.map((schema) => {
-          const nested_properties: Record<string, JSONSchema> = {};
-
-          for (const [nested_key, nested_schema] of Object.entries(schema)) nested_properties[nested_key] = buildType(nested_schema);
-
-          return Typebox.Object(nested_properties, { additionalProperties: !(options.validation?.strip_unknown ?? false) });
-        });
-
-        json_schema = Typebox.Union(schemas, { default: type.default });
-      } else {
-        const nested_properties: Record<string, JSONSchema> = {};
-
-        for (const [nested_key, nested_schema] of Object.entries(type.properties)) nested_properties[nested_key] = buildType(nested_schema);
-
-        json_schema = Typebox.Object(nested_properties, { default: type.default, additionalProperties: !(options.validation?.strip_unknown ?? false) });
-      }
+      if (type.default !== undefined) json_schema = { ...json_schema, default: type.default };
 
       if (type.nullable === true || type.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
@@ -73,7 +68,7 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       return json_schema;
     } else if (type.type === 'array') {
-      let json_schema: JSONSchema = Typebox.Array(buildType(type.items), { minItems: type.min, maxItems: type.max, default: type.default });
+      let json_schema: JSONSchema = Typebox.Array(buildType(type.items), { minItems: type.minimum, maxItems: type.maximum, default: type.default });
 
       if (type.nullable === true || type.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
@@ -83,7 +78,6 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
     } else {
       let json_schema: JSONSchema = Typebox.Tuple(
         type.items.map((item) => buildType(item)),
-
         { default: type.default }
       );
 

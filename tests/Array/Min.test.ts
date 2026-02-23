@@ -8,7 +8,7 @@ const schema = {
     items: {
       type: 'string'
     },
-    min: 1
+    minimum: 1
   }
 } as const satisfies Schema;
 

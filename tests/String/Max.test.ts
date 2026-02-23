@@ -5,7 +5,7 @@ const yuppi = new Yuppi();
 const schema = {
   field: {
     type: 'string',
-    max: 4
+    maximum: 4
   }
 } as const satisfies Schema;
 
