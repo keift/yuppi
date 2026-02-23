@@ -2,17 +2,14 @@ export type YuppiOptions = {
   output_dir?: string;
 
   error_messages?: {
-    base?: {
-      nullable?: string;
-      required?: string;
-    };
-
     string?: {
       type?: string;
       enum?: string;
       pattern?: string;
       min?: string;
       max?: string;
+      nullable?: string;
+      required?: string;
     };
 
     number?: {
@@ -23,26 +20,42 @@ export type YuppiOptions = {
       integer?: string;
       positive?: string;
       negative?: string;
+      nullable?: string;
+      required?: string;
     };
 
     boolean?: {
       type?: string;
+      nullable?: string;
+      required?: string;
     };
 
     date?: {
       type?: string;
       min?: string;
       max?: string;
+      nullable?: string;
+      required?: string;
     };
 
     object?: {
       type?: string;
+      nullable?: string;
+      required?: string;
     };
 
     array?: {
       type?: string;
       min?: string;
       max?: string;
+      nullable?: string;
+      required?: string;
+    };
+
+    tuple?: {
+      type?: string;
+      nullable?: string;
+      required?: string;
     };
   };
 

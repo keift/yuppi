@@ -4,16 +4,16 @@ import type { JSONSchema } from '../types/JSONSchema.type';
 import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from '../types/Schema.type';
 import type { YuppiOptions } from '../types/YuppiOptions.type';
 
-export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
+export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
   const buildTypeSingle = (schema: TypeSingle): JSONSchema => {
     if (schema.type === 'string') {
       let json_schema: JSONSchema = Typebox.String({ enum: schema.enum, minLength: schema.min, maxLength: schema.max, pattern: schema.pattern !== undefined ? new RegExp(schema.pattern).source : undefined, trim: schema.trim === false ? false : true, lowercase: schema.lowercase, uppercase: schema.lowercase, default: schema.default });
 
       if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
-      if (schema.required === true) {
-        json_schema = Typebox.Required(json_schema);
-      } else json_schema = Typebox.Optional(json_schema);
+      if (schema.required === false) {
+        json_schema = Typebox.Optional(json_schema);
+      } else json_schema = Typebox.Required(json_schema);
 
       return json_schema;
     } else if (schema.type === 'number') {
@@ -28,9 +28,9 @@ export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
-      if (schema.required === true) {
-        json_schema = Typebox.Required(json_schema);
-      } else json_schema = Typebox.Optional(json_schema);
+      if (schema.required === false) {
+        json_schema = Typebox.Optional(json_schema);
+      } else json_schema = Typebox.Required(json_schema);
 
       return json_schema;
     } else if (schema.type === 'boolean') {
@@ -38,9 +38,9 @@ export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
-      if (schema.required === true) {
-        json_schema = Typebox.Required(json_schema);
-      } else json_schema = Typebox.Optional(json_schema);
+      if (schema.required === false) {
+        json_schema = Typebox.Optional(json_schema);
+      } else json_schema = Typebox.Required(json_schema);
 
       return json_schema;
     } else if (schema.type === 'date') {
@@ -48,19 +48,19 @@ export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
-      if (schema.required === true) {
-        json_schema = Typebox.Required(json_schema);
-      } else json_schema = Typebox.Optional(json_schema);
+      if (schema.required === false) {
+        json_schema = Typebox.Optional(json_schema);
+      } else json_schema = Typebox.Required(json_schema);
 
       return json_schema;
     } else if (schema.type === 'object') {
       let json_schema: JSONSchema;
 
       if (Array.isArray(schema.properties)) {
-        const schemas = schema.properties.map((schemaSingle) => {
+        const schemas = schema.properties.map((schema) => {
           const nested_properties: Record<string, JSONSchema> = {};
 
-          for (const [nested_key, nested_config] of Object.entries(schemaSingle)) nested_properties[nested_key] = buildType(nested_config);
+          for (const [nested_key, nested_schema] of Object.entries(schema)) nested_properties[nested_key] = buildType(nested_schema);
 
           return Typebox.Object(nested_properties, { additionalProperties: !(options.validation?.strip_unknown ?? false) });
         });
@@ -69,16 +69,16 @@ export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
       } else {
         const nested_properties: Record<string, JSONSchema> = {};
 
-        for (const [nested_key, nested_config] of Object.entries(schema.properties)) nested_properties[nested_key] = buildType(nested_config);
+        for (const [nested_key, nested_schema] of Object.entries(schema.properties)) nested_properties[nested_key] = buildType(nested_schema);
 
         json_schema = Typebox.Object(nested_properties, { default: schema.default, additionalProperties: !(options.validation?.strip_unknown ?? false) });
       }
 
       if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
-      if (schema.required === true) {
-        json_schema = Typebox.Required(json_schema);
-      } else json_schema = Typebox.Optional(json_schema);
+      if (schema.required === false) {
+        json_schema = Typebox.Optional(json_schema);
+      } else json_schema = Typebox.Required(json_schema);
 
       return json_schema;
     } else if (schema.type === 'array') {
@@ -86,9 +86,9 @@ export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
-      if (schema.required === true) {
-        json_schema = Typebox.Required(json_schema);
-      } else json_schema = Typebox.Optional(json_schema);
+      if (schema.required === false) {
+        json_schema = Typebox.Optional(json_schema);
+      } else json_schema = Typebox.Required(json_schema);
 
       return json_schema;
     } else {
@@ -99,34 +99,34 @@ export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
-      if (schema.required === true) {
-        json_schema = Typebox.Required(json_schema);
-      } else json_schema = Typebox.Optional(json_schema);
+      if (schema.required === false) {
+        json_schema = Typebox.Optional(json_schema);
+      } else json_schema = Typebox.Required(json_schema);
 
       return json_schema;
     }
   };
 
-  const buildTypeUnion = (schema: TypeUnion) => {
-    const schemas = schema.map((config) => buildTypeSingle(config));
+  const buildTypeUnion = (type: TypeUnion) => {
+    const schemas = type.map((type) => buildTypeSingle(type));
 
-    const optional = schema.every((config) => config.required !== true);
+    const optional = type.every((type) => type.required === false);
 
     const union_schema = Typebox.Union(schemas);
 
     return optional ? Typebox.Optional(union_schema) : Typebox.Required(union_schema);
   };
 
-  const buildType = (schema: Type) => {
-    if (Array.isArray(schema)) {
-      return buildTypeUnion(schema);
-    } else return buildTypeSingle(schema);
+  const buildType = (type: Type) => {
+    if (Array.isArray(type)) {
+      return buildTypeUnion(type);
+    } else return buildTypeSingle(type);
   };
 
   const buildSchemaSingle = (schema: SchemaSingle) => {
     const properties: Record<string, JSONSchema> = {};
 
-    for (const [key, config] of Object.entries(schema)) properties[key] = buildType(config);
+    for (const [key, type] of Object.entries(schema)) properties[key] = buildType(type);
 
     return Typebox.Object(properties, { additionalProperties: !(options.validation?.strip_unknown ?? false) });
   };

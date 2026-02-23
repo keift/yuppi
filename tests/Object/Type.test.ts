@@ -7,13 +7,9 @@ const schema = {
     type: 'object',
     properties: {
       field: {
-        type: 'string',
-        nullable: false,
-        required: true
+        type: 'string'
       }
-    },
-    nullable: false,
-    required: true
+    }
   }
 } as const satisfies Schema;
 

@@ -5,45 +5,33 @@ const yuppi = new Yuppi();
 const schema = {
   display_name: {
     type: 'string',
-    max: 32,
-    nullable: false,
-    required: true
+    max: 32
   },
 
   username: {
     type: 'string',
     min: 3,
     max: 16,
-    pattern: Patterns.Username,
-    nullable: false,
-    required: true
+    pattern: Patterns.Username
   },
 
   email: {
     type: 'string',
     pattern: Patterns.Email,
-    lowercase: true,
-    nullable: false,
-    required: true
+    lowercase: true
   },
 
   permissions: [
     {
       type: 'string',
-      enum: ['*'],
-      nullable: false,
-      required: true
+      enum: ['*']
     },
     {
       type: 'array',
       items: {
         type: 'string',
-        enum: ['read', 'write'],
-        nullable: false,
-        required: true
-      },
-      nullable: false,
-      required: true
+        enum: ['read', 'write']
+      }
     }
   ]
 } as const satisfies Schema;
@@ -81,7 +69,26 @@ const example_json_schema = {
   }
 };
 
-const conversion = yuppi.convertToJSONSchema(schema);
+const example_json_schema2 = {
+  additionalProperties: false,
+  type: 'object',
+  required: ['display_name', 'username', 'email'],
+  properties: {
+    display_name: { maxLength: 32, trim: true, type: 'string' },
+    username: { minLength: 3, maxLength: 16, pattern: '^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$', trim: true, type: 'string' },
+    email: { pattern: '^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$', trim: true, lowercase: true, uppercase: true, type: 'string' },
+    permissions: {
+      anyOf: [
+        { enum: ['*'], trim: true, type: 'string' },
+        { type: 'object', properties: {} }
+      ]
+    }
+  }
+};
+
+const conversion = yuppi.toJSONSchema(schema);
+
+console.log(JSON.stringify(conversion));
 
 if (JSON.stringify(conversion) !== JSON.stringify(example_json_schema)) throw new Error('❌ Error');
 

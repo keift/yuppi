@@ -5,9 +5,7 @@ const yuppi = new Yuppi();
 const schema = {
   field: {
     type: 'number',
-    max: 0,
-    nullable: false,
-    required: true
+    max: 0
   }
 } as const satisfies Schema;
 

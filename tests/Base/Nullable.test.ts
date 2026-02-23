@@ -7,7 +7,6 @@ const correct_schemas = [
     field: {
       type: 'string',
       nullable: true,
-      required: true
     }
   },
   {
@@ -15,7 +14,6 @@ const correct_schemas = [
       type: 'string',
       default: null,
       nullable: false,
-      required: true
     }
   }
 ] as const satisfies Schema[];
@@ -25,7 +23,6 @@ const faulty_schemas = [
     field: {
       type: 'string',
       nullable: false,
-      required: true
     }
   }
 ] as const satisfies Schema[];

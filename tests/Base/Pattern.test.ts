@@ -5,9 +5,7 @@ const yuppi = new Yuppi();
 const schema = {
   field: {
     type: 'string',
-    pattern: Patterns.Email,
-    nullable: false,
-    required: true
+    pattern: Patterns.Email
   }
 } as const satisfies Schema;
 

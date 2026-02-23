@@ -3,7 +3,7 @@ import merge from 'lodash.merge';
 import fs from 'fs/promises';
 import path from 'path';
 
-import { convertToJSONSchema } from './utils/ConvertToJSONSchema.util';
+import { toJSONSchema } from './utils/toJSONSchema.util';
 import { validate } from './utils/Validate.util';
 import { pascalCase } from './utils/PascalCase.util';
 
@@ -63,14 +63,14 @@ export class Yuppi {
  * Use \`Yuppi.declare()\` to regenerate this type.
  */`;
 
-    const type = await compile(this.convertToJSONSchema(schema) as JSONSchema2, name, { bannerComment: banner_comment });
+    const type = await compile(this.toJSONSchema(schema) as JSONSchema2, name, { bannerComment: banner_comment });
 
     await fs.mkdir(types_dir, { recursive: true });
 
     await fs.writeFile(path.join(types_dir, `${name}.d.ts`), type);
   }
 
-  public convertToJSONSchema(schema: Schema): JSONSchema {
-    return JSON.parse(JSON.stringify(convertToJSONSchema(schema, this.options))) as JSONSchema;
+  public toJSONSchema(schema: Schema): JSONSchema {
+    return JSON.parse(JSON.stringify(toJSONSchema(schema, this.options))) as JSONSchema;
   }
 }

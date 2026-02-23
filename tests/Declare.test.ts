@@ -5,45 +5,33 @@ const yuppi = new Yuppi({ output_dir: './tests/generated/yuppi' });
 const schema = {
   display_name: {
     type: 'string',
-    max: 32,
-    nullable: false,
-    required: true
+    max: 32
   },
 
   username: {
     type: 'string',
     min: 3,
     max: 16,
-    pattern: Patterns.Username,
-    nullable: false,
-    required: true
+    pattern: Patterns.Username
   },
 
   email: {
     type: 'string',
     pattern: Patterns.Email,
-    lowercase: true,
-    nullable: false,
-    required: true
+    lowercase: true
   },
 
   permissions: [
     {
       type: 'string',
-      enum: ['*'],
-      nullable: false,
-      required: true
+      enum: ['*']
     },
     {
       type: 'array',
       items: {
         type: 'string',
-        enum: ['read', 'write'],
-        nullable: false,
-        required: true
-      },
-      nullable: false,
-      required: true
+        enum: ['read', 'write']
+      }
     }
   ]
 } as const satisfies Schema;

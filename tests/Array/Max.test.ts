@@ -6,13 +6,9 @@ const schema = {
   field: {
     type: 'array',
     items: {
-      type: 'string',
-      nullable: false,
-      required: true
+      type: 'string'
     },
-    max: 1,
-    nullable: false,
-    required: true
+    max: 1
   }
 } as const satisfies Schema;
 
