@@ -6,8 +6,8 @@ export type YuppiOptions = {
       type?: string;
       enum?: string;
       pattern?: string;
-      min?: string;
-      max?: string;
+      minimum?: string;
+      maximum?: string;
       nullable?: string;
       required?: string;
     };
@@ -15,8 +15,8 @@ export type YuppiOptions = {
     number?: {
       type?: string;
       enum?: string;
-      min?: string;
-      max?: string;
+      minimum?: string;
+      maximum?: string;
       integer?: string;
       positive?: string;
       negative?: string;
@@ -32,8 +32,8 @@ export type YuppiOptions = {
 
     date?: {
       type?: string;
-      min?: string;
-      max?: string;
+      minimum?: string;
+      maximum?: string;
       nullable?: string;
       required?: string;
     };
@@ -46,8 +46,8 @@ export type YuppiOptions = {
 
     array?: {
       type?: string;
-      min?: string;
-      max?: string;
+      minimum?: string;
+      maximum?: string;
       nullable?: string;
       required?: string;
     };
@@ -59,7 +59,7 @@ export type YuppiOptions = {
     };
   };
 
-  validation?: {
+  validations?: {
     abort_early?: boolean;
     strip_unknown?: boolean;
   };

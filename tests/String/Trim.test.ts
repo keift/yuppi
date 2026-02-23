@@ -16,7 +16,7 @@ const correct_properties = [
 
 for (let i = 0; i < correct_properties.length; i++) {
   try {
-    const fields = await yuppi.validate(schema, correct_properties[i]);
+    const fields = yuppi.validate(schema, correct_properties[i]);
 
     if (fields.field !== 'test') throw new Error();
 

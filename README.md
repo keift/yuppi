@@ -27,8 +27,8 @@
 [InferSchema]: ./src/types/InferSchema.type.ts
 [JSONSchema]: ./src/types/JSONSchema.type.ts
 [Schema]: ./src/types/Schema.type.ts
-[YuppiOptions]: ./src/types/YuppiOptions.type.ts
 [ValidationError]: ./src/types/ValidationError.type.ts
+[YuppiOptions]: ./src/types/YuppiOptions.type.ts
 
 <div align="center">
   <br/>
@@ -122,8 +122,8 @@ yuppi
 ├── type InferSchema
 ├── type JSONSchema
 ├── type Schema
-├── type YuppiOptions
-└── type ValidationError
+├── type ValidationError
+└── type YuppiOptions
 ```
 
 ### Import
@@ -161,7 +161,7 @@ Validate the properties with your Yuppi schema.
 > | `schema`     | [Schema]    |         | Yuppi schema.              |
 > | `properties` | [AnyObject] |         | Properties to be validate. |
 >
-> returns [Promise]<[InferSchema]\<Schema\>>
+> returns [InferSchema]\<Schema\>
 >
 > Example:
 >
@@ -210,7 +210,7 @@ Validate the properties with your Yuppi schema.
 > let fields;
 >
 > try {
->   fields = await yuppi.validate(schema, properties);
+>   fields = yuppi.validate(schema, properties);
 >   /*
 >     {
 >       display_name: "Fırat",
@@ -220,9 +220,7 @@ Validate the properties with your Yuppi schema.
 >     }
 >   */
 > } catch (error) {
->   const errors = (error as ValidationError).errors;
->
->   console.log(errors[0]);
+>   if (error instanceof ValidationError) console.log(errors[0]);
 >   /*
 >     {
 >       message: "Field email must match the required pattern",
@@ -260,7 +258,7 @@ Declare your Yuppi schema for TypeScript.
 > let fields;
 >
 > try {
->   fields = (await yuppi.validate(schema, properties)) as User;
+>   fields = yuppi.validate(schema, properties) as User;
 >   /*
 >     interface User {
 >       display_name: string;
@@ -345,8 +343,8 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 | [InferSchema]     |
 | [JSONSchema]      |
 | [Schema]          |
-| [YuppiOptions]    |
 | [ValidationError] |
+| [YuppiOptions]    |
 
 ## Links
 

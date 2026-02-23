@@ -8,8 +8,8 @@ export const YuppiOptionsDefault: YuppiOptions = {
       type: 'Field {path} must be a string',
       enum: 'Field {path} must be one of the allowed values',
       pattern: 'Field {path} must match the required pattern',
-      min: 'Field {path} must be at least {min} character{plural_suffix}',
-      max: 'Field {path} must be at most {max} character{plural_suffix}',
+      minimum: 'Field {path} must be at least {min} character{plural_suffix}',
+      maximum: 'Field {path} must be at most {max} character{plural_suffix}',
       nullable: 'Field {path} cannot be null',
       required: 'Field {path} is required'
     },
@@ -17,8 +17,8 @@ export const YuppiOptionsDefault: YuppiOptions = {
     number: {
       type: 'Field {path} must be a number',
       enum: 'Field {path} must be one of the allowed values',
-      min: 'Field {path} must be greater than or equal to {min}',
-      max: 'Field {path} must be less than or equal to {max}',
+      minimum: 'Field {path} must be greater than or equal to {min}',
+      maximum: 'Field {path} must be less than or equal to {max}',
       integer: 'Field {path} must be an integer',
       positive: 'Field {path} must be a positive',
       negative: 'Field {path} must be a negative',
@@ -34,8 +34,8 @@ export const YuppiOptionsDefault: YuppiOptions = {
 
     date: {
       type: 'Field {path} must be a date',
-      min: 'Field {path} must be after {min}',
-      max: 'Field {path} must be before {max}',
+      minimum: 'Field {path} must be after {min}',
+      maximum: 'Field {path} must be before {max}',
       nullable: 'Field {path} cannot be null',
       required: 'Field {path} is required'
     },
@@ -48,8 +48,8 @@ export const YuppiOptionsDefault: YuppiOptions = {
 
     array: {
       type: 'Field {path} must be an array',
-      min: 'Field {path} must be at least {min} item${plural_suffix}',
-      max: 'Field {path} must be at most {max} item${plural_suffix}',
+      minimum: 'Field {path} must be at least {min} item${plural_suffix}',
+      maximum: 'Field {path} must be at most {max} item${plural_suffix}',
       nullable: 'Field {path} cannot be null',
       required: 'Field {path} is required'
     },

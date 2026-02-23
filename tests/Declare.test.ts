@@ -40,10 +40,11 @@ const properties = {
   display_name: 'Fırat',
   username: 'fir4tozden',
   email: 'fir4tozden@gmail.com',
-  permissions: '*'
+  permissions: '*',
+  a: 1
 };
 
-await yuppi.validate(schema, properties);
+console.log(yuppi.validate(schema, properties));
 
 await yuppi.declare(schema, 'User');
 

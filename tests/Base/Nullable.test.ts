@@ -33,7 +33,7 @@ const properties = {
 
 for (let i = 0; i < correct_schemas.length; i++) {
   try {
-    await yuppi.validate(correct_schemas[i], properties);
+    yuppi.validate(correct_schemas[i], properties);
 
     console.log(`✅ Success ${String(i + 1)}/${String(correct_schemas.length)} [CORRECT_SCHEMAS]`);
   } catch {
@@ -43,7 +43,7 @@ for (let i = 0; i < correct_schemas.length; i++) {
 
 for (let i = 0; i < faulty_schemas.length; i++) {
   try {
-    await yuppi.validate(faulty_schemas[i], properties);
+    yuppi.validate(faulty_schemas[i], properties);
 
     throw new Error(`❌ Error ${String(i + 1)}/${String(faulty_schemas.length)} [FAULTY_SCHEMAS]`);
   } catch (error) {

@@ -7,7 +7,16 @@ import type { YuppiOptions } from '../types/YuppiOptions.type';
 export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
   const buildTypeSingle = (type: TypeSingle): JSONSchema => {
     if (type.type === 'string') {
-      let json_schema: JSONSchema = Typebox.String({ enum: type.enum, minLength: type.minimum, maxLength: type.maximum, pattern: type.pattern !== undefined ? new RegExp(type.pattern).source : undefined, trim: type.trim === false ? false : true, lowercase: type.lowercase, uppercase: type.uppercase, default: type.default });
+      let json_schema: JSONSchema = Typebox.String({
+        enum: type.enum,
+        pattern: type.pattern !== undefined ? new RegExp(type.pattern).source : undefined,
+        minLength: type.minimum,
+        maxLength: type.maximum,
+        default: type.default,
+        trim: type.trim === false ? false : true,
+        lowercase: type.lowercase,
+        uppercase: type.uppercase
+      });
 
       if (type.nullable === true || type.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
@@ -28,9 +37,12 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
       const number_options = {
         enum: type.enum,
         minimum,
-        exclusiveMinimum: exclusive_minimum,
         maximum,
+        exclusiveMinimum: exclusive_minimum,
         exclusiveMaximum: exclusive_maximum,
+        positive: type.positive,
+        negative: type.negative,
+
         default: type.default
       };
 
@@ -42,7 +54,9 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       return json_schema;
     } else if (type.type === 'boolean') {
-      let json_schema: JSONSchema = Typebox.Boolean({ default: type.default });
+      let json_schema: JSONSchema = Typebox.Boolean({
+        default: type.default
+      });
 
       if (type.nullable === true || type.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
@@ -50,7 +64,12 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       return json_schema;
     } else if (type.type === 'date') {
-      let json_schema: JSONSchema = Typebox.String({ format: 'date-time', formatMinimum: type.minimum !== undefined ? new Date(type.minimum).toISOString() : undefined, formatMaximum: type.maximum !== undefined ? new Date(type.maximum).toISOString() : undefined, default: type.default });
+      let json_schema: JSONSchema = Typebox.String({
+        format: 'date-time',
+        formatMinimum: type.minimum !== undefined ? new Date(type.minimum).toISOString() : undefined,
+        formatMaximum: type.maximum !== undefined ? new Date(type.maximum).toISOString() : undefined,
+        default: type.default
+      });
 
       if (type.nullable === true || type.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
@@ -68,7 +87,11 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       return json_schema;
     } else if (type.type === 'array') {
-      let json_schema: JSONSchema = Typebox.Array(buildType(type.items), { minItems: type.minimum, maxItems: type.maximum, default: type.default });
+      let json_schema: JSONSchema = Typebox.Array(buildType(type.items), {
+        minItems: type.minimum,
+        maxItems: type.maximum,
+        default: type.default
+      });
 
       if (type.nullable === true || type.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
@@ -78,7 +101,9 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
     } else {
       let json_schema: JSONSchema = Typebox.Tuple(
         type.items.map((item) => buildType(item)),
-        { default: type.default }
+        {
+          default: type.default
+        }
       );
 
       if (type.nullable === true || type.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
@@ -110,7 +135,7 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
     for (const [key, type] of Object.entries(schema)) properties[key] = buildType(type);
 
-    return Typebox.Object(properties, { additionalProperties: !(options.validation?.strip_unknown ?? false) });
+    return Typebox.Object(properties, { additionalProperties: !(options.validations?.strip_unknown ?? false) });
   };
 
   const buildSchemaUnion = (schemas: SchemaUnion) => {

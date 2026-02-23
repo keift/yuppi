@@ -47,7 +47,7 @@ export class Yuppi {
     }
   }
 
-  public validate<const _Schema extends Schema>(schema: _Schema, properties: AnyObject): Promise<InferSchema<_Schema>> {
+  public validate<const _Schema extends Schema>(schema: _Schema, properties: AnyObject): InferSchema<_Schema> {
     return validate(schema, properties, this.options);
   }
 
