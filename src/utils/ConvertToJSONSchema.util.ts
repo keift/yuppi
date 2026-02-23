@@ -1,87 +1,147 @@
 import { Type as Typebox } from '@sinclair/typebox';
 
 import type { JSONSchema } from '../types/JSONSchema.type';
-import type { Schema, Types, Type } from '../types/Schema.type';
+import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from '../types/Schema.type';
 import type { YuppiOptions } from '../types/YuppiOptions.type';
 
 export const convertToJSONSchema = (schema: Schema, options: YuppiOptions) => {
-  const base = (schema: JSONSchema, key: string, config: Type) => {
-    if (config.nullable || config.default === null) schema = Typebox.Union([schema, Typebox.Null()]);
+  const buildTypeSingle = (schema: TypeSingle): JSONSchema => {
+    if (schema.type === 'string') {
+      let json_schema: JSONSchema = Typebox.String({ enum: schema.enum, minLength: schema.min, maxLength: schema.max, pattern: schema.pattern !== undefined ? new RegExp(schema.pattern).source : undefined, trim: schema.trim === false ? false : true, lowercase: schema.lowercase, uppercase: schema.lowercase, default: schema.default });
 
-    if (!config.required) schema = Typebox.Optional(schema);
+      if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
-    return schema;
-  };
+      if (schema.required === true) {
+        json_schema = Typebox.Required(json_schema);
+      } else json_schema = Typebox.Optional(json_schema);
 
-  const buildSingle = (key: string, config: Type) => {
-    let schema: JSONSchema;
-
-    if (config.type === 'string') {
-      schema = Typebox.String({ enum: config.enum, minLength: config.min, maxLength: config.max, pattern: config.pattern !== undefined ? new RegExp(config.pattern).source : undefined, default: config.default });
-
-      schema = base(schema, key, config);
-
-      return schema;
-    } else if (config.type === 'number') {
-      let exclusive_minimum;
+      return json_schema;
+    } else if (schema.type === 'number') {
+      let minimum = schema.min;
       let exclusive_maximum;
 
-      if (config.positive === true && config.min === undefined) exclusive_minimum = 0;
+      if (schema.positive === true && schema.min === undefined) minimum = 0;
 
-      if (config.negative === true && config.max === undefined) exclusive_maximum = 0;
+      if (schema.negative === true && schema.max === undefined) exclusive_maximum = 0;
 
-      schema = config.integer === true ? Typebox.Integer({ enum: config.enum, minimum: config.min, maximum: config.max, exclusiveMinimum: exclusive_minimum, exclusiveMaximum: exclusive_maximum, positive: config.positive, negative: config.negative, default: config.default }) : Typebox.Number({ enum: config.enum, minimum: config.min, maximum: config.max, exclusiveMinimum: exclusive_minimum, exclusiveMaximum: exclusive_maximum, positive: config.positive, negative: config.negative, default: config.default });
+      let json_schema: JSONSchema = schema.integer === true ? Typebox.Integer({ enum: schema.enum, minimum, maximum: schema.max, exclusiveMaximum: exclusive_maximum, default: schema.default }) : Typebox.Number({ enum: schema.enum, minimum, maximum: schema.max, exclusiveMaximum: exclusive_maximum, default: schema.default });
 
-      schema = base(schema, key, config);
+      if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
-      return schema;
-    } else if (config.type === 'boolean') {
-      schema = Typebox.Boolean({ default: config.default });
+      if (schema.required === true) {
+        json_schema = Typebox.Required(json_schema);
+      } else json_schema = Typebox.Optional(json_schema);
 
-      schema = base(schema, key, config);
+      return json_schema;
+    } else if (schema.type === 'boolean') {
+      let json_schema: JSONSchema = Typebox.Boolean({ default: schema.default });
 
-      return schema;
-    } else if (config.type === 'date') {
-      schema = Typebox.String({ format: 'date-time', formatMinimum: config.min !== undefined ? new Date(config.min).toISOString() : undefined, formatMaximum: config.max !== undefined ? new Date(config.max).toISOString() : undefined, default: config.default });
+      if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
-      schema = base(schema, key, config);
+      if (schema.required === true) {
+        json_schema = Typebox.Required(json_schema);
+      } else json_schema = Typebox.Optional(json_schema);
 
-      return schema;
-    } else if (config.type === 'object') {
-      const nested_properties: Record<string, JSONSchema> = {};
+      return json_schema;
+    } else if (schema.type === 'date') {
+      let json_schema: JSONSchema = Typebox.String({ format: 'date-time', formatMinimum: schema.min !== undefined ? new Date(schema.min).toISOString() : undefined, formatMaximum: schema.max !== undefined ? new Date(schema.max).toISOString() : undefined, default: schema.default });
 
-      for (const [nested_key, nested_config] of Object.entries(config.properties)) nested_properties[nested_key] = build(nested_key, nested_config);
+      if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
 
-      schema = Typebox.Object(nested_properties, { default: config.default, additionalProperties: !(options.validate_options?.stripUnknown ?? false) });
+      if (schema.required === true) {
+        json_schema = Typebox.Required(json_schema);
+      } else json_schema = Typebox.Optional(json_schema);
 
-      schema = base(schema, key, config);
+      return json_schema;
+    } else if (schema.type === 'object') {
+      let json_schema: JSONSchema;
 
-      return schema;
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    } else if (config.type === 'array') {
-      schema = Typebox.Array(build(key, config.items), { minItems: config.min, maxItems: config.max, default: config.default });
+      if (Array.isArray(schema.properties)) {
+        const schemas = schema.properties.map((schemaSingle) => {
+          const nested_properties: Record<string, JSONSchema> = {};
 
-      schema = base(schema, key, config);
+          for (const [nested_key, nested_config] of Object.entries(schemaSingle)) nested_properties[nested_key] = buildType(nested_config);
 
-      return schema;
-    } else throw new Error(`Invalid schema type for ${key}`);
+          return Typebox.Object(nested_properties, { additionalProperties: !(options.validation?.strip_unknown ?? false) });
+        });
+
+        json_schema = Typebox.Union(schemas, { default: schema.default });
+      } else {
+        const nested_properties: Record<string, JSONSchema> = {};
+
+        for (const [nested_key, nested_config] of Object.entries(schema.properties)) nested_properties[nested_key] = buildType(nested_config);
+
+        json_schema = Typebox.Object(nested_properties, { default: schema.default, additionalProperties: !(options.validation?.strip_unknown ?? false) });
+      }
+
+      if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
+
+      if (schema.required === true) {
+        json_schema = Typebox.Required(json_schema);
+      } else json_schema = Typebox.Optional(json_schema);
+
+      return json_schema;
+    } else if (schema.type === 'array') {
+      let json_schema: JSONSchema = Typebox.Array(buildType(schema.items), { minItems: schema.min, maxItems: schema.max, default: schema.default });
+
+      if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
+
+      if (schema.required === true) {
+        json_schema = Typebox.Required(json_schema);
+      } else json_schema = Typebox.Optional(json_schema);
+
+      return json_schema;
+    } else {
+      let json_schema: JSONSchema = Typebox.Tuple(
+        schema.items.map((item) => buildType(item)),
+        { default: schema.default }
+      );
+
+      if (schema.nullable === true || schema.default === null) json_schema = Typebox.Union([json_schema, Typebox.Null()]);
+
+      if (schema.required === true) {
+        json_schema = Typebox.Required(json_schema);
+      } else json_schema = Typebox.Optional(json_schema);
+
+      return json_schema;
+    }
   };
 
-  const build = (key: string, config: Types) => {
-    if (!Array.isArray(config)) return buildSingle(key, config);
+  const buildTypeUnion = (schema: TypeUnion) => {
+    const schemas = schema.map((config) => buildTypeSingle(config));
 
-    const schemas = config.map((config) => buildSingle(key, config));
-
-    const optional = config.every((config) => !config.required);
+    const optional = schema.every((config) => config.required !== true);
 
     const union_schema = Typebox.Union(schemas);
 
-    return optional ? Typebox.Optional(union_schema) : union_schema;
+    return optional ? Typebox.Optional(union_schema) : Typebox.Required(union_schema);
   };
 
-  const properties: Record<string, JSONSchema> = {};
+  const buildType = (schema: Type) => {
+    if (Array.isArray(schema)) {
+      return buildTypeUnion(schema);
+    } else return buildTypeSingle(schema);
+  };
 
-  for (const [key, config] of Object.entries(schema)) properties[key] = build(key, config);
+  const buildSchemaSingle = (schema: SchemaSingle) => {
+    const properties: Record<string, JSONSchema> = {};
 
-  return Typebox.Object(properties, { additionalProperties: !(options.validate_options?.stripUnknown ?? false) });
+    for (const [key, config] of Object.entries(schema)) properties[key] = buildType(config);
+
+    return Typebox.Object(properties, { additionalProperties: !(options.validation?.strip_unknown ?? false) });
+  };
+
+  const buildSchemaUnion = (schema: SchemaUnion) => {
+    const schemas = schema.map((schema) => buildSchemaSingle(schema));
+
+    return Typebox.Union(schemas);
+  };
+
+  const buildSchema = (schema: Schema) => {
+    if (Array.isArray(schema)) {
+      return buildSchemaUnion(schema);
+    } else return buildSchemaSingle(schema);
+  };
+
+  return buildSchema(schema);
 };

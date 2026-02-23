@@ -1,6 +1,6 @@
 {
   "name": "yuppi",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "description": "Portable and simple schemas for property validation.",
   "license": "MIT",
   "homepage": "https://github.com/keift/yuppi",
@@ -19,7 +19,7 @@
     "@types/lodash.merge": "^4.6.9",
     "json-schema-to-typescript": "^15.0.4",
     "lodash.merge": "^4.6.2",
-    "yup": "^1.7.1"
+    "slugify": "^1.6.6"
   },
   "devDependencies": {
     "prettier": "latest",
@@ -34,7 +34,6 @@
     "validate",
     "validation",
     "typecheck",
-    "yup",
     "json-schema",
     "openapi"
   ]

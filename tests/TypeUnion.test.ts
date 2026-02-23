@@ -1,35 +1,34 @@
-import { Yuppi, type Schema, type ValidationError } from '../../src/main';
+import { Yuppi, type Schema, type ValidationError } from '../src/main';
 
 const yuppi = new Yuppi();
 
 const schema = {
-  field: {
-    type: 'object',
-    properties: {
-      field: {
-        type: 'string',
-        nullable: false,
-        required: true
-      }
+  field: [
+    {
+      type: 'string',
+      nullable: false,
+      required: true
     },
-    nullable: false,
-    required: true
-  }
+    {
+      type: 'number',
+      nullable: false,
+      required: true
+    }
+  ]
 } as const satisfies Schema;
 
 const correct_properties = [
   {
-    field: {
-      field: 'test'
-    }
+    field: 'test'
+  },
+  {
+    field: 0
   }
 ];
 
 const faulty_properties = [
   {
-    field: {
-      field: 0
-    }
+    field: true
   }
 ];
 

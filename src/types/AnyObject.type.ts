@@ -1,3 +1,2 @@
-import type { AnyObject as _AnyObject } from 'yup';
-
-export type AnyObject = _AnyObject;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type AnyObject = Record<string, any>;

@@ -1,5 +1,3 @@
-import type { ValidateOptions } from 'yup';
-
 export type YuppiOptions = {
   output_dir?: string;
 
@@ -48,5 +46,8 @@ export type YuppiOptions = {
     };
   };
 
-  validate_options?: ValidateOptions;
+  validation?: {
+    abort_early?: boolean;
+    strip_unknown?: boolean;
+  };
 };

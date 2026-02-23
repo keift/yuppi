@@ -1,8 +1,8 @@
 import { Yuppi, type Schema, type ValidationError } from '../../src/main';
 
-const Yupp = new Yuppi();
+const yuppi = new Yuppi();
 
-const schema: Schema = {
+const schema = {
   field: {
     type: 'array',
     items: {
@@ -14,7 +14,7 @@ const schema: Schema = {
     nullable: false,
     required: true
   }
-};
+} as const satisfies Schema;
 
 const correct_properties = [
   {
@@ -30,7 +30,7 @@ const faulty_properties = [
 
 for (let i = 0; i < correct_properties.length; i++) {
   try {
-    await Yupp.validate(schema, correct_properties[i]);
+    await yuppi.validate(schema, correct_properties[i]);
 
     console.log(`✅ Success ${String(i + 1)}/${String(correct_properties.length)} [CORRECT_PROPERTIES]`);
   } catch {
@@ -40,12 +40,12 @@ for (let i = 0; i < correct_properties.length; i++) {
 
 for (let i = 0; i < faulty_properties.length; i++) {
   try {
-    await Yupp.validate(schema, faulty_properties[i]);
+    await yuppi.validate(schema, faulty_properties[i]);
 
     throw new Error(`❌ Error ${String(i + 1)}/${String(faulty_properties.length)} [FAULTY_PROPERTIES]`);
   } catch (error) {
     if ((error as ValidationError).name === 'ValidationError') {
       console.log(`✅ Success ${String(i + 1)}/${String(faulty_properties.length)} [FAULTY_PROPERTIES]`);
-    } else throw new Error(`❌ Error ${String(i + 1)}/${String(faulty_properties.length)} [FAULTY_PROPERTIES]`);
+    } else throw new Error(`❌ Error ${String(i + 1)}/${String(faulty_properties.length)} [FAULTY_PROPERTIES]`, { cause: error });
   }
 }

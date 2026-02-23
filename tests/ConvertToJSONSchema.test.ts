@@ -1,8 +1,8 @@
 import { Yuppi, Patterns, type Schema } from '../src/main';
 
-const Yupp = new Yuppi();
+const yuppi = new Yuppi();
 
-const schema: Schema = {
+const schema = {
   display_name: {
     type: 'string',
     max: 32,
@@ -46,7 +46,7 @@ const schema: Schema = {
       required: true
     }
   ]
-};
+} as const satisfies Schema;
 
 const example_json_schema = {
   additionalProperties: false,
@@ -55,37 +55,33 @@ const example_json_schema = {
   properties: {
     display_name: {
       maxLength: 32,
+      trim: true,
       type: 'string'
     },
     username: {
       minLength: 3,
       maxLength: 16,
       pattern: '^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$',
+      trim: true,
       type: 'string'
     },
     email: {
       pattern: '^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$',
+      trim: true,
+      lowercase: true,
+      uppercase: true,
       type: 'string'
     },
     permissions: {
       anyOf: [
-        {
-          enum: ['*'],
-          type: 'string'
-        },
-        {
-          type: 'array',
-          items: {
-            enum: ['read', 'write'],
-            type: 'string'
-          }
-        }
+        { enum: ['*'], trim: true, type: 'string' },
+        { type: 'array', items: { enum: ['read', 'write'], trim: true, type: 'string' } }
       ]
     }
   }
 };
 
-const conversion = Yupp.convertToJSONSchema(schema);
+const conversion = yuppi.convertToJSONSchema(schema);
 
 if (JSON.stringify(conversion) !== JSON.stringify(example_json_schema)) throw new Error('❌ Error');
 

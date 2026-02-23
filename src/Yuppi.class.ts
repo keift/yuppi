@@ -4,16 +4,16 @@ import fs from 'fs/promises';
 import path from 'path';
 
 import { convertToJSONSchema } from './utils/ConvertToJSONSchema.util';
-import { convertToYup } from './utils/ConvertToYup.util';
+import { validate } from './utils/Validate.util';
 import { pascalCase } from './utils/PascalCase.util';
 
 import { YuppiOptionsDefault } from './defaults/YuppiOptions.default';
 
 import type { AnyObject } from './types/AnyObject.type';
+import type { InferSchema } from './main';
 import type { JSONSchema } from './types/JSONSchema.type';
 import type { Schema } from './types/Schema.type';
 import type { YuppiOptions } from './types/YuppiOptions.type';
-import type { YupSchema } from './types/YupSchema.type';
 
 const cleaned_types_dirs = new Set<string>();
 
@@ -47,10 +47,8 @@ export class Yuppi {
     }
   }
 
-  public validate(schema: Schema, properties: AnyObject): Promise<AnyObject> {
-    const yup_schema = this.convertToYup(schema);
-
-    return yup_schema.validate(properties, this.options.validate_options);
+  public validate<const _Schema extends Schema>(schema: _Schema, properties: AnyObject): Promise<InferSchema<_Schema>> {
+    return validate(schema, properties, this.options);
   }
 
   public async declare(schema: Schema, name: string): Promise<void> {
@@ -70,10 +68,6 @@ export class Yuppi {
     await fs.mkdir(types_dir, { recursive: true });
 
     await fs.writeFile(path.join(types_dir, `${name}.d.ts`), type);
-  }
-
-  public convertToYup(schema: Schema): YupSchema {
-    return convertToYup(schema, this.options);
   }
 
   public convertToJSONSchema(schema: Schema): JSONSchema {

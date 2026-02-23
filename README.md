@@ -24,11 +24,11 @@
 <!---->
 
 [AnyObject]: ./src/types/AnyObject.type.ts
+[InferSchema]: ./src/types/InferSchema.type.ts
 [JSONSchema]: ./src/types/JSONSchema.type.ts
 [Schema]: ./src/types/Schema.type.ts
-[ValidationError]: ./src/types/ValidationError.type.ts
 [YuppiOptions]: ./src/types/YuppiOptions.type.ts
-[YupSchema]: ./src/types/YupSchema.type.ts
+[ValidationError]: ./src/types/ValidationError.type.ts
 
 <div align="center">
   <br/>
@@ -72,7 +72,6 @@ Portable and simple schemas for property validation.
 - Schemas can be declared for TypeScript
 - Schemas can be converted to [JSON Schema](https://json-schema.org). JSON Schema is OpenAPI compatible
 - Error messages are ready to be understood but can be edited if desired
-- Works with [Yup](https://npmjs.com/package/yup), stable and secure
 
 ## Installation
 
@@ -108,7 +107,6 @@ yuppi
 │   │
 │   ├── validate(schema, properties)
 │   ├── declare(schema, name)
-│   ├── convertToYup(schema)
 │   └── convertToJSONSchema(schema)
 │
 ├── Patterns
@@ -121,11 +119,11 @@ yuppi
 │   └── Username
 │
 ├── type AnyObject
+├── type InferSchema
 ├── type JSONSchema
 ├── type Schema
-├── type ValidationError
 ├── type YuppiOptions
-└── type YupSchema
+└── type ValidationError
 ```
 
 ### Import
@@ -149,7 +147,7 @@ Yuppi schema builder.
 > Example:
 >
 > ```typescript
-> const Yupp = new Yuppi();
+> const yuppi = new Yuppi();
 > ```
 
 ### Methods
@@ -163,12 +161,12 @@ Validate the properties with your Yuppi schema.
 > | `schema`     | [Schema]    |         | Yuppi schema.              |
 > | `properties` | [AnyObject] |         | Properties to be validate. |
 >
-> returns [Promise]<[AnyObject]>
+> returns [Promise]<[InferSchema]\<Schema\>>
 >
 > Example:
 >
 > ```typescript
-> const schema: Schema = {
+> const schema = {
 >   display_name: {
 >     type: 'string',
 >     max: 32,
@@ -212,7 +210,7 @@ Validate the properties with your Yuppi schema.
 >       required: true
 >     }
 >   ]
-> };
+> } as const satisfies Schema;
 >
 > const properties = {
 >   display_name: 'Fırat',
@@ -221,8 +219,10 @@ Validate the properties with your Yuppi schema.
 >   permissions: '*'
 > };
 >
+> let fields;
+>
 > try {
->   await Yupp.validate(schema, properties);
+>   fields = await yuppi.validate(schema, properties);
 >   /*
 >     {
 >       display_name: "Fırat",
@@ -234,8 +234,19 @@ Validate the properties with your Yuppi schema.
 > } catch (error) {
 >   const errors = (error as ValidationError).errors;
 >
->   console.log(errors[0]); // "Field email must match the required pattern ^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$"
+>   console.log(errors[0]);
+>   /*
+>     {
+>       message: "Field email must match the required pattern",
+>       parts: {
+>         path: "email"
+>       },
+>       code: "field-email-must-match-the-required-pattern",
+>     }
+>   */
 > }
+>
+> console.log(fields.display_name); // "Fırat"
 > ```
 
 <br/>
@@ -256,35 +267,23 @@ Declare your Yuppi schema for TypeScript.
 > ```typescript
 > import type { User } from './generated/yuppi/types/User';
 >
-> await Yupp.declare(schema, 'User');
+> await yuppi.declare(schema, 'User');
 >
-> const user = (await Yupp.validate(schema, properties)) as User;
-> /*
->   interface User {
->     display_name: string;
->     username: string;
->     email: string;
->     permissions: "*" | ("read" | "write")[];
->   }
-> */
-> ```
-
-<br/>
-
-`Yuppi.convertToYup(schema)`
-
-Convert your Yuppi schema into Yup schema.
-
-> | Parameter | Type     | Default | Description   |
-> | --------- | -------- | ------- | ------------- |
-> | `schema`  | [Schema] |         | Yuppi schema. |
+> let fields;
 >
-> returns [YupSchema]
->
-> Example:
->
-> ```typescript
-> Yupp.convertToYup(schema);
+> try {
+>   fields = (await yuppi.validate(schema, properties)) as User;
+>   /*
+>     interface User {
+>       display_name: string;
+>       username: string;
+>       email: string;
+>       permissions: "*" | ("read" | "write")[];
+>     }
+>   */
+> } catch (error) {
+>   // ...
+> }
 > ```
 
 <br/>
@@ -302,44 +301,40 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 > Example:
 >
 > ```typescript
-> Yupp.convertToJSONSchema(schema);
+> yuppi.convertToJSONSchema(schema);
 > /*
 >   {
->     type: "object",
+>     additionalProperties: false,
+>     type: 'object',
+>     required: ['display_name', 'username', 'email', 'permissions'],
 >     properties: {
 >       display_name: {
->         type: "string",
->         maxLength: 32
+>         maxLength: 32,
+>         trim: true,
+>         type: 'string'
 >       },
 >       username: {
->         type: "string",
 >         minLength: 3,
 >         maxLength: 16,
->         pattern: "^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$"
+>         pattern: '^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$',
+>         trim: true,
+>         type: 'string'
 >       },
 >       email: {
->         type: "string",
->         pattern: "^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$"
+>         pattern: '^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$',
+>         trim: true,
+>         lowercase: true,
+>         uppercase: true,
+>         type: 'string'
 >       },
 >       permissions: {
 >         anyOf: [
->           {
->             type: "string",
->             enum: ["*"]
->           },
->           {
->             type: "array",
->             items: {
->               type: "string",
->               enum: ["read", "write"]
->             }
->           }
+>           { enum: ['*'], trim: true, type: 'string' },
+>           { type: 'array', items: { enum: ['read', 'write'], trim: true, type: 'string' } }
 >         ]
 >       }
->     },
->     required: ["display_name", "username", "email", "permissions"],
->     additionalProperties: false
->   };
+>     }
+>   }
 > */
 > ```
 
@@ -359,11 +354,11 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 | Type              |
 | ----------------- |
 | [AnyObject]       |
+| [InferSchema]     |
 | [JSONSchema]      |
 | [Schema]          |
-| [ValidationError] |
 | [YuppiOptions]    |
-| [YupSchema]       |
+| [ValidationError] |
 
 ## Links
 
