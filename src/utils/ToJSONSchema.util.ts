@@ -10,8 +10,8 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
       let json_schema: JSONSchema = Typebox.String({
         enum: type.enum,
         pattern: type.pattern !== undefined ? new RegExp(type.pattern).source : undefined,
-        minLength: type.minimum,
-        maxLength: type.maximum,
+        minLength: type.min,
+        maxLength: type.max,
         default: type.default,
         trim: type.trim === false ? false : true,
         lowercase: type.lowercase,
@@ -24,15 +24,15 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
       return json_schema;
     } else if (type.type === 'number') {
-      const minimum = type.minimum;
-      const maximum = type.maximum;
+      const minimum = type.min;
+      const maximum = type.max;
 
       let exclusive_minimum;
       let exclusive_maximum;
 
-      if (type.positive === true && type.minimum === undefined) exclusive_minimum = 0;
+      if (type.positive === true && type.min === undefined) exclusive_minimum = 0;
 
-      if (type.negative === true && type.maximum === undefined) exclusive_maximum = 0;
+      if (type.negative === true && type.max === undefined) exclusive_maximum = 0;
 
       const number_options = {
         enum: type.enum,
@@ -42,7 +42,6 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
         exclusiveMaximum: exclusive_maximum,
         positive: type.positive,
         negative: type.negative,
-
         default: type.default
       };
 
@@ -66,8 +65,8 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
     } else if (type.type === 'date') {
       let json_schema: JSONSchema = Typebox.String({
         format: 'date-time',
-        formatMinimum: type.minimum !== undefined ? new Date(type.minimum).toISOString() : undefined,
-        formatMaximum: type.maximum !== undefined ? new Date(type.maximum).toISOString() : undefined,
+        formatMinimum: type.min !== undefined ? new Date(type.min).toISOString() : undefined,
+        formatMaximum: type.max !== undefined ? new Date(type.max).toISOString() : undefined,
         default: type.default
       });
 
@@ -88,8 +87,8 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
       return json_schema;
     } else if (type.type === 'array') {
       let json_schema: JSONSchema = Typebox.Array(buildType(type.items), {
-        minItems: type.minimum,
-        maxItems: type.maximum,
+        minItems: type.min,
+        maxItems: type.max,
         default: type.default
       });
 

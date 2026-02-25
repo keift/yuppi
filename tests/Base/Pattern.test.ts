@@ -1,4 +1,4 @@
-import { Yuppi, Patterns, type ValidationError } from '../../src/main';
+import { Yuppi, Patterns, ValidationError } from '../../src/main';
 
 const yuppi = new Yuppi();
 
@@ -37,7 +37,7 @@ for (let i = 0; i < faulty_properties.length; i++) {
 
     throw new Error(`❌ Error ${String(i + 1)}/${String(faulty_properties.length)} [FAULTY_PROPERTIES]`);
   } catch (error) {
-    if ((error as ValidationError).name === 'ValidationError') {
+    if (error instanceof ValidationError) {
       console.log(`✅ Success ${String(i + 1)}/${String(faulty_properties.length)} [FAULTY_PROPERTIES]`);
     } else throw new Error(`❌ Error ${String(i + 1)}/${String(faulty_properties.length)} [FAULTY_PROPERTIES]`, { cause: error });
   }

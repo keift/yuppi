@@ -1,31 +1,31 @@
-import { Yuppi, type ValidationError } from '../../src/main';
+import { Yuppi, ValidationError } from '../../src/main';
 
 const yuppi = new Yuppi();
 
 const correct_schemas = [
-  {
+  yuppi.schema({
     field: {
       type: 'string',
       nullable: true
     }
-  },
-  {
+  }),
+  yuppi.schema({
     field: {
       type: 'string',
       default: null,
       nullable: false
     }
-  }
-] as const satisfies Schema[];
+  })
+];
 
 const faulty_schemas = [
-  {
+  yuppi.schema({
     field: {
       type: 'string',
       nullable: false
     }
-  }
-] as const satisfies Schema[];
+  })
+];
 
 const properties = {
   field: null
@@ -33,7 +33,7 @@ const properties = {
 
 for (let i = 0; i < correct_schemas.length; i++) {
   try {
-    yuppi.validate(correct_schemas[i], properties);
+    correct_schemas[i].validate(properties);
 
     console.log(`✅ Success ${String(i + 1)}/${String(correct_schemas.length)} [CORRECT_SCHEMAS]`);
   } catch {
@@ -43,11 +43,11 @@ for (let i = 0; i < correct_schemas.length; i++) {
 
 for (let i = 0; i < faulty_schemas.length; i++) {
   try {
-    yuppi.validate(faulty_schemas[i], properties);
+    faulty_schemas[i].validate(properties);
 
     throw new Error(`❌ Error ${String(i + 1)}/${String(faulty_schemas.length)} [FAULTY_SCHEMAS]`);
   } catch (error) {
-    if ((error as ValidationError).name === 'ValidationError') {
+    if (error instanceof ValidationError) {
       console.log(`✅ Success ${String(i + 1)}/${String(faulty_schemas.length)} [FAULTY_SCHEMAS]`);
     } else throw new Error(`❌ Error ${String(i + 1)}/${String(faulty_schemas.length)} [FAULTY_SCHEMAS]`, { cause: error });
   }

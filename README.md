@@ -124,7 +124,7 @@ yuppi
 ├── type InferSchema
 ├── type JSONSchema
 ├── type Schema
-├── type ValidationError
+├── ValidationError
 └── type YuppiOptions
 ```
 

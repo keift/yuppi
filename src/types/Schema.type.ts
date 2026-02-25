@@ -2,8 +2,8 @@ export type String = {
   type: 'string';
   enum?: string[];
   pattern?: string;
-  minimum?: number;
-  maximum?: number;
+  min?: number;
+  max?: number;
   default?: string | null;
   trim?: boolean; // Default: true
   lowercase?: boolean;
@@ -15,8 +15,8 @@ export type String = {
 export type Number = {
   type: 'number';
   enum?: number[];
-  minimum?: number;
-  maximum?: number;
+  min?: number;
+  max?: number;
   integer?: boolean;
   positive?: boolean;
   negative?: boolean;
@@ -34,8 +34,8 @@ export type Boolean = {
 
 export type Date = {
   type: 'date';
-  minimum?: string;
-  maximum?: string;
+  min?: string;
+  max?: string;
   default?: string | null;
   nullable?: boolean; // If the default is null, it is assumed to be true.
   required?: boolean; // Default: true
@@ -51,8 +51,8 @@ export type Object = {
 
 export type Array = {
   type: 'array';
-  minimum?: number;
-  maximum?: number;
+  min?: number;
+  max?: number;
   items: Type;
   default?: unknown[] | null;
   nullable?: boolean; // If the default is null, it is assumed to be true.

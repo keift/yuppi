@@ -1,61 +1,63 @@
+import type { ErrorContext } from './ValidationError.type';
+
 export type YuppiOptions = {
   output_dir?: string;
 
   error_messages?: {
     string?: {
-      type?: string;
-      enum?: string;
-      pattern?: string;
-      minimum?: string;
-      maximum?: string;
-      nullable?: string;
-      required?: string;
+      type?: (error: ErrorContext) => string;
+      enum?: (error: ErrorContext) => string;
+      pattern?: (error: ErrorContext) => string;
+      min?: (error: ErrorContext) => string;
+      max?: (error: ErrorContext) => string;
+      nullable?: (error: ErrorContext) => string;
+      required?: (error: ErrorContext) => string;
     };
 
     number?: {
-      type?: string;
-      enum?: string;
-      minimum?: string;
-      maximum?: string;
-      integer?: string;
-      positive?: string;
-      negative?: string;
-      nullable?: string;
-      required?: string;
+      type?: (error: ErrorContext) => string;
+      enum?: (error: ErrorContext) => string;
+      min?: (error: ErrorContext) => string;
+      max?: (error: ErrorContext) => string;
+      integer?: (error: ErrorContext) => string;
+      positive?: (error: ErrorContext) => string;
+      negative?: (error: ErrorContext) => string;
+      nullable?: (error: ErrorContext) => string;
+      required?: (error: ErrorContext) => string;
     };
 
     boolean?: {
-      type?: string;
-      nullable?: string;
-      required?: string;
+      type?: (error: ErrorContext) => string;
+      nullable?: (error: ErrorContext) => string;
+      required?: (error: ErrorContext) => string;
     };
 
     date?: {
-      type?: string;
-      minimum?: string;
-      maximum?: string;
-      nullable?: string;
-      required?: string;
+      type?: (error: ErrorContext) => string;
+      min?: (error: ErrorContext) => string;
+      max?: (error: ErrorContext) => string;
+      nullable?: (error: ErrorContext) => string;
+      required?: (error: ErrorContext) => string;
     };
 
     object?: {
-      type?: string;
-      nullable?: string;
-      required?: string;
+      type?: (error: ErrorContext) => string;
+      nullable?: (error: ErrorContext) => string;
+      required?: (error: ErrorContext) => string;
     };
 
     array?: {
-      type?: string;
-      minimum?: string;
-      maximum?: string;
-      nullable?: string;
-      required?: string;
+      type?: (error: ErrorContext) => string;
+      min?: (error: ErrorContext) => string;
+      max?: (error: ErrorContext) => string;
+      nullable?: (error: ErrorContext) => string;
+      required?: (error: ErrorContext) => string;
     };
 
     tuple?: {
-      type?: string;
-      nullable?: string;
-      required?: string;
+      type?: (error: ErrorContext) => string;
+      nullable?: (error: ErrorContext) => string;
+      required?: (error: ErrorContext) => string;
     };
   };
 

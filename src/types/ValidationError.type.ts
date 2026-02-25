@@ -1,9 +1,13 @@
 import slugify from 'slugify';
 
-export class ValidationError extends Error {
-  public errors: { message: string; code: string; parts: Record<string, string> }[];
+import type { TypeSingle } from './Schema.type';
 
-  public constructor(options: { errors: { message: string; parts: Record<string, string> }[] }) {
+export type ErrorContext = { expected: TypeSingle['type']; received: TypeSingle['type']; code?: string; path: (string | number)[]; message: string; parts: { path: string; min?: number; max?: number; plural_suffix?: '' | 's' } };
+
+export class ValidationError extends Error {
+  public errors: ErrorContext[];
+
+  public constructor(options: { errors: ErrorContext[] }) {
     super(options.errors[0].message);
 
     this.name = 'ValidationError';
