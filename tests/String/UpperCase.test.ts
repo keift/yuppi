@@ -1,13 +1,13 @@
-import { Yuppi, type Schema } from '../../src/main';
+import { Yuppi } from '../../src/main';
 
 const yuppi = new Yuppi();
 
-const schema = {
+const schema = yuppi.schema({
   field: {
     type: 'string',
     uppercase: true
   }
-} as const satisfies Schema;
+});
 
 const correct_properties = [
   {
@@ -17,7 +17,7 @@ const correct_properties = [
 
 for (let i = 0; i < correct_properties.length; i++) {
   try {
-    const fields = yuppi.validate(schema, correct_properties[i]);
+    const fields = schema.validate(correct_properties[i]);
 
     if (fields.field !== 'TEST') throw new Error();
 

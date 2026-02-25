@@ -61,7 +61,7 @@ export const YuppiOptionsDefault: YuppiOptions = {
     }
   },
 
-  validation: {
+  validations: {
     abort_early: false,
     strip_unknown: true
   }

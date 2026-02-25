@@ -1,4 +1,4 @@
-import { Yuppi, type Schema, type ValidationError } from '../../src/main';
+import { Yuppi, type ValidationError } from '../../src/main';
 
 const yuppi = new Yuppi();
 

@@ -1,13 +1,13 @@
-import { Yuppi, type Schema, type ValidationError } from '../../src/main';
+import { Yuppi, type ValidationError } from '../../src/main';
 
 const yuppi = new Yuppi();
 
-const schema = {
+const schema = yuppi.schema({
   field: {
     type: 'string',
     enum: ['test']
   }
-} as const satisfies Schema;
+});
 
 const correct_properties = [
   {
@@ -23,7 +23,7 @@ const faulty_properties = [
 
 for (let i = 0; i < correct_properties.length; i++) {
   try {
-    yuppi.validate(schema, correct_properties[i]);
+    schema.validate(correct_properties[i]);
 
     console.log(`✅ Success ${String(i + 1)}/${String(correct_properties.length)} [CORRECT_PROPERTIES]`);
   } catch {
@@ -33,7 +33,7 @@ for (let i = 0; i < correct_properties.length; i++) {
 
 for (let i = 0; i < faulty_properties.length; i++) {
   try {
-    yuppi.validate(schema, faulty_properties[i]);
+    schema.validate(faulty_properties[i]);
 
     throw new Error(`❌ Error ${String(i + 1)}/${String(faulty_properties.length)} [FAULTY_PROPERTIES]`);
   } catch (error) {

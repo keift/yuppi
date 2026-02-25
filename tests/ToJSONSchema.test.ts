@@ -1,8 +1,8 @@
-import { Yuppi, Patterns, type Schema } from '../src/main';
+import { Yuppi, Patterns } from '../src/main';
 
 const yuppi = new Yuppi();
 
-const schema = {
+const schema = yuppi.schema({
   display_name: {
     type: 'string',
     maximum: 32
@@ -34,7 +34,7 @@ const schema = {
       }
     }
   ]
-} as const satisfies Schema;
+});
 
 const example_json_schema = {
   additionalProperties: false,
@@ -68,7 +68,7 @@ const example_json_schema = {
   }
 };
 
-const conversion = yuppi.toJSONSchema(schema);
+const conversion = schema.toJSONSchema();
 
 console.log(JSON.stringify(conversion));
 

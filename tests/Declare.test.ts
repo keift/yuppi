@@ -1,8 +1,8 @@
-import { Yuppi, Patterns, type Schema } from '../src/main';
+import { Yuppi, Patterns } from '../src/main';
 
 const yuppi = new Yuppi({ output_dir: './tests/generated/yuppi' });
 
-const schema = {
+const schema = yuppi.schema({
   display_name: {
     type: 'string',
     maximum: 32
@@ -34,18 +34,8 @@ const schema = {
       }
     }
   ]
-} as const satisfies Schema;
+});
 
-const properties = {
-  display_name: 'Fırat',
-  username: 'fir4tozden',
-  email: 'fir4tozden@gmail.com',
-  permissions: '*',
-  a: 1
-};
-
-console.log(yuppi.validate(schema, properties));
-
-await yuppi.declare(schema, 'User');
+await schema.declare('User');
 
 console.log('✅ Success');

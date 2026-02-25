@@ -146,8 +146,14 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
   const buildSchema = (schema: Schema) => {
     if (Array.isArray(schema)) {
-      return buildSchemaUnion(schema);
-    } else return buildSchemaSingle(schema);
+      if (schema.length > 0 && typeof (schema[0] as TypeSingle).type === 'string') return buildTypeUnion(schema as TypeUnion);
+
+      return buildSchemaUnion(schema as SchemaUnion);
+    } else {
+      if (typeof (schema as TypeSingle).type === 'string') return buildTypeSingle(schema as TypeSingle);
+
+      return buildSchemaSingle(schema as SchemaSingle);
+    }
   };
 
   return buildSchema(schema);

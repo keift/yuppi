@@ -1,21 +1,38 @@
-type Prettify<TargetType> = {
-  [Key in keyof TargetType]: TargetType[Key];
-} & {};
+import type { String, Number, Boolean, Date, Object, Array, Tuple, TypeSingle, TypeUnion, Type, SchemaSingle, SchemaUnion, Schema } from './Schema.type';
 
-type IsOptional<TargetType> = TargetType extends readonly unknown[] ? (Exclude<TargetType[number], { required: false }> extends never ? true : false) : TargetType extends { required: false } ? true : false;
+export type ApplyNullable<TypeDefinition, InferredType> = TypeDefinition extends { nullable: true } ? InferredType | null : TypeDefinition extends { default: null } ? InferredType | null : InferredType;
 
-type ApplyNullable<TargetType, SchemaDefinition> = SchemaDefinition extends { nullable: true } ? TargetType | null : SchemaDefinition extends { default: null } ? TargetType | null : TargetType;
+export type GetRequiredKeys<SchemaRecord> = {
+  [Key in keyof SchemaRecord]: SchemaRecord[Key] extends { required: false } ? never : Key;
+}[keyof SchemaRecord];
 
-type InferTypeSingle<TypeDefinition> = TypeDefinition extends { type: 'string' } ? (TypeDefinition extends { enum: readonly (infer EnumElement)[] } ? EnumElement : string) : TypeDefinition extends { type: 'number' } ? (TypeDefinition extends { enum: readonly (infer EnumElement)[] } ? EnumElement : number) : TypeDefinition extends { type: 'boolean' } ? boolean : TypeDefinition extends { type: 'date' } ? string : TypeDefinition extends { type: 'object'; properties: infer NestedProperties } ? InferSchema<NestedProperties> : TypeDefinition extends { type: 'array'; items: infer ArrayItems } ? InferType<ArrayItems>[] : TypeDefinition extends { type: 'tuple'; items: infer TupleItems } ? (TupleItems extends readonly unknown[] ? { [Key in keyof TupleItems]: InferType<TupleItems[Key]> } : never) : never;
+export type GetOptionalKeys<SchemaRecord> = {
+  [Key in keyof SchemaRecord]: SchemaRecord[Key] extends { required: false } ? Key : never;
+}[keyof SchemaRecord];
 
-type InferType<TypeDefinition> = TypeDefinition extends readonly unknown[] ? InferType<TypeDefinition[number]> : ApplyNullable<InferTypeSingle<TypeDefinition>, TypeDefinition>;
+export type Prettify<ObjectType> = {
+  [Key in keyof ObjectType]: ObjectType[Key];
+};
 
-type RequiredKeys<SchemaDefinition> = {
-  [Key in keyof SchemaDefinition]: IsOptional<SchemaDefinition[Key]> extends true ? never : Key;
-}[keyof SchemaDefinition];
+export type InferSchemaSingle<SchemaRecord> = Prettify<
+  {
+    [Key in GetRequiredKeys<SchemaRecord>]: InferType<SchemaRecord[Key]>;
+  } & {
+    [Key in GetOptionalKeys<SchemaRecord>]?: InferType<SchemaRecord[Key]>;
+  }
+>;
 
-type OptionalKeys<SchemaDefinition> = Exclude<keyof SchemaDefinition, RequiredKeys<SchemaDefinition>>;
+export type InferSchemaUnion<UnionElements extends readonly unknown[]> = UnionElements extends readonly [infer FirstSchema, ...infer RestSchemas] ? (FirstSchema extends SchemaSingle ? InferSchemaSingle<FirstSchema> | InferSchemaUnion<RestSchemas> : never) : never;
 
-type InferSchemaSingle<SchemaDefinition> = Prettify<{ [Key in RequiredKeys<SchemaDefinition>]: InferType<SchemaDefinition[Key]> } & { [Key in OptionalKeys<SchemaDefinition>]?: InferType<SchemaDefinition[Key]> }>;
+export type InferTupleItems<TupleElements extends readonly unknown[]> = TupleElements extends readonly [infer FirstElement, ...infer RestElements] ? (FirstElement extends Type ? [InferType<FirstElement>, ...InferTupleItems<RestElements>] : []) : [];
 
-export type InferSchema<SchemaDefinition> = SchemaDefinition extends readonly unknown[] ? InferSchemaSingle<SchemaDefinition[number]> : InferSchemaSingle<SchemaDefinition>;
+export type InferObject<ObjectType extends Object> = ObjectType['properties'] extends SchemaSingle ? InferSchemaSingle<ObjectType['properties']> : ObjectType['properties'] extends SchemaUnion ? InferSchemaUnion<ObjectType['properties']> : unknown;
+
+// eslint-disable-next-line @typescript-eslint/array-type
+export type BaseInferTypeSingle<SingleType> = SingleType extends String ? (SingleType['enum'] extends (infer EnumValue)[] ? EnumValue : string) : SingleType extends Number ? (SingleType['enum'] extends (infer EnumValue)[] ? EnumValue : number) : SingleType extends Boolean ? boolean : SingleType extends Date ? Date | string : SingleType extends Object ? InferObject<SingleType> : SingleType extends Array ? InferType<SingleType['items']>[] : SingleType extends Tuple ? InferTupleItems<SingleType['items']> : unknown;
+
+export type InferTypeUnion<UnionElements extends readonly unknown[]> = UnionElements extends readonly [infer FirstType, ...infer RestTypes] ? (FirstType extends TypeSingle ? InferType<FirstType> | InferTypeUnion<RestTypes> : never) : never;
+
+export type InferType<TypeDefinition> = TypeDefinition extends TypeSingle ? ApplyNullable<TypeDefinition, BaseInferTypeSingle<TypeDefinition>> : TypeDefinition extends TypeUnion ? InferTypeUnion<TypeDefinition> : unknown;
+
+export type InferSchema<SchemaDefinition extends Schema> = SchemaDefinition extends SchemaSingle ? InferSchemaSingle<SchemaDefinition> : SchemaDefinition extends SchemaUnion ? InferSchemaUnion<SchemaDefinition> : SchemaDefinition extends Type ? InferType<SchemaDefinition> : unknown;

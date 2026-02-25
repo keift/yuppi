@@ -8,7 +8,7 @@ export type String = {
   trim?: boolean; // Default: true
   lowercase?: boolean;
   uppercase?: boolean;
-  nullable?: boolean;
+  nullable?: boolean; // If the default is null, it is assumed to be true.
   required?: boolean; // Default: true
 };
 
@@ -21,14 +21,14 @@ export type Number = {
   positive?: boolean;
   negative?: boolean;
   default?: number | null;
-  nullable?: boolean;
+  nullable?: boolean; // If the default is null, it is assumed to be true.
   required?: boolean; // Default: true
 };
 
 export type Boolean = {
   type: 'boolean';
   default?: boolean | null;
-  nullable?: boolean;
+  nullable?: boolean; // If the default is null, it is assumed to be true.
   required?: boolean; // Default: true
 };
 
@@ -37,15 +37,15 @@ export type Date = {
   minimum?: string;
   maximum?: string;
   default?: string | null;
-  nullable?: boolean;
+  nullable?: boolean; // If the default is null, it is assumed to be true.
   required?: boolean; // Default: true
 };
 
 export type Object = {
   type: 'object';
-  properties: Schema;
+  properties: SchemaSingle | SchemaUnion;
   default?: Record<string, unknown> | null;
-  nullable?: boolean;
+  nullable?: boolean; // If the default is null, it is assumed to be true.
   required?: boolean; // Default: true
 };
 
@@ -55,7 +55,7 @@ export type Array = {
   maximum?: number;
   items: Type;
   default?: unknown[] | null;
-  nullable?: boolean;
+  nullable?: boolean; // If the default is null, it is assumed to be true.
   required?: boolean; // Default: true
 };
 
@@ -63,7 +63,7 @@ export type Tuple = {
   type: 'tuple';
   items: Type[];
   default?: unknown[] | null;
-  nullable?: boolean;
+  nullable?: boolean; // If the default is null, it is assumed to be true.
   required?: boolean; // Default: true
 };
 
@@ -78,4 +78,4 @@ export type SchemaSingle = Record<string, Type>;
 
 export type SchemaUnion = [SchemaSingle, SchemaSingle, ...SchemaSingle[]];
 
-export type Schema = SchemaSingle | SchemaUnion;
+export type Schema = SchemaSingle | SchemaUnion | Type;

@@ -105,9 +105,11 @@ yuppi
 │
 ├── new Yuppi(options?)
 │   │
-│   ├── validate(schema, properties)
-│   ├── declare(schema, name)
-│   └── toJSONSchema(schema)
+│   └── schema(schema)
+│       │
+│       ├── validate(properties)
+│       ├── declare(name)
+│       └── toJSONSchema()
 │
 ├── Patterns
 │   │
@@ -152,7 +154,7 @@ Yuppi schema builder.
 
 ### Methods
 
-`Yuppi.validate(schema, properties)`
+`Yuppi.schema(schema).validate(properties)`
 
 Validate the properties with your Yuppi schema.
 
@@ -166,7 +168,7 @@ Validate the properties with your Yuppi schema.
 > Example:
 >
 > ```typescript
-> const schema = {
+> const schema = yuppi.schema({
 >   display_name: {
 >     type: 'string',
 >     max: 32
@@ -198,7 +200,7 @@ Validate the properties with your Yuppi schema.
 >       }
 >     }
 >   ]
-> } as const satisfies Schema;
+> });
 >
 > const properties = {
 >   display_name: 'Fırat',
@@ -210,7 +212,7 @@ Validate the properties with your Yuppi schema.
 > let fields;
 >
 > try {
->   fields = yuppi.validate(schema, properties);
+>   fields = schema.validate(properties);
 >   /*
 >     {
 >       display_name: "Fırat",
@@ -237,7 +239,7 @@ Validate the properties with your Yuppi schema.
 
 <br/>
 
-`Yuppi.declare(schema, name)`
+`Yuppi.schema(schema).declare(name)`
 
 Declare your Yuppi schema for TypeScript.
 
@@ -253,12 +255,12 @@ Declare your Yuppi schema for TypeScript.
 > ```typescript
 > import type { User } from './generated/yuppi/types/User';
 >
-> await yuppi.declare(schema, 'User');
+> await schema.declare('User');
 >
 > let fields;
 >
 > try {
->   fields = yuppi.validate(schema, properties) as User;
+>   fields = schema.validate(properties) as User;
 >   /*
 >     interface User {
 >       display_name: string;
@@ -274,7 +276,7 @@ Declare your Yuppi schema for TypeScript.
 
 <br/>
 
-`Yuppi.toJSONSchema(schema)`
+`Yuppi.schema(schema).toJSONSchema()`
 
 Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 
@@ -287,7 +289,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 > Example:
 >
 > ```typescript
-> yuppi.toJSONSchema(schema);
+> schema.toJSONSchema();
 > /*
 >   {
 >     additionalProperties: false,
