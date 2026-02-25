@@ -5,7 +5,7 @@ const yuppi = new Yuppi();
 const schema = yuppi.schema({
   field: {
     type: 'number',
-    maximum: 0
+    max: 0
   }
 });
 

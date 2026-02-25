@@ -23,7 +23,6 @@
 
 <!---->
 
-[AnyObject]: ./src/types/AnyObject.type.ts
 [InferSchema]: ./src/types/InferSchema.type.ts
 [JSONSchema]: ./src/types/JSONSchema.type.ts
 [Schema]: ./src/types/Schema.type.ts
@@ -107,7 +106,7 @@ yuppi
 │   │
 │   └── schema(schema)
 │       │
-│       ├── validate(properties)
+│       ├── validate(data)
 │       ├── declare(name)
 │       └── toJSONSchema()
 │
@@ -120,7 +119,6 @@ yuppi
 │   ├── URI
 │   └── Username
 │
-├── type AnyObject
 ├── type InferSchema
 ├── type JSONSchema
 ├── type Schema
@@ -154,14 +152,14 @@ Yuppi schema builder.
 
 ### Methods
 
-`Yuppi.schema(schema).validate(properties)`
+`Yuppi.schema(schema).validate(data)`
 
-Validate the properties with your Yuppi schema.
+Validate the data with your Yuppi schema.
 
-> | Parameter    | Type        | Default | Description                |
-> | ------------ | ----------- | ------- | -------------------------- |
-> | `schema`     | [Schema]    |         | Yuppi schema.              |
-> | `properties` | [AnyObject] |         | Properties to be validate. |
+> | Parameter | Type     | Default | Description          |
+> | --------- | -------- | ------- | -------------------- |
+> | `schema`  | [Schema] |         | Yuppi schema.        |
+> | `data`    | Unknown  |         | data to be validate. |
 >
 > returns [InferSchema]\<Schema\>
 >
@@ -202,7 +200,7 @@ Validate the properties with your Yuppi schema.
 >   ]
 > });
 >
-> const properties = {
+> const data = {
 >   display_name: 'Fırat',
 >   username: 'fir4tozden',
 >   email: 'fir4tozden@gmail.com',
@@ -212,7 +210,7 @@ Validate the properties with your Yuppi schema.
 > let fields;
 >
 > try {
->   fields = schema.validate(properties);
+>   fields = schema.validate(data);
 >   /*
 >     {
 >       display_name: "Fırat",
@@ -260,7 +258,7 @@ Declare your Yuppi schema for TypeScript.
 > let fields;
 >
 > try {
->   fields = schema.validate(properties) as User;
+>   fields = schema.validate(data) as User;
 >   /*
 >     interface User {
 >       display_name: string;
@@ -341,7 +339,6 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 
 | Type              |
 | ----------------- |
-| [AnyObject]       |
 | [InferSchema]     |
 | [JSONSchema]      |
 | [Schema]          |

@@ -9,7 +9,6 @@ import { pascalCase } from './utils/PascalCase.util';
 
 import { YuppiOptionsDefault } from './defaults/YuppiOptions.default';
 
-import type { AnyObject } from './types/AnyObject.type';
 import type { InferSchema } from './main';
 import type { JSONSchema } from './types/JSONSchema.type';
 import type { Schema } from './types/Schema.type';
@@ -49,7 +48,8 @@ export class Yuppi {
 
   public schema<const _Schema extends Schema>(schema: _Schema) {
     return {
-      validate: (properties: AnyObject): InferSchema<_Schema> => validate(schema, properties, this.options),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      validate: (data: unknown): InferSchema<_Schema> => validate(schema, data, this.options),
 
       declare: async (name: string): Promise<void> => {
         name = pascalCase(name);

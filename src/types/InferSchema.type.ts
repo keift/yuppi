@@ -1,38 +1,37 @@
-import type { String, Number, Boolean, Date, Object, Array, Tuple, TypeSingle, TypeUnion, Type, SchemaSingle, SchemaUnion, Schema } from './Schema.type';
+import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from './Schema.type';
 
-export type ApplyNullable<TypeDefinition, InferredType> = TypeDefinition extends { nullable: true } ? InferredType | null : TypeDefinition extends { default: null } ? InferredType | null : InferredType;
+type InferString<StringType extends { type: 'string' }> = StringType extends { enum: readonly (infer EnumValue)[] } ? (StringType extends { required: false } ? EnumValue | undefined : StringType extends { nullable: true } ? EnumValue | null : StringType extends { default: null } ? EnumValue | null : EnumValue) : StringType extends { required: false } ? string | undefined : StringType extends { nullable: true } ? string | null : StringType extends { default: null } ? string | null : string;
 
-export type GetRequiredKeys<SchemaRecord> = {
-  [Key in keyof SchemaRecord]: SchemaRecord[Key] extends { required: false } ? never : Key;
-}[keyof SchemaRecord];
+type InferNumber<NumberType extends { type: 'number' }> = NumberType extends { enum: readonly (infer EnumValue)[] } ? (NumberType extends { required: false } ? EnumValue | undefined : NumberType extends { nullable: true } ? EnumValue | null : NumberType extends { default: null } ? EnumValue | null : EnumValue) : NumberType extends { required: false } ? number | undefined : NumberType extends { nullable: true } ? number | null : NumberType extends { default: null } ? number | null : number;
 
-export type GetOptionalKeys<SchemaRecord> = {
-  [Key in keyof SchemaRecord]: SchemaRecord[Key] extends { required: false } ? Key : never;
-}[keyof SchemaRecord];
+type InferBoolean<BooleanType extends { type: 'boolean' }> = BooleanType extends { required: false } ? boolean | undefined : BooleanType extends { nullable: true } ? boolean | null : BooleanType extends { default: null } ? boolean | null : boolean;
 
-export type Prettify<ObjectType> = {
-  [Key in keyof ObjectType]: ObjectType[Key];
+type InferDate<DateType extends { type: 'date' }> = DateType extends { required: false } ? Date | undefined : DateType extends { nullable: true } ? Date | null : DateType extends { default: null } ? Date | null : Date;
+
+type InferObject<ObjectType extends { type: 'object'; properties: SchemaSingle | SchemaUnion }> = ObjectType extends { required: false } ? InferSchema<ObjectType['properties']> | undefined : ObjectType extends { nullable: true } ? InferSchema<ObjectType['properties']> | null : ObjectType extends { default: null } ? InferSchema<ObjectType['properties']> | null : InferSchema<ObjectType['properties']>;
+
+type InferArray<ArrayType extends { type: 'array'; items: Type }> = ArrayType extends { required: false } ? InferType<ArrayType['items']>[] | undefined : ArrayType extends { nullable: true } ? InferType<ArrayType['items']>[] | null : ArrayType extends { default: null } ? InferType<ArrayType['items']>[] | null : InferType<ArrayType['items']>[];
+
+type InferTuple<TupleType extends { type: 'tuple'; items: Type[] }> = TupleType extends { required: false } ? InferTupleItems<TupleType['items']> | undefined : TupleType extends { nullable: true } ? InferTupleItems<TupleType['items']> | null : TupleType extends { default: null } ? InferTupleItems<TupleType['items']> | null : InferTupleItems<TupleType['items']>;
+
+type InferTupleItems<Items extends Type[]> = {
+  [Index in keyof Items]: InferType<Items[Index]>;
 };
 
-export type InferSchemaSingle<SchemaRecord> = Prettify<
-  {
-    [Key in GetRequiredKeys<SchemaRecord>]: InferType<SchemaRecord[Key]>;
-  } & {
-    [Key in GetOptionalKeys<SchemaRecord>]?: InferType<SchemaRecord[Key]>;
-  }
->;
+type InferTypeSingle<SingleType extends TypeSingle> = SingleType extends { type: 'string' } ? InferString<SingleType> : SingleType extends { type: 'number' } ? InferNumber<SingleType> : SingleType extends { type: 'boolean' } ? InferBoolean<SingleType> : SingleType extends { type: 'date' } ? InferDate<SingleType> : SingleType extends { type: 'object'; properties: SchemaSingle | SchemaUnion } ? InferObject<SingleType> : SingleType extends { type: 'array'; items: Type } ? InferArray<SingleType> : SingleType extends { type: 'tuple'; items: Type[] } ? InferTuple<SingleType> : never;
 
-export type InferSchemaUnion<UnionElements extends readonly unknown[]> = UnionElements extends readonly [infer FirstSchema, ...infer RestSchemas] ? (FirstSchema extends SchemaSingle ? InferSchemaSingle<FirstSchema> | InferSchemaUnion<RestSchemas> : never) : never;
+type InferTypeUnion<UnionType extends TypeUnion> = InferTypeSingle<UnionType[number]>;
 
-export type InferTupleItems<TupleElements extends readonly unknown[]> = TupleElements extends readonly [infer FirstElement, ...infer RestElements] ? (FirstElement extends Type ? [InferType<FirstElement>, ...InferTupleItems<RestElements>] : []) : [];
+type InferType<FieldType extends Type> = FieldType extends TypeUnion ? InferTypeUnion<FieldType> : FieldType extends TypeSingle ? InferTypeSingle<FieldType> : never;
 
-export type InferObject<ObjectType extends Object> = ObjectType['properties'] extends SchemaSingle ? InferSchemaSingle<ObjectType['properties']> : ObjectType['properties'] extends SchemaUnion ? InferSchemaUnion<ObjectType['properties']> : unknown;
+type InferSchemaSingle<SchemaShape extends SchemaSingle> = {
+  [Key in keyof SchemaShape as SchemaShape[Key] extends { required: false } ? never : Key]: InferType<SchemaShape[Key]>;
+} & {
+  [Key in keyof SchemaShape as SchemaShape[Key] extends { required: false } ? Key : never]?: InferType<SchemaShape[Key]>;
+};
 
-// eslint-disable-next-line @typescript-eslint/array-type
-export type BaseInferTypeSingle<SingleType> = SingleType extends String ? (SingleType['enum'] extends (infer EnumValue)[] ? EnumValue : string) : SingleType extends Number ? (SingleType['enum'] extends (infer EnumValue)[] ? EnumValue : number) : SingleType extends Boolean ? boolean : SingleType extends Date ? Date | string : SingleType extends Object ? InferObject<SingleType> : SingleType extends Array ? InferType<SingleType['items']>[] : SingleType extends Tuple ? InferTupleItems<SingleType['items']> : unknown;
+type InferSchemaUnion<UnionShape extends SchemaUnion> = {
+  [Index in keyof UnionShape]: UnionShape[Index] extends SchemaSingle ? InferSchemaSingle<UnionShape[Index]> : never;
+}[number];
 
-export type InferTypeUnion<UnionElements extends readonly unknown[]> = UnionElements extends readonly [infer FirstType, ...infer RestTypes] ? (FirstType extends TypeSingle ? InferType<FirstType> | InferTypeUnion<RestTypes> : never) : never;
-
-export type InferType<TypeDefinition> = TypeDefinition extends TypeSingle ? ApplyNullable<TypeDefinition, BaseInferTypeSingle<TypeDefinition>> : TypeDefinition extends TypeUnion ? InferTypeUnion<TypeDefinition> : unknown;
-
-export type InferSchema<SchemaDefinition extends Schema> = SchemaDefinition extends SchemaSingle ? InferSchemaSingle<SchemaDefinition> : SchemaDefinition extends SchemaUnion ? InferSchemaUnion<SchemaDefinition> : SchemaDefinition extends Type ? InferType<SchemaDefinition> : unknown;
+export type InferSchema<InputSchema extends Schema> = InputSchema extends SchemaUnion ? InferSchemaUnion<InputSchema> : InputSchema extends SchemaSingle ? InferSchemaSingle<InputSchema> : InputSchema extends TypeUnion ? InferTypeUnion<InputSchema> : InputSchema extends TypeSingle ? InferTypeSingle<InputSchema> : never;

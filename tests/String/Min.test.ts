@@ -5,7 +5,7 @@ const yuppi = new Yuppi();
 const schema = yuppi.schema({
   field: {
     type: 'string',
-    minimum: 4
+    min: 4
   }
 });
 

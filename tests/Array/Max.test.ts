@@ -8,7 +8,7 @@ const schema = yuppi.schema({
     items: {
       type: 'string'
     },
-    maximum: 1
+    max: 1
   }
 });
 

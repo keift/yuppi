@@ -5,13 +5,13 @@ const yuppi = new Yuppi();
 const schema = yuppi.schema({
   display_name: {
     type: 'string',
-    maximum: 32
+    max: 32
   },
 
   username: {
     type: 'string',
-    minimum: 3,
-    maximum: 16,
+    min: 3,
+    max: 16,
     pattern: Patterns.Username
   },
 
@@ -47,9 +47,9 @@ const example_json_schema = {
       type: 'string'
     },
     username: {
+      pattern: '^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$',
       minLength: 3,
       maxLength: 16,
-      pattern: '^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$',
       trim: true,
       type: 'string'
     },
@@ -69,8 +69,6 @@ const example_json_schema = {
 };
 
 const conversion = schema.toJSONSchema();
-
-console.log(JSON.stringify(conversion));
 
 if (JSON.stringify(conversion) !== JSON.stringify(example_json_schema)) throw new Error('❌ Error');
 

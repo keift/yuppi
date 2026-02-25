@@ -5,7 +5,7 @@ const yuppi = new Yuppi();
 const schema = yuppi.schema({
   field: {
     type: 'date',
-    minimum: '2025-01-01'
+    min: '2025-01-01'
   }
 });
 
