@@ -10,9 +10,9 @@ const schema = yuppi.schema({
 
   username: {
     type: 'string',
+    pattern: Patterns.Username,
     min: 3,
-    max: 16,
-    pattern: Patterns.Username
+    max: 16
   },
 
   email: {
