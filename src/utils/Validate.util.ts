@@ -32,7 +32,7 @@ const buildIssue = (issue_type: Issue['type'], schema_type: TypeSingle['type'], 
   const path_str = formatPathToString(path);
   const amount = min ?? max ?? 1;
 
-  const parts: Issue['parts'] = {
+  const parts: Issue['texts'] = {
     path: path_str,
     min,
     max,
@@ -44,7 +44,7 @@ const buildIssue = (issue_type: Issue['type'], schema_type: TypeSingle['type'], 
     expected,
     received,
     path,
-    parts,
+    texts: parts,
     code: '',
     message: ''
   };

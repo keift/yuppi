@@ -7,7 +7,7 @@ export type Issue = {
   expected: TypeSingle['type'] | 'null' | 'undefined';
   received: TypeSingle['type'] | 'null' | 'undefined';
   path: (string | number)[];
-  parts: { path: string; min?: number; max?: number; plural_suffix?: '' | 's' };
+  texts: { path: string; min?: number; max?: number; plural_suffix?: '' | 's' };
   code: string;
   message: string;
 };
