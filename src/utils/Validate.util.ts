@@ -187,7 +187,7 @@ const validateTypeSingle = (type: TypeSingle, data: unknown, path: (string | num
       const item_result = validateType(type.items, value[i], [...path, i], options);
       validated_items.push(item_result.data);
       issues.push(...item_result.issues);
-      if (options.validations?.abort_early === true && issues.length > 0) break;
+      if (options.validation?.abort_early === true && issues.length > 0) break;
     }
 
     return { data: validated_items, issues };
@@ -203,7 +203,7 @@ const validateTypeSingle = (type: TypeSingle, data: unknown, path: (string | num
     const item_result = validateType(type.items[i], (value as unknown[])[i], [...path, i], options);
     validated_tuple.push(item_result.data);
     issues.push(...item_result.issues);
-    if (options.validations?.abort_early === true && issues.length > 0) break;
+    if (options.validation?.abort_early === true && issues.length > 0) break;
   }
 
   return { data: validated_tuple, issues };
@@ -231,7 +231,7 @@ const validateSchemaSingle = (schema: SchemaSingle, data: unknown, path: (string
   }
 
   const record = data as Record<string, unknown>;
-  const result: Record<string, unknown> = options.validations?.strip_unknown === true ? {} : { ...record };
+  const result: Record<string, unknown> = {};
 
   const issues: Issue[] = [];
 
@@ -239,7 +239,7 @@ const validateSchemaSingle = (schema: SchemaSingle, data: unknown, path: (string
     const field_result = validateType(type, record[key], [...path, key], options);
     result[key] = field_result.data;
     issues.push(...field_result.issues);
-    if (options.validations?.abort_early === true && issues.length > 0) break;
+    if (options.validation?.abort_early === true && issues.length > 0) break;
   }
 
   return { data: result, issues };

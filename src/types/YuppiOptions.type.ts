@@ -61,8 +61,7 @@ export type YuppiOptions = {
     };
   };
 
-  validations?: {
+  validation?: {
     abort_early?: boolean;
-    strip_unknown?: boolean;
   };
 };

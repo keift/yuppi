@@ -134,7 +134,7 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
     for (const [key, type] of Object.entries(schema)) properties[key] = buildType(type);
 
-    return Typebox.Object(properties, { additionalProperties: !(options.validations?.strip_unknown ?? false) });
+    return Typebox.Object(properties, { additionalProperties: !(options.validation?.strip_unknown ?? false) });
   };
 
   const buildSchemaUnion = (schemas: SchemaUnion) => {
