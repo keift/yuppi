@@ -12,6 +12,7 @@ import { YuppiOptionsDefault } from './defaults/YuppiOptions.default';
 import type { InferSchema } from './main';
 import type { JSONSchema } from './types/JSONSchema.type';
 import type { Schema } from './types/Schema.type';
+import type { StandardSchemaV1 } from './types/StandartSchema.type';
 import type { YuppiOptions } from './types/YuppiOptions.type';
 
 const cleaned_types_dirs = new Set<string>();
@@ -70,7 +71,28 @@ export class Yuppi {
         await fs.writeFile(path.join(types_dir, `${name}.d.ts`), type);
       },
 
-      toJSONSchema: (): JSONSchema => JSON.parse(JSON.stringify(toJSONSchema(schema, this.options))) as JSONSchema
+      toJSONSchema: (): JSONSchema => JSON.parse(JSON.stringify(toJSONSchema(schema, this.options))) as JSONSchema,
+
+      '~standard': {
+        version: 1,
+        vendor: 'yuppi',
+
+        validate: (value: unknown): StandardSchemaV1.Result<InferSchema<_Schema>> => {
+          try {
+            const validated = validate(schema, value, this.options);
+
+            return { value: validated };
+          } catch (error) {
+            return {
+              issues: [
+                {
+                  message: error instanceof Error ? error.message : 'Validation failed'
+                }
+              ]
+            };
+          }
+        }
+      } as StandardSchemaV1.Props<unknown, InferSchema<_Schema>>
     };
   }
 }
