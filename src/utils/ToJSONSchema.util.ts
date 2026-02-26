@@ -2,9 +2,8 @@ import { Type as Typebox } from '@sinclair/typebox';
 
 import type { JSONSchema } from '../types/JSONSchema.type';
 import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from '../types/Schema.type';
-import type { YuppiOptions } from '../types/YuppiOptions.type';
 
-export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
+export const toJSONSchema = (schema: Schema) => {
   const buildTypeSingle = (type: TypeSingle): JSONSchema => {
     if (type.type === 'string') {
       let json_schema: JSONSchema = Typebox.String({
@@ -134,7 +133,7 @@ export const toJSONSchema = (schema: Schema, options: YuppiOptions) => {
 
     for (const [key, type] of Object.entries(schema)) properties[key] = buildType(type);
 
-    return Typebox.Object(properties, { additionalProperties: !(options.validation?.strip_unknown ?? false) });
+    return Typebox.Object(properties, { additionalProperties: false });
   };
 
   const buildSchemaUnion = (schemas: SchemaUnion) => {

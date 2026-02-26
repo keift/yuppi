@@ -72,7 +72,7 @@ export class Yuppi {
         await fs.writeFile(path.join(types_dir, `${name}.d.ts`), type);
       },
 
-      toJSONSchema: (): JSONSchema => JSON.parse(JSON.stringify(toJSONSchema(schema, this.options))) as JSONSchema,
+      toJSONSchema: (): JSONSchema => JSON.parse(JSON.stringify(toJSONSchema(schema))) as JSONSchema,
 
       '~standard': {
         version: 1,
