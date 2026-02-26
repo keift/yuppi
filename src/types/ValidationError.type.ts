@@ -2,7 +2,7 @@ import slugify from 'slugify';
 
 import type { TypeSingle } from './Schema.type';
 
-export type ErrorContext = {
+export type Issue = {
   type: 'type' | 'enum' | 'pattern' | 'min' | 'max' | 'integer' | 'nullable' | 'required' | 'positive' | 'negative';
   expected: TypeSingle['type'] | 'null' | 'undefined';
   received: TypeSingle['type'] | 'null' | 'undefined';
@@ -13,14 +13,14 @@ export type ErrorContext = {
 };
 
 export class ValidationError extends Error {
-  public errors: ErrorContext[];
+  public issues: Issue[];
 
-  public constructor(options: { errors: ErrorContext[] }) {
-    super(options.errors[0].message);
+  public constructor(options: { issues: Issue[] }) {
+    super(options.issues[0].message);
 
     this.name = 'ValidationError';
 
-    this.errors = options.errors.map((error) => ({ ...error, code: slugify(error.message.replaceAll('_', '-'), { strict: true, trim: true, lower: true }) }));
+    this.issues = options.issues.map((error) => ({ ...error, code: slugify(error.message.replaceAll('_', '-'), { strict: true, trim: true, lower: true }) }));
 
     Object.setPrototypeOf(this, ValidationError.prototype);
   }

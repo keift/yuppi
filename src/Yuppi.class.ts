@@ -13,6 +13,7 @@ import type { InferSchema } from './main';
 import type { JSONSchema } from './types/JSONSchema.type';
 import type { Schema } from './types/Schema.type';
 import type { StandardSchemaV1 } from './types/StandartSchema.type';
+import { ValidationError } from './types/ValidationError.type';
 import type { YuppiOptions } from './types/YuppiOptions.type';
 
 const cleaned_types_dirs = new Set<string>();
@@ -77,19 +78,15 @@ export class Yuppi {
         version: 1,
         vendor: 'yuppi',
 
-        validate: (value: unknown): StandardSchemaV1.Result<InferSchema<_Schema>> => {
+        validate: (data: unknown): StandardSchemaV1.Result<InferSchema<_Schema>> => {
           try {
-            const validated = validate(schema, value, this.options);
+            const validated = validate(schema, data, this.options);
 
             return { value: validated };
           } catch (error) {
-            return {
-              issues: [
-                {
-                  message: error instanceof Error ? error.message : 'Validation failed'
-                }
-              ]
-            };
+            if (error instanceof ValidationError) {
+              return error;
+            } else return { issues: [] };
           }
         }
       } as StandardSchemaV1.Props<unknown, InferSchema<_Schema>>
