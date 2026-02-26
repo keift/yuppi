@@ -50,8 +50,7 @@ export class Yuppi {
 
   public schema<const _Schema extends Schema>(schema: _Schema) {
     return {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      validate: (data: unknown): InferSchema<_Schema> => validate(schema, data, this.options),
+      validate: (data: unknown): InferSchema<_Schema> | ValidationError => validate(schema, data, this.options),
 
       declare: async (name: string): Promise<void> => {
         name = pascalCase(name);
@@ -78,7 +77,7 @@ export class Yuppi {
         version: 1,
         vendor: 'yuppi',
 
-        validate: (data: unknown): StandardSchemaV1.Result<InferSchema<_Schema>> => {
+        validate: (data: unknown): StandardSchemaV1.Result<InferSchema<_Schema> | ValidationError> => {
           try {
             const validated = validate(schema, data, this.options);
 

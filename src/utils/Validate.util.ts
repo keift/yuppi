@@ -10,13 +10,25 @@ const formatPathToString = (path_array: (string | number)[]) =>
     } else return index === 0 ? curr : `${acc}.${curr}`;
   }, '');
 
-const reportIssue = (issue: Issue[]) => {};
-
 export const validate = <const _Schema extends Schema>(schema: _Schema, data: unknown, options: YuppiOptions) => {
-  const result = validateSchema(schema, data, [], options);
+  const result: unknown;
+  const issues: Issue[] = [];
 
-  if (result.issues.length > 0) throw new ValidationError({ issues: result.issues });
+  const reportIssue = (issue: Issue) => {
+    issues.push(issue);
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return result.data as InferSchema<_Schema>;
+    if (options.validation?.abort_early === true && issues.length === 1) throw new ValidationError({ issues });
+  };
+
+  const validateSchema = (schema: Schema, data: unknown, path: (string | number)[], options: YuppiOptions) => {
+    if (Array.isArray(schema)) {
+      if (schema.length > 0 && typeof (schema[0] as TypeSingle).type === 'string') return validateTypeUnion(schema as TypeUnion, data, path, options);
+
+      return validateSchemaUnion(schema as SchemaUnion, data, path, options);
+    } else {
+      if (typeof (schema as TypeSingle).type === 'string') return validateTypeSingle(schema as TypeSingle, data, path, options);
+
+      return validateSchemaSingle(schema as SchemaSingle, data, path, options);
+    }
+  };
 };
