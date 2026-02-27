@@ -18,8 +18,6 @@ export type Number = {
   min?: number;
   max?: number;
   integer?: boolean;
-  positive?: boolean;
-  negative?: boolean;
   default?: number | null;
   nullable?: boolean; // If the default is null, it is assumed to be true.
   required?: boolean; // Default: true
