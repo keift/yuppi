@@ -3,8 +3,8 @@ import slugify from 'slugify';
 import type { TypeSingle } from './Schema.type';
 
 export type Issue = {
-  type: 'type' | 'enum' | 'pattern' | 'min' | 'max' | 'integer' | 'nullable' | 'required' | 'positive' | 'negative';
-  expected: TypeSingle['type'] | 'null' | 'undefined';
+  type: 'type' | 'enum' | 'pattern' | 'min' | 'max' | 'integer' | 'positive' | 'negative' | 'nullable' | 'required';
+  expected: TypeSingle['type'];
   received: TypeSingle['type'] | 'null' | 'undefined';
   path: (string | number)[];
   texts: { path: string; min?: number; max?: number; plural_suffix?: '' | 's' };

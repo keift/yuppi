@@ -5,59 +5,59 @@ export type YuppiOptions = {
 
   issue_messages?: {
     string?: {
-      type?: (error: Issue) => string;
-      enum?: (error: Issue) => string;
-      pattern?: (error: Issue) => string;
-      min?: (error: Issue) => string;
-      max?: (error: Issue) => string;
-      nullable?: (error: Issue) => string;
-      required?: (error: Issue) => string;
+      type?: (issue: Issue) => string;
+      enum?: (issue: Issue) => string;
+      pattern?: (issue: Issue) => string;
+      min?: (issue: Issue) => string;
+      max?: (issue: Issue) => string;
+      nullable?: (issue: Issue) => string;
+      required?: (issue: Issue) => string;
     };
 
     number?: {
-      type?: (error: Issue) => string;
-      enum?: (error: Issue) => string;
-      min?: (error: Issue) => string;
-      max?: (error: Issue) => string;
-      integer?: (error: Issue) => string;
-      positive?: (error: Issue) => string;
-      negative?: (error: Issue) => string;
-      nullable?: (error: Issue) => string;
-      required?: (error: Issue) => string;
+      type?: (issue: Issue) => string;
+      enum?: (issue: Issue) => string;
+      min?: (issue: Issue) => string;
+      max?: (issue: Issue) => string;
+      integer?: (issue: Issue) => string;
+      positive?: (issue: Issue) => string;
+      negative?: (issue: Issue) => string;
+      nullable?: (issue: Issue) => string;
+      required?: (issue: Issue) => string;
     };
 
     boolean?: {
-      type?: (error: Issue) => string;
-      nullable?: (error: Issue) => string;
-      required?: (error: Issue) => string;
+      type?: (issue: Issue) => string;
+      nullable?: (issue: Issue) => string;
+      required?: (issue: Issue) => string;
     };
 
     date?: {
-      type?: (error: Issue) => string;
-      min?: (error: Issue) => string;
-      max?: (error: Issue) => string;
-      nullable?: (error: Issue) => string;
-      required?: (error: Issue) => string;
+      type?: (issue: Issue) => string;
+      min?: (issue: Issue) => string;
+      max?: (issue: Issue) => string;
+      nullable?: (issue: Issue) => string;
+      required?: (issue: Issue) => string;
     };
 
     object?: {
-      type?: (error: Issue) => string;
-      nullable?: (error: Issue) => string;
-      required?: (error: Issue) => string;
+      type?: (issue: Issue) => string;
+      nullable?: (issue: Issue) => string;
+      required?: (issue: Issue) => string;
     };
 
     array?: {
-      type?: (error: Issue) => string;
-      min?: (error: Issue) => string;
-      max?: (error: Issue) => string;
-      nullable?: (error: Issue) => string;
-      required?: (error: Issue) => string;
+      type?: (issue: Issue) => string;
+      min?: (issue: Issue) => string;
+      max?: (issue: Issue) => string;
+      nullable?: (issue: Issue) => string;
+      required?: (issue: Issue) => string;
     };
 
     tuple?: {
-      type?: (error: Issue) => string;
-      nullable?: (error: Issue) => string;
-      required?: (error: Issue) => string;
+      type?: (issue: Issue) => string;
+      nullable?: (issue: Issue) => string;
+      required?: (issue: Issue) => string;
     };
   };
 
