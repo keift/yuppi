@@ -60,6 +60,17 @@ export type IssueMax = {
 export type IssueInteger = {
   type: 'integer';
   nullable: boolean;
+  path: string[];
+  texts: { path: string };
+  code: string;
+  message: string;
+};
+
+export type IssueTuple = {
+  type: 'tuple';
+  expected: string[];
+  received: string[];
+  nullable: boolean;
   path: (string | number)[];
   texts: { path: string };
   code: string;

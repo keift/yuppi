@@ -2,7 +2,7 @@ import { typof } from 'typof';
 
 import type { InferSchema } from '../types/InferSchema.type';
 import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from '../types/Schema.type';
-import { ValidationError, type Issue } from '../types/ValidationError.type';
+import { ValidationError, type Issue, type IssueType } from '../types/ValidationError.type';
 import type { YuppiOptions } from '../types/YuppiOptions.type';
 
 const formatPathToString = (path: (string | number)[]) =>
@@ -12,14 +12,14 @@ const formatPathToString = (path: (string | number)[]) =>
     } else return index === 0 ? curr : `${acc}.${curr}`;
   }, '');
 
-const getReceivedType = (value: unknown) => typof(value)[0] as Issue['received'];
+const getReceivedType = (value: unknown) => typof(value)[0] as IssueType['received'];
 
 export const validate = <const _Schema extends Schema>(schema: _Schema, data: unknown, options: YuppiOptions) => {
   const result: unknown;
   const issues: Issue[] = [];
 
-  const reportIssue = (issue: Issue) => {
-    const message = (options.issue_messages as Record<string, Record<string, (issue: Issue) => string>>)[issue.expected][issue.type];
+  const reportIssue = (type: TypeSingle, issue: Issue) => {
+    const message = (options.issue_messages as Record<string, Record<string, (issue: Issue) => string>>)[type.type][issue.type];
 
     if (typeof message === 'function') issue = { ...issue, message: message(issue) };
 
@@ -31,7 +31,7 @@ export const validate = <const _Schema extends Schema>(schema: _Schema, data: un
   const validateType = (type: TypeSingle, data: unknown, path: (string | number)[]) => {
     if (type.type === 'string') {
       if (typeof data !== 'string') {
-        reportIssue({ type: 'type', expected: type.type, received: getReceivedType(data), path, texts: { path: formatPathToString(path) }, code: '', message: '' });
+        reportIssue(type, { type: 'type', expected: type.type, received: getReceivedType(data), path, texts: { path: formatPathToString(path) }, code: '', message: '' });
 
         return;
       }

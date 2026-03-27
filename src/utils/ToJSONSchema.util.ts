@@ -23,24 +23,10 @@ export const toJSONSchema = (schema: Schema) => {
 
       return json_schema;
     } else if (type.type === 'number') {
-      const minimum = type.min;
-      const maximum = type.max;
-
-      let exclusive_minimum;
-      let exclusive_maximum;
-
-      if (type.positive === true && type.min === undefined) exclusive_minimum = 0;
-
-      if (type.negative === true && type.max === undefined) exclusive_maximum = 0;
-
       const number_options = {
         enum: type.enum,
-        minimum,
-        maximum,
-        exclusiveMinimum: exclusive_minimum,
-        exclusiveMaximum: exclusive_maximum,
-        positive: type.positive,
-        negative: type.negative,
+        minimum: type.min,
+        maximum: type.max,
         default: type.default
       };
 
