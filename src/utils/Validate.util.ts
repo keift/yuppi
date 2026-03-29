@@ -37,4 +37,6 @@ export const validate = <const _Schema extends Schema>(schema: _Schema, data: un
       }
     }
   };
+
+  return result as InferSchema<_Schema>;
 };
