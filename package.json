@@ -5,12 +5,12 @@
   "license": "MIT",
   "homepage": "https://github.com/keift/yuppi",
   "bugs": "https://github.com/keift/yuppi/issues",
-  "main": "./dist/main.js",
+  "main": "./dist/main.cjs",
   "module": "./dist/main.mjs",
-  "types": "./dist/main.d.ts",
+  "types": "./dist/main.d.mts",
   "scripts": {
     "tests": "bun run lint && bun test",
-    "build": "tsup",
+    "build": "tsdown",
     "prettier": "prettier --write ./",
     "lint": "eslint ./"
   },
@@ -19,13 +19,13 @@
     "@types/lodash.merge": "^4.6.9",
     "json-schema-to-typescript": "^15.0.4",
     "lodash.merge": "^4.6.2",
-    "rulint": "^1.1.2",
-    "slugify": "^1.6.8",
+    "slugify": "^1.6.9",
     "typof": "^1.0.16"
   },
   "devDependencies": {
     "prettier": "latest",
-    "tsup": "latest"
+    "rulint": "latest",
+    "tsdown": "latest"
   },
   "repository": {
     "type": "git",
