@@ -1,21 +1,21 @@
-[Domain]: ./src/patterns/Domain.pattern.ts
-[Email]: ./src/patterns/Email.pattern.ts
-[HTTP]: ./src/patterns/HTTP.pattern.ts
-[PhoneNumber]: ./src/patterns/PhoneNumber.pattern.ts
-[URI]: ./src/patterns/URI.pattern.ts
-[Username]: ./src/patterns/Username.pattern.ts
+[Domain]: ./src/patterns/domain.ts
+[Email]: ./src/patterns/email.ts
+[HTTP]: ./src/patterns/http.ts
+[PhoneNumber]: ./src/patterns/phone-number.ts
+[URI]: ./src/patterns/uri.ts
+[Username]: ./src/patterns/username.ts
 
 <!---->
 
-[YuppiOptionsDefault]: ./src/defaults/YuppiOptions.default.ts
+[YuppiOptionsDefault]: ./src/defaults/yuppi-options.ts
 
 <!---->
 
-[InferSchema]: ./src/types/InferSchema.type.ts
-[JSONSchema]: ./src/types/JSONSchema.type.ts
-[Schema]: ./src/types/Schema.type.ts
-[ValidationError]: ./src/types/ValidationError.type.ts
-[YuppiOptions]: ./src/types/YuppiOptions.type.ts
+[InferSchema]: ./src/types/infer-schema.ts
+[JSONSchema]: ./src/types/json-schema.ts
+[Schema]: ./src/types/schema.ts
+[ValidationError]: ./src/types/validation-error.ts
+[YuppiOptions]: ./src/types/yuppi-options.ts
 
 <div align="center">
   <br/>
