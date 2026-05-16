@@ -1,4 +1,4 @@
-import type { YuppiOptions } from '../types/YuppiOptions.type';
+import type { YuppiOptions } from '../types/yuppi-options';
 
 export const YuppiOptionsDefault: YuppiOptions = {
   output_dir: './generated/yuppi',

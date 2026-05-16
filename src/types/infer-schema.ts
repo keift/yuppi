@@ -1,4 +1,4 @@
-import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from './Schema.type';
+import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from './schema';
 
 type InferString<StringType extends { type: 'string' }> = StringType extends { enum: readonly (infer EnumValue)[] } ? (StringType extends { required: false } ? EnumValue | undefined : StringType extends { nullable: true } ? EnumValue | null : StringType extends { default: null } ? EnumValue | null : EnumValue) : StringType extends { required: false } ? string | undefined : StringType extends { nullable: true } ? string | null : StringType extends { default: null } ? string | null : string;
 

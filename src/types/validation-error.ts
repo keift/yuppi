@@ -1,6 +1,6 @@
 import slugify from 'slugify';
 
-import type { TypeSingle } from './Schema.type';
+import type { TypeSingle } from './schema';
 
 export type IssueType = {
   type: 'type';

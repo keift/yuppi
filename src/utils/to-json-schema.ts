@@ -1,7 +1,7 @@
 import { Type as Typebox } from '@sinclair/typebox';
 
-import type { JSONSchema } from '../types/JSONSchema.type';
-import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from '../types/Schema.type';
+import type { JSONSchema } from '../types/json-schema';
+import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from '../types/schema';
 
 export const toJSONSchema = (schema: Schema) => {
   const buildTypeSingle = (type: TypeSingle): JSONSchema => {

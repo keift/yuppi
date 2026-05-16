@@ -1,7 +1,7 @@
-import type { InferSchema } from '../types/InferSchema.type';
-import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from '../types/Schema.type';
-import { ValidationError, type Issue } from '../types/ValidationError.type';
-import type { YuppiOptions } from '../types/YuppiOptions.type';
+import type { InferSchema } from '../types/infer-schema';
+import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from '../types/schema';
+import { ValidationError, type Issue } from '../types/validation-error';
+import type { YuppiOptions } from '../types/yuppi-options';
 
 const formatPathToString = (path_array: (string | number)[]) =>
   path_array.reduce<string>((acc, curr, index) => {
