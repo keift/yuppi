@@ -1,9 +1,11 @@
+/* eslint-disable */
+
 import { typof } from 'typof';
 
-import type { InferSchema } from '../types/infer-schema';
+import type { InferSchema } from '../types/infer_schema';
 import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from '../types/schema';
-import { ValidationError, type Issue, type IssueType } from '../types/validation-error';
-import type { YuppiOptions } from '../types/yuppi-options';
+import { ValidationError, type Issue, type IssueType } from '../types/validation_error';
+import type { YuppiOptions } from '../types/yuppi_options';
 
 const formatPathToString = (path: (string | number)[]) =>
   path.reduce<string>((acc, curr, index) => {

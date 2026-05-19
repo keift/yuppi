@@ -1,10 +1,10 @@
 import { Type as Typebox } from '@sinclair/typebox';
 
-import type { JSONSchema } from '../types/json-schema';
+import type { JSONSchema } from '../types/json_schema';
 import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from '../types/schema';
 
-export const toJSONSchema = (schema: Schema) => {
-  const buildTypeSingle = (type: TypeSingle): JSONSchema => {
+export const json_schema = (schema: Schema) => {
+  const build_type_single = (type: TypeSingle): JSONSchema => {
     if (type.type === 'string') {
       let json_schema: JSONSchema = Typebox.String({
         enum: type.enum,
@@ -61,7 +61,7 @@ export const toJSONSchema = (schema: Schema) => {
 
       return json_schema;
     } else if (type.type === 'object') {
-      let json_schema: JSONSchema = buildSchema(type.properties);
+      let json_schema: JSONSchema = build_schema(type.properties);
 
       if (type.default !== undefined) json_schema = { ...json_schema, default: type.default };
 
@@ -71,7 +71,7 @@ export const toJSONSchema = (schema: Schema) => {
 
       return json_schema;
     } else if (type.type === 'array') {
-      let json_schema: JSONSchema = Typebox.Array(buildType(type.items), {
+      let json_schema: JSONSchema = Typebox.Array(build_type(type.items), {
         minItems: type.min,
         maxItems: type.max,
         default: type.default
@@ -84,7 +84,7 @@ export const toJSONSchema = (schema: Schema) => {
       return json_schema;
     } else {
       let json_schema: JSONSchema = Typebox.Tuple(
-        type.items.map((item) => buildType(item)),
+        type.items.map((item) => build_type(item)),
         {
           default: type.default
         }
@@ -98,8 +98,8 @@ export const toJSONSchema = (schema: Schema) => {
     }
   };
 
-  const buildTypeUnion = (types: TypeUnion) => {
-    const schemas = types.map((type) => buildTypeSingle(type));
+  const build_type_union = (types: TypeUnion) => {
+    const schemas = types.map((type) => build_type_single(type));
 
     const optional = types.every((type) => type.required === false);
 
@@ -108,37 +108,37 @@ export const toJSONSchema = (schema: Schema) => {
     return optional ? Typebox.Optional(union_schema) : union_schema;
   };
 
-  const buildType = (type: Type) => {
+  const build_type = (type: Type) => {
     if (Array.isArray(type)) {
-      return buildTypeUnion(type);
-    } else return buildTypeSingle(type);
+      return build_type_union(type);
+    } else return build_type_single(type);
   };
 
-  const buildSchemaSingle = (schema: SchemaSingle) => {
+  const build_schema_single = (schema: SchemaSingle) => {
     const properties: Record<string, JSONSchema> = {};
 
-    for (const [key, type] of Object.entries(schema)) properties[key] = buildType(type);
+    for (const [key, type] of Object.entries(schema)) properties[key] = build_type(type);
 
     return Typebox.Object(properties, { additionalProperties: false });
   };
 
-  const buildSchemaUnion = (schemas: SchemaUnion) => {
-    const mapped_schemas = schemas.map((schema) => buildSchemaSingle(schema));
+  const build_schema_union = (schemas: SchemaUnion) => {
+    const mapped_schemas = schemas.map((schema) => build_schema_single(schema));
 
     return Typebox.Union(mapped_schemas);
   };
 
-  const buildSchema = (schema: Schema) => {
+  const build_schema = (schema: Schema) => {
     if (Array.isArray(schema)) {
-      if (schema.length > 0 && typeof (schema[0] as TypeSingle).type === 'string') return buildTypeUnion(schema as TypeUnion);
+      if (schema.length > 0 && typeof (schema[0] as TypeSingle).type === 'string') return build_type_union(schema as TypeUnion);
 
-      return buildSchemaUnion(schema as SchemaUnion);
+      return build_schema_union(schema as SchemaUnion);
     } else {
-      if (typeof (schema as TypeSingle).type === 'string') return buildTypeSingle(schema as TypeSingle);
+      if (typeof (schema as TypeSingle).type === 'string') return build_type_single(schema as TypeSingle);
 
-      return buildSchemaSingle(schema as SchemaSingle);
+      return build_schema_single(schema as SchemaSingle);
     }
   };
 
-  return buildSchema(schema);
+  return build_schema(schema);
 };

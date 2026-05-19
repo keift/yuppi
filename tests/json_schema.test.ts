@@ -44,7 +44,7 @@ const example_json_schema = {
   }
 };
 
-const conversion = schema.toJSONSchema();
+const conversion = schema.json_schema();
 
 if (JSON.stringify(conversion) !== JSON.stringify(example_json_schema)) throw new Error('❌ Error');
 

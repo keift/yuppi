@@ -1,4 +1,4 @@
-export const pascalCase = (text: string) =>
+export const pascal_case = (text: string) =>
   text
     .replace(/[^a-zA-Z0-9]/g, ' ')
     .split(' ')

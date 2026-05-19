@@ -96,7 +96,7 @@ yuppi
 │       │
 │       ├── validate(data)
 │       ├── declare(name)
-│       └── toJSONSchema()
+│       └── json_schema()
 │
 ├── Patterns
 │   │
@@ -238,7 +238,7 @@ Declare your Yuppi schema for TypeScript.
 
 <br/>
 
-`Yuppi.schema(schema).toJSONSchema()`
+`Yuppi.schema(schema).json_schema()`
 
 Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 
@@ -251,7 +251,7 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 > Example:
 >
 > ```typescript
-> schema.toJSONSchema();
+> schema.json_schema();
 > /*
 >   {
 >     additionalProperties: false,

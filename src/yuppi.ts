@@ -3,18 +3,18 @@ import merge from 'lodash.merge';
 import fs from 'fs/promises';
 import path from 'path';
 
-import { toJSONSchema } from './utils/to-json-schema';
+import { json_schema } from './utils/json_schema';
 import { validate } from './utils/validate';
-import { pascalCase } from './utils/pascal-case';
+import { pascal_case } from './utils/pascal_case';
 
-import { YuppiOptionsDefault } from './defaults/yuppi-options';
+import { YuppiOptionsDefault } from './defaults/yuppi_options';
 
 import type { InferSchema } from './main';
-import type { JSONSchema } from './types/json-schema';
+import type { JSONSchema } from './types/json_schema';
 import type { Schema } from './types/schema';
-import type { StandardSchemaV1 } from './types/standart-schema';
-import { ValidationError } from './types/validation-error';
-import type { YuppiOptions } from './types/yuppi-options';
+import type { StandardSchemaV1 } from './types/standart_schema';
+import { ValidationError } from './types/validation_error';
+import type { YuppiOptions } from './types/yuppi_options';
 
 const cleaned_types_dirs = new Set<string>();
 
@@ -24,10 +24,10 @@ export class Yuppi {
   public constructor(options: YuppiOptions = YuppiOptionsDefault) {
     this.options = merge({}, YuppiOptionsDefault, options);
 
-    void this.cleanupTypesDir();
+    void this.cleanup_types_dir();
   }
 
-  private async cleanupTypesDir() {
+  private async cleanup_types_dir() {
     const types_dir = path.join(this.options.output_dir ?? './', 'types');
 
     const exists = async (path: string) => {
@@ -53,7 +53,7 @@ export class Yuppi {
       validate: (data: unknown): InferSchema<_Schema> | ValidationError => validate(schema, data, this.options),
 
       declare: async (name: string): Promise<void> => {
-        name = pascalCase(name);
+        name = pascal_case(name);
 
         const types_dir = path.join(this.options.output_dir ?? './', 'types');
         const banner_comment = `/* eslint-disable */
@@ -64,14 +64,14 @@ export class Yuppi {
  * Use \`Yuppi.declare()\` to regenerate this type.
  */`;
 
-        const type = await compile(this.schema(schema).toJSONSchema() as JSONSchema2, name, { bannerComment: banner_comment });
+        const type = await compile(this.schema(schema).json_schema() as JSONSchema2, name, { bannerComment: banner_comment });
 
         await fs.mkdir(types_dir, { recursive: true });
 
         await fs.writeFile(path.join(types_dir, `${name}.d.ts`), type);
       },
 
-      toJSONSchema: (): JSONSchema => JSON.parse(JSON.stringify(toJSONSchema(schema))) as JSONSchema,
+      json_schema: (): JSONSchema => JSON.parse(JSON.stringify(json_schema(schema))) as JSONSchema,
 
       '~standard': {
         version: 1,

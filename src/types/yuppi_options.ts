@@ -1,4 +1,4 @@
-import type { IssueType, IssueEnum, IssuePattern, IssueMin, IssueMax, IssueInteger, IssueNullable, IssueRequired } from './validation-error';
+import type { IssueType, IssueEnum, IssuePattern, IssueMin, IssueMax, IssueInteger, IssueNullable, IssueRequired } from './validation_error';
 
 export type YuppiOptions = {
   output_dir?: string;
