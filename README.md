@@ -177,26 +177,26 @@ Validate the data with your Yuppi schema.
 >   fields = schema.validate(data);
 >   /*
 >     {
->       display_name: "Fırat",
->       username: "fir4tozden",
->       email: "fir4tozden@gmail.com",
->       permissions: "*"
+>       display_name: 'Fırat',
+>       username: 'fir4tozden',
+>       email: 'fir4tozden@gmail.com',
+>       permissions: '*'
 >     }
 >   */
 > } catch (error) {
 >   if (error instanceof ValidationError) console.log(errors[0]);
 >   /*
 >     {
->       message: "Field email must match the required pattern",
+>       message: 'Field email must match the required pattern',
 >       parts: {
->         path: "email"
+>         path: 'email'
 >       },
->       code: "field-email-must-match-the-required-pattern",
+>       code: 'field-email-must-match-the-required-pattern'
 >     }
 >   */
 > }
 >
-> console.log(fields.display_name); // "Fırat"
+> console.log(fields.display_name); // 'Fırat'
 > ```
 
 <br/>
@@ -228,7 +228,7 @@ Declare your Yuppi schema for TypeScript.
 >       display_name: string;
 >       username: string;
 >       email: string;
->       permissions: "*" | ("read" | "write")[];
+>       permissions: '*' | ('read' | 'write')[];
 >     }
 >   */
 > } catch (error) {
@@ -259,23 +259,23 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 >     required: ['display_name', 'username', 'email', 'permissions'],
 >     properties: {
 >       display_name: {
+>         type: 'string',
 >         maxLength: 32,
->         trim: true,
->         type: 'string'
+>         trim: true
 >       },
 >       username: {
+>         type: 'string',
 >         minLength: 3,
 >         maxLength: 16,
 >         pattern: '^(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9_]*$',
->         trim: true,
->         type: 'string'
+>         trim: true
 >       },
 >       email: {
+>         type: 'string',
 >         pattern: '^[a-zA-Z0-9._-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$',
 >         trim: true,
 >         lowercase: true,
->         uppercase: true,
->         type: 'string'
+>         uppercase: true
 >       },
 >       permissions: {
 >         anyOf: [
