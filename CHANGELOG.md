@@ -1,40 +1,47 @@
 # Change Log
 
-## v1.3.22 → 1.4.0
+## v1.4.0
 
-- Added:
-  - **Union types.** Fields in schemas can be accepted as multiple types using arrays.
-  - **Strict validations.** Properties must conform to the required type. Casting operations have been removed.
-  - **Declare directory cleanup.** The directory where types are declared is cleaned each time, so unused types are removed.
+### Added
 
-## v1.2.12 → v1.3.0
+- **Union types.** Fields in schemas can be accepted as multiple types using arrays.
+- **Strict validations.** Properties must conform to the required type. Casting operations have been removed.
+- **Declare directory cleanup.** The directory where types are declared is cleaned each time, so unused types are removed.
 
-- Added:
-  - **`Yuppi.declare()` method.** Declare your Yuppi schema for TypeScript.
-  - **`enum` in string type.** Allows to accept only predefined strings.
-  - **`enum` in number type.** Allows to accept only predefined numbers.
+## v1.3.0
 
-- Changes:
-  - **Asynchronous validate.** `Yuppi.validate()` method is no longer synchronous.
+### Added
 
-## v1.2.3 → v1.2.4
+- **`Yuppi.declare()` method.** Declare your Yuppi schema for TypeScript.
+- **`enum` in string type.** Allows to accept only predefined strings.
+- **`enum` in number type.** Allows to accept only predefined numbers.
 
-- Added:
-  - **`enum` to string type.** Allows to accept only predefined strings.
-  - **`enum` to number type.** Allows to accept only predefined numbers.
+### Changed
 
-## v1.1.2 → v1.2.0
+- **Asynchronous validate.** `Yuppi.validate()` method is no longer synchronous.
 
-- Added:
-  - **Pattern `Domain`.** This pattern only accepts domain names.
-  - **Pattern `URI`.** This pattern accepts links with any protocol.
+## v1.2.4
 
-- Changes:
-  - **If default is null, it becomes nullable.** When the default is null, it is assumed that the property may also be null.
-  - **Pattern `URL` name changed to `HTTP`.** To avoid confusion, the name of the pattern that accepts only the HTTP protocol has been changed.
-  - **Patterns have been edited.** Edited to make more accurate matching of patterns.
+### Added
 
-## v1.0.4 → v1.1.0
+- **`enum` to string type.** Allows to accept only predefined strings.
+- **`enum` to number type.** Allows to accept only predefined numbers.
 
-- Changes:
-  - **Synchronous validate.** `Yuppi.validate()` method is no longer asynchronous.
+## v1.2.0
+
+### Added
+
+- **Pattern `Domain`.** This pattern only accepts domain names.
+- **Pattern `URI`.** This pattern accepts links with any protocol.
+
+### Changed
+
+- **If default is null, it becomes nullable.** When the default is null, it is assumed that the property may also be null.
+- **Pattern `URL` name changed to `HTTP`.** To avoid confusion, the name of the pattern that accepts only the HTTP protocol has been changed.
+- **Patterns have been edited.** Edited to make more accurate matching of patterns.
+
+## v1.1.0
+
+### Changed
+
+- **Synchronous validate.** `Yuppi.validate()` method is no longer asynchronous.
