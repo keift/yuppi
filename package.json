@@ -20,7 +20,7 @@
     "json-schema-to-typescript": "^15.0.4",
     "lodash.merge": "^4.6.2",
     "slugify": "^1.6.9",
-    "typof": "^1.0.17"
+    "typof": "^1.0.18"
   },
   "devDependencies": {
     "prettier": "latest",
