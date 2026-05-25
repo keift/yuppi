@@ -1,11 +1,11 @@
-import { Yuppi, Patterns, ValidationError } from '../../src/main';
+import { Yuppi, patterns, ValidationError } from '../../src/main';
 
 const yuppi = new Yuppi();
 
 const schema = yuppi.schema({
   field: {
     type: 'string',
-    pattern: Patterns.Email
+    pattern: patterns.email
   }
 });
 

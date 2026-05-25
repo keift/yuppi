@@ -1,21 +1,21 @@
 [Domain]: ./src/patterns/domain.ts
 [Email]: ./src/patterns/email.ts
 [HTTP]: ./src/patterns/http.ts
-[PhoneNumber]: ./src/patterns/phone-number.ts
+[PhoneNumber]: ./src/patterns/phone_number.ts
 [URI]: ./src/patterns/uri.ts
 [Username]: ./src/patterns/username.ts
 
 <!---->
 
-[YuppiOptionsDefault]: ./src/defaults/yuppi-options.ts
+[YuppiOptionsDefault]: ./src/defaults/yuppi_options.ts
 
 <!---->
 
-[InferSchema]: ./src/types/infer-schema.ts
-[JSONSchema]: ./src/types/json-schema.ts
+[InferSchema]: ./src/types/infer_schema.ts
+[JSONSchema]: ./src/types/json_schema.ts
 [Schema]: ./src/types/schema.ts
-[ValidationError]: ./src/types/validation-error.ts
-[YuppiOptions]: ./src/types/yuppi-options.ts
+[ValidationError]: ./src/types/validation_error.ts
+[YuppiOptions]: ./src/types/yuppi_options.ts
 
 <div align="center">
   <br/>
@@ -38,7 +38,7 @@
   - [Import](#import)
   - [Constructors](#constructors)
   - [Methods](#methods)
-  - [Patterns](#patterns)
+  - [Constants](#constants)
   - [Types](#types)
 - [Links](#links)
   - [Discord](https://discord.gg/keift)
@@ -288,16 +288,24 @@ Convert your Yuppi schema into [JSON Schema](https://json-schema.org).
 > */
 > ```
 
-### Patterns
+### Constants
 
-| Pattern       | Description                    | Examples                                                                         |
-| ------------- | ------------------------------ | -------------------------------------------------------------------------------- |
-| [Domain]      | Domains.                       | `"google.com"` ✅<br/>`"www.google.com"` ✅<br/>`"https://google.com"` ❌        |
-| [Email]       | Emails.                        | `"fir4tozden@gmail.com"` ✅<br/>`"fir4tozden+2@gmail.com"` ❌                    |
-| [HTTP]        | HTTP only links.               | `"https://google.com"` ✅<br/>`"http://google.com"` ✅<br/>`"google.com"` ❌     |
-| [PhoneNumber] | Country code and phone number. | `"0090-555555555"` ✅<br/>`"90-5555555555"` ❌                                   |
-| [URI]         | Protocol free links.           | `"mongodb://mongodb.net"` ✅<br/>`"https://google.com"` ✅<br/>`"google.com"` ❌ |
-| [Username]    | Usernames like Twitter.        | `"fir4tozden"` ✅<br/>`"Fir4tozden"` ✅<br/>`"fir4t ozden"` ❌                   |
+`patterns`
+
+Ready to use regex patterns.
+
+> Example:
+>
+> ```typescript
+> yuppi.schema({
+>   domain: { type: 'string', pattern: patterns.domain }, // "google.com" ✅ "www.google.com" ✅ "https://google.com" ❌
+>   email: { type: 'string', pattern: patterns.email }, // "fir4tozden@gmail.com" ✅ "fir4tozden+2@gmail.com" ❌
+>   http: { type: 'string', pattern: patterns.http }, // "https://google.com" ✅ "http://google.com" ✅ "google.com" ❌
+>   phone_number: { type: 'string', pattern: patterns.phone_number }, // "0090-555555555" ✅ "90-5555555555" ❌
+>   uri: { type: 'string', pattern: patterns.uri }, // "mongodb://mongodb.net" ✅ "https://google.com" ✅ "google.com" ❌
+>   username: { type: string, pattern: patterns.username } // ✅ "fir4tozden" ✅ "Fir4tozden" ❌ "fir4t ozden"
+> });
+> ```
 
 ### Types
 

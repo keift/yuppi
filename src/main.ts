@@ -1,4 +1,4 @@
 export { Yuppi } from './yuppi';
 
-export * as Patterns from './exports/patterns';
+export * as patterns from './exports/patterns';
 export * from './exports/types';

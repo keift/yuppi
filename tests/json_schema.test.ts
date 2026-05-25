@@ -1,11 +1,11 @@
-import { Yuppi, Patterns } from '../src/main';
+import { Yuppi, patterns } from '../src/main';
 
 const yuppi = new Yuppi();
 
 const schema = yuppi.schema({
   display_name: { type: 'string', max: 32 },
-  username: { type: 'string', pattern: Patterns.Username, min: 3, max: 16 },
-  email: { type: 'string', pattern: Patterns.Email, lowercase: true },
+  username: { type: 'string', pattern: patterns.username, min: 3, max: 16 },
+  email: { type: 'string', pattern: patterns.email, lowercase: true },
   permissions: [
     { type: 'string', enum: ['*'] },
     { type: 'array', items: { type: 'string', enum: ['read', 'write'] } }
