@@ -49,6 +49,8 @@ for (let i = 0; i < faulty_schemas.length; i++) {
   } catch (error) {
     if (error instanceof ValidationError) {
       console.log(`✅ Success ${String(i + 1)}/${String(faulty_schemas.length)} [FAULTY_SCHEMAS]`);
-    } else {throw new Error(`❌ Error ${String(i + 1)}/${String(faulty_schemas.length)} [FAULTY_SCHEMAS]`, { cause: error });}
+    } else {
+      throw new Error(`❌ Error ${String(i + 1)}/${String(faulty_schemas.length)} [FAULTY_SCHEMAS]`, { cause: error });
+    }
   }
 }

@@ -17,9 +17,13 @@ export const json_schema = (schema: Schema) => {
         uppercase: type.uppercase
       });
 
-      if (type.nullable === true || type.default === null) {json_schema = typebox.Union([json_schema, typebox.Null()]);}
+      if (type.nullable === true || type.default === null) {
+        json_schema = typebox.Union([json_schema, typebox.Null()]);
+      }
 
-      if (type.required === false) {json_schema = typebox.Optional(json_schema);}
+      if (type.required === false) {
+        json_schema = typebox.Optional(json_schema);
+      }
 
       return json_schema;
     } else if (type.type === 'number') {
@@ -32,9 +36,13 @@ export const json_schema = (schema: Schema) => {
 
       let json_schema: JSONSchema = type.integer === true ? typebox.Integer(number_options) : typebox.Number(number_options);
 
-      if (type.nullable === true || type.default === null) {json_schema = typebox.Union([json_schema, typebox.Null()]);}
+      if (type.nullable === true || type.default === null) {
+        json_schema = typebox.Union([json_schema, typebox.Null()]);
+      }
 
-      if (type.required === false) {json_schema = typebox.Optional(json_schema);}
+      if (type.required === false) {
+        json_schema = typebox.Optional(json_schema);
+      }
 
       return json_schema;
     } else if (type.type === 'boolean') {
@@ -42,9 +50,13 @@ export const json_schema = (schema: Schema) => {
         default: type.default
       });
 
-      if (type.nullable === true || type.default === null) {json_schema = typebox.Union([json_schema, typebox.Null()]);}
+      if (type.nullable === true || type.default === null) {
+        json_schema = typebox.Union([json_schema, typebox.Null()]);
+      }
 
-      if (type.required === false) {json_schema = typebox.Optional(json_schema);}
+      if (type.required === false) {
+        json_schema = typebox.Optional(json_schema);
+      }
 
       return json_schema;
     } else if (type.type === 'date') {
@@ -55,19 +67,29 @@ export const json_schema = (schema: Schema) => {
         default: type.default
       });
 
-      if (type.nullable === true || type.default === null) {json_schema = typebox.Union([json_schema, typebox.Null()]);}
+      if (type.nullable === true || type.default === null) {
+        json_schema = typebox.Union([json_schema, typebox.Null()]);
+      }
 
-      if (type.required === false) {json_schema = typebox.Optional(json_schema);}
+      if (type.required === false) {
+        json_schema = typebox.Optional(json_schema);
+      }
 
       return json_schema;
     } else if (type.type === 'object') {
       let json_schema: JSONSchema = build_schema(type.properties);
 
-      if (type.default !== undefined) {json_schema = { ...json_schema, default: type.default };}
+      if (type.default !== undefined) {
+        json_schema = { ...json_schema, default: type.default };
+      }
 
-      if (type.nullable === true || type.default === null) {json_schema = typebox.Union([json_schema, typebox.Null()]);}
+      if (type.nullable === true || type.default === null) {
+        json_schema = typebox.Union([json_schema, typebox.Null()]);
+      }
 
-      if (type.required === false) {json_schema = typebox.Optional(json_schema);}
+      if (type.required === false) {
+        json_schema = typebox.Optional(json_schema);
+      }
 
       return json_schema;
     } else if (type.type === 'array') {
@@ -77,9 +99,13 @@ export const json_schema = (schema: Schema) => {
         default: type.default
       });
 
-      if (type.nullable === true || type.default === null) {json_schema = typebox.Union([json_schema, typebox.Null()]);}
+      if (type.nullable === true || type.default === null) {
+        json_schema = typebox.Union([json_schema, typebox.Null()]);
+      }
 
-      if (type.required === false) {json_schema = typebox.Optional(json_schema);}
+      if (type.required === false) {
+        json_schema = typebox.Optional(json_schema);
+      }
 
       return json_schema;
     } else {
@@ -90,9 +116,13 @@ export const json_schema = (schema: Schema) => {
         }
       );
 
-      if (type.nullable === true || type.default === null) {json_schema = typebox.Union([json_schema, typebox.Null()]);}
+      if (type.nullable === true || type.default === null) {
+        json_schema = typebox.Union([json_schema, typebox.Null()]);
+      }
 
-      if (type.required === false) {json_schema = typebox.Optional(json_schema);}
+      if (type.required === false) {
+        json_schema = typebox.Optional(json_schema);
+      }
 
       return json_schema;
     }
@@ -111,13 +141,17 @@ export const json_schema = (schema: Schema) => {
   const build_type = (type: Type) => {
     if (Array.isArray(type)) {
       return build_type_union(type);
-    } else {return build_type_single(type);}
+    } else {
+      return build_type_single(type);
+    }
   };
 
   const build_schema_single = (schema: SchemaSingle) => {
     const properties: Record<string, JSONSchema> = {};
 
-    for (const [key, type] of Object.entries(schema)) {properties[key] = build_type(type);}
+    for (const [key, type] of Object.entries(schema)) {
+      properties[key] = build_type(type);
+    }
 
     return typebox.Object(properties, { additionalProperties: false });
   };
@@ -130,11 +164,15 @@ export const json_schema = (schema: Schema) => {
 
   const build_schema = (schema: Schema) => {
     if (Array.isArray(schema)) {
-      if (schema.length > 0 && typeof (schema[0] as TypeSingle).type === 'string') {return build_type_union(schema as TypeUnion);}
+      if (schema.length > 0 && typeof (schema[0] as TypeSingle).type === 'string') {
+        return build_type_union(schema as TypeUnion);
+      }
 
       return build_schema_union(schema as SchemaUnion);
     } else {
-      if (typeof (schema as TypeSingle).type === 'string') {return build_type_single(schema as TypeSingle);}
+      if (typeof (schema as TypeSingle).type === 'string') {
+        return build_type_single(schema as TypeSingle);
+      }
 
       return build_schema_single(schema as SchemaSingle);
     }

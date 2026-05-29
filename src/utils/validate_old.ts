@@ -7,18 +7,36 @@ const format_path_to_string = (path_array: (string | number)[]) =>
   path_array.reduce<string>((acc, curr, index) => {
     if (typeof curr === 'number') {
       return `${acc}[${String(curr)}]`;
-    } else {return index === 0 ? curr : `${acc}.${curr}`;}
+    } else {
+      return index === 0 ? curr : `${acc}.${curr}`;
+    }
   }, '');
 
 const get_received_type = (value: unknown): TypeSingle['type'] | 'null' | 'undefined' => {
-  if (value === undefined) {return 'undefined';}
-  if (value === null) {return 'null';}
-  if (typeof value === 'string') {return 'string';}
-  if (typeof value === 'number') {return 'number';}
-  if (typeof value === 'boolean') {return 'boolean';}
-  if (Array.isArray(value)) {return 'array';}
-  if (value instanceof Date) {return 'date';}
-  if (typeof value === 'object') {return 'object';}
+  if (value === undefined) {
+    return 'undefined';
+  }
+  if (value === null) {
+    return 'null';
+  }
+  if (typeof value === 'string') {
+    return 'string';
+  }
+  if (typeof value === 'number') {
+    return 'number';
+  }
+  if (typeof value === 'boolean') {
+    return 'boolean';
+  }
+  if (Array.isArray(value)) {
+    return 'array';
+  }
+  if (value instanceof Date) {
+    return 'date';
+  }
+  if (typeof value === 'object') {
+    return 'object';
+  }
 
   return 'undefined';
 };
@@ -74,7 +92,9 @@ const validate_type_single = (type: TypeSingle, data: unknown, path: (string | n
   }
 
   if (value === null) {
-    if (is_nullable) {return { data: null, issues };}
+    if (is_nullable) {
+      return { data: null, issues };
+    }
     issues.push(build_issue('nullable', type.type, type.type, 'null', path, options));
     return { data: value, issues };
   }
@@ -86,9 +106,15 @@ const validate_type_single = (type: TypeSingle, data: unknown, path: (string | n
     }
 
     let str = value;
-    if (type.trim !== false) {str = str.trim();}
-    if (type.lowercase === true) {str = str.toLowerCase();}
-    if (type.uppercase === true) {str = str.toUpperCase();}
+    if (type.trim !== false) {
+      str = str.trim();
+    }
+    if (type.lowercase === true) {
+      str = str.toLowerCase();
+    }
+    if (type.uppercase === true) {
+      str = str.toUpperCase();
+    }
 
     if (type.enum !== undefined) {
       let matched = false;
@@ -98,14 +124,22 @@ const validate_type_single = (type: TypeSingle, data: unknown, path: (string | n
           break;
         }
       }
-      if (!matched) {issues.push(build_issue('enum', 'string', 'string', 'string', path, options));}
+      if (!matched) {
+        issues.push(build_issue('enum', 'string', 'string', 'string', path, options));
+      }
     }
 
-    if (type.pattern !== undefined && !new RegExp(type.pattern).test(str)) {issues.push(build_issue('pattern', 'string', 'string', 'string', path, options));}
+    if (type.pattern !== undefined && !new RegExp(type.pattern).test(str)) {
+      issues.push(build_issue('pattern', 'string', 'string', 'string', path, options));
+    }
 
-    if (type.min !== undefined && str.length < type.min) {issues.push(build_issue('min', 'string', 'string', 'string', path, options, type.min));}
+    if (type.min !== undefined && str.length < type.min) {
+      issues.push(build_issue('min', 'string', 'string', 'string', path, options, type.min));
+    }
 
-    if (type.max !== undefined && str.length > type.max) {issues.push(build_issue('max', 'string', 'string', 'string', path, options, undefined, type.max));}
+    if (type.max !== undefined && str.length > type.max) {
+      issues.push(build_issue('max', 'string', 'string', 'string', path, options, undefined, type.max));
+    }
 
     return { data: str, issues };
   }
@@ -124,18 +158,30 @@ const validate_type_single = (type: TypeSingle, data: unknown, path: (string | n
           break;
         }
       }
-      if (!matched) {issues.push(build_issue('enum', 'number', 'number', 'number', path, options));}
+      if (!matched) {
+        issues.push(build_issue('enum', 'number', 'number', 'number', path, options));
+      }
     }
 
-    if (type.integer === true && !Number.isInteger(value)) {issues.push(build_issue('integer', 'number', 'number', 'number', path, options));}
+    if (type.integer === true && !Number.isInteger(value)) {
+      issues.push(build_issue('integer', 'number', 'number', 'number', path, options));
+    }
 
-    if (type.min !== undefined && value < type.min) {issues.push(build_issue('min', 'number', 'number', 'number', path, options, type.min));}
+    if (type.min !== undefined && value < type.min) {
+      issues.push(build_issue('min', 'number', 'number', 'number', path, options, type.min));
+    }
 
-    if (type.max !== undefined && value > type.max) {issues.push(build_issue('max', 'number', 'number', 'number', path, options, undefined, type.max));}
+    if (type.max !== undefined && value > type.max) {
+      issues.push(build_issue('max', 'number', 'number', 'number', path, options, undefined, type.max));
+    }
 
-    if (type.positive === true && type.min === undefined && value <= 0) {issues.push(build_issue('positive', 'number', 'number', 'number', path, options));}
+    if (type.positive === true && type.min === undefined && value <= 0) {
+      issues.push(build_issue('positive', 'number', 'number', 'number', path, options));
+    }
 
-    if (type.negative === true && type.max === undefined && value >= 0) {issues.push(build_issue('negative', 'number', 'number', 'number', path, options));}
+    if (type.negative === true && type.max === undefined && value >= 0) {
+      issues.push(build_issue('negative', 'number', 'number', 'number', path, options));
+    }
 
     return { data: value, issues };
   }
@@ -156,9 +202,13 @@ const validate_type_single = (type: TypeSingle, data: unknown, path: (string | n
       return { data: value, issues };
     }
 
-    if (type.min !== undefined && date_obj < new Date(type.min)) {issues.push(build_issue('min', 'date', 'date', 'date', path, options));}
+    if (type.min !== undefined && date_obj < new Date(type.min)) {
+      issues.push(build_issue('min', 'date', 'date', 'date', path, options));
+    }
 
-    if (type.max !== undefined && date_obj > new Date(type.max)) {issues.push(build_issue('max', 'date', 'date', 'date', path, options));}
+    if (type.max !== undefined && date_obj > new Date(type.max)) {
+      issues.push(build_issue('max', 'date', 'date', 'date', path, options));
+    }
 
     return { data: date_obj, issues };
   }
@@ -178,16 +228,22 @@ const validate_type_single = (type: TypeSingle, data: unknown, path: (string | n
       return { data: value, issues };
     }
 
-    if (type.min !== undefined && value.length < type.min) {issues.push(build_issue('min', 'array', 'array', 'array', path, options, type.min));}
+    if (type.min !== undefined && value.length < type.min) {
+      issues.push(build_issue('min', 'array', 'array', 'array', path, options, type.min));
+    }
 
-    if (type.max !== undefined && value.length > type.max) {issues.push(build_issue('max', 'array', 'array', 'array', path, options, undefined, type.max));}
+    if (type.max !== undefined && value.length > type.max) {
+      issues.push(build_issue('max', 'array', 'array', 'array', path, options, undefined, type.max));
+    }
 
     const validated_items: unknown[] = [];
     for (let i = 0; i < value.length; i++) {
       const item_result = validate_type(type.items, value[i], [...path, i], options);
       validated_items.push(item_result.data);
       issues.push(...item_result.issues);
-      if (options.validation?.abort_early === true && issues.length > 0) {break;}
+      if (options.validation?.abort_early === true && issues.length > 0) {
+        break;
+      }
     }
 
     return { data: validated_items, issues };
@@ -203,7 +259,9 @@ const validate_type_single = (type: TypeSingle, data: unknown, path: (string | n
     const item_result = validate_type(type.items[i], (value as unknown[])[i], [...path, i], options);
     validated_tuple.push(item_result.data);
     issues.push(...item_result.issues);
-    if (options.validation?.abort_early === true && issues.length > 0) {break;}
+    if (options.validation?.abort_early === true && issues.length > 0) {
+      break;
+    }
   }
 
   return { data: validated_tuple, issues };
@@ -212,7 +270,9 @@ const validate_type_single = (type: TypeSingle, data: unknown, path: (string | n
 const validate_type_union = (types: TypeUnion, data: unknown, path: (string | number)[], options: YuppiOptions) => {
   for (const type of types) {
     const result = validate_type_single(type, data, path, options);
-    if (result.issues.length === 0) {return result;}
+    if (result.issues.length === 0) {
+      return result;
+    }
   }
   return validate_type_single(types[0], data, path, options);
 };
@@ -220,7 +280,9 @@ const validate_type_union = (types: TypeUnion, data: unknown, path: (string | nu
 const validate_type = (type: Type, data: unknown, path: (string | number)[], options: YuppiOptions) => {
   if (Array.isArray(type)) {
     return validate_type_union(type, data, path, options);
-  } else {return validate_type_single(type, data, path, options);}
+  } else {
+    return validate_type_single(type, data, path, options);
+  }
 };
 
 const validate_schema_single = (schema: SchemaSingle, data: unknown, path: (string | number)[], options: YuppiOptions) => {
@@ -242,7 +304,9 @@ const validate_schema_single = (schema: SchemaSingle, data: unknown, path: (stri
     result[key] = field_result.data;
     issues.push(...field_result.issues);
 
-    if (options.validation?.abort_early === true && issues.length > 0) {break;}
+    if (options.validation?.abort_early === true && issues.length > 0) {
+      break;
+    }
   }
 
   return { data: result, issues };
@@ -252,7 +316,9 @@ const validate_schema_union = (schemas: SchemaUnion, data: unknown, path: (strin
   for (const schema of schemas) {
     const result = validate_schema_single(schema, data, path, options);
 
-    if (result.issues.length === 0) {return result;}
+    if (result.issues.length === 0) {
+      return result;
+    }
   }
 
   return validate_schema_single(schemas[0], data, path, options);
@@ -260,11 +326,15 @@ const validate_schema_union = (schemas: SchemaUnion, data: unknown, path: (strin
 
 const validate_schema = (schema: Schema, data: unknown, path: (string | number)[], options: YuppiOptions) => {
   if (Array.isArray(schema)) {
-    if (schema.length > 0 && typeof (schema[0] as TypeSingle).type === 'string') {return validate_type_union(schema as TypeUnion, data, path, options);}
+    if (schema.length > 0 && typeof (schema[0] as TypeSingle).type === 'string') {
+      return validate_type_union(schema as TypeUnion, data, path, options);
+    }
 
     return validate_schema_union(schema as SchemaUnion, data, path, options);
   } else {
-    if (typeof (schema as TypeSingle).type === 'string') {return validate_type_single(schema as TypeSingle, data, path, options);}
+    if (typeof (schema as TypeSingle).type === 'string') {
+      return validate_type_single(schema as TypeSingle, data, path, options);
+    }
 
     return validate_schema_single(schema as SchemaSingle, data, path, options);
   }
@@ -273,8 +343,9 @@ const validate_schema = (schema: Schema, data: unknown, path: (string | number)[
 export const validate = <const _Schema extends Schema>(schema: _Schema, data: unknown, options: YuppiOptions) => {
   const result = validate_schema(schema, data, [], options);
 
-  if (result.issues.length > 0) {throw new ValidationError({ issues: result.issues });}
+  if (result.issues.length > 0) {
+    throw new ValidationError({ issues: result.issues });
+  }
 
-   
   return result.data as InferSchema<_Schema>;
 };

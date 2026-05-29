@@ -65,7 +65,6 @@ export type Tuple = {
   required?: boolean; // Default: true
 };
 
- 
 export type TypeSingle = String | Number | Boolean | Date | Object | Array | Tuple;
 
 export type TypeUnion = [TypeSingle, TypeSingle, ...TypeSingle[]];

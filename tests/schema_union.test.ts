@@ -48,6 +48,8 @@ for (let i = 0; i < faulty_properties.length; i++) {
   } catch (error) {
     if (error instanceof ValidationError) {
       console.log(`✅ Success ${String(i + 1)}/${String(faulty_properties.length)} [FAULTY_PROPERTIES]`);
-    } else {throw new Error(`❌ Error ${String(i + 1)}/${String(faulty_properties.length)} [FAULTY_PROPERTIES]`, { cause: error });}
+    } else {
+      throw new Error(`❌ Error ${String(i + 1)}/${String(faulty_properties.length)} [FAULTY_PROPERTIES]`, { cause: error });
+    }
   }
 }
