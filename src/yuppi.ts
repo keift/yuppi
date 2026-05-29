@@ -85,7 +85,7 @@ export class Yuppi {
           } catch (error) {
             if (error instanceof ValidationError) {
               return error;
-            } else return { issues: [] };
+            } else {return { issues: [] };}
           }
         }
       } as StandardSchemaV1.Props<unknown, InferSchema<_Schema>>

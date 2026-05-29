@@ -65,7 +65,7 @@ export type Tuple = {
   required?: boolean; // Default: true
 };
 
-// eslint-disable-next-line @typescript-eslint/array-type
+ 
 export type TypeSingle = String | Number | Boolean | Date | Object | Array | Tuple;
 
 export type TypeUnion = [TypeSingle, TypeSingle, ...TypeSingle[]];
