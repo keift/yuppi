@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import type { InferSchema } from '../types/infer_schema';
 import type { Schema, SchemaSingle, SchemaUnion, Type, TypeSingle, TypeUnion } from '../types/schema';
 import { ValidationError, type Issue } from '../types/validation_error';
