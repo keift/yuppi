@@ -135,12 +135,12 @@ const validate_type_single = (type: TypeSingle, data: unknown, path: (string | n
       issues.push(build_issue('pattern', 'string', 'string', 'string', path, options));
     }
 
-    if (type.min !== undefined && str.length < type.min) {
-      issues.push(build_issue('min', 'string', 'string', 'string', path, options, type.min));
+    if (type.minimum !== undefined && str.length < type.minimum) {
+      issues.push(build_issue('min', 'string', 'string', 'string', path, options, type.minimum));
     }
 
-    if (type.max !== undefined && str.length > type.max) {
-      issues.push(build_issue('max', 'string', 'string', 'string', path, options, undefined, type.max));
+    if (type.maximum !== undefined && str.length > type.maximum) {
+      issues.push(build_issue('max', 'string', 'string', 'string', path, options, undefined, type.maximum));
     }
 
     return { data: str, issues };
@@ -169,19 +169,19 @@ const validate_type_single = (type: TypeSingle, data: unknown, path: (string | n
       issues.push(build_issue('integer', 'number', 'number', 'number', path, options));
     }
 
-    if (type.min !== undefined && value < type.min) {
-      issues.push(build_issue('min', 'number', 'number', 'number', path, options, type.min));
+    if (type.minimum !== undefined && value < type.minimum) {
+      issues.push(build_issue('min', 'number', 'number', 'number', path, options, type.minimum));
     }
 
-    if (type.max !== undefined && value > type.max) {
-      issues.push(build_issue('max', 'number', 'number', 'number', path, options, undefined, type.max));
+    if (type.maximum !== undefined && value > type.maximum) {
+      issues.push(build_issue('max', 'number', 'number', 'number', path, options, undefined, type.maximum));
     }
 
-    if (type.positive === true && type.min === undefined && value <= 0) {
+    if (type.positive === true && type.minimum === undefined && value <= 0) {
       issues.push(build_issue('positive', 'number', 'number', 'number', path, options));
     }
 
-    if (type.negative === true && type.max === undefined && value >= 0) {
+    if (type.negative === true && type.maximum === undefined && value >= 0) {
       issues.push(build_issue('negative', 'number', 'number', 'number', path, options));
     }
 
@@ -204,11 +204,11 @@ const validate_type_single = (type: TypeSingle, data: unknown, path: (string | n
       return { data: value, issues };
     }
 
-    if (type.min !== undefined && date_obj < new Date(type.min)) {
+    if (type.minimum !== undefined && date_obj < new Date(type.minimum)) {
       issues.push(build_issue('min', 'date', 'date', 'date', path, options));
     }
 
-    if (type.max !== undefined && date_obj > new Date(type.max)) {
+    if (type.maximum !== undefined && date_obj > new Date(type.maximum)) {
       issues.push(build_issue('max', 'date', 'date', 'date', path, options));
     }
 
@@ -230,12 +230,12 @@ const validate_type_single = (type: TypeSingle, data: unknown, path: (string | n
       return { data: value, issues };
     }
 
-    if (type.min !== undefined && value.length < type.min) {
-      issues.push(build_issue('min', 'array', 'array', 'array', path, options, type.min));
+    if (type.minimum !== undefined && value.length < type.minimum) {
+      issues.push(build_issue('min', 'array', 'array', 'array', path, options, type.minimum));
     }
 
-    if (type.max !== undefined && value.length > type.max) {
-      issues.push(build_issue('max', 'array', 'array', 'array', path, options, undefined, type.max));
+    if (type.maximum !== undefined && value.length > type.maximum) {
+      issues.push(build_issue('max', 'array', 'array', 'array', path, options, undefined, type.maximum));
     }
 
     const validated_items: unknown[] = [];

@@ -9,8 +9,8 @@ export const json_schema = (schema: Schema) => {
       let json_schema: JSONSchema = typebox.String({
         enum: type.enum,
         pattern: type.pattern !== undefined ? new RegExp(type.pattern).source : undefined,
-        minLength: type.min,
-        maxLength: type.max,
+        minLength: type.minimum,
+        maxLength: type.maximum,
         default: type.default,
         trim: type.trim === false ? false : true,
         lowercase: type.lowercase,
@@ -29,8 +29,8 @@ export const json_schema = (schema: Schema) => {
     } else if (type.type === 'number') {
       const number_options = {
         enum: type.enum,
-        minimum: type.min,
-        maximum: type.max,
+        minimum: type.minimum,
+        maximum: type.maximum,
         default: type.default
       };
 
@@ -62,8 +62,8 @@ export const json_schema = (schema: Schema) => {
     } else if (type.type === 'date') {
       let json_schema: JSONSchema = typebox.String({
         format: 'date-time',
-        formatMinimum: type.min !== undefined ? new Date(type.min).toISOString() : undefined,
-        formatMaximum: type.max !== undefined ? new Date(type.max).toISOString() : undefined,
+        formatMinimum: type.minimum !== undefined ? new Date(type.minimum).toISOString() : undefined,
+        formatMaximum: type.maximum !== undefined ? new Date(type.maximum).toISOString() : undefined,
         default: type.default
       });
 
@@ -94,8 +94,8 @@ export const json_schema = (schema: Schema) => {
       return json_schema;
     } else if (type.type === 'array') {
       let json_schema: JSONSchema = typebox.Array(build_type(type.items), {
-        minItems: type.min,
-        maxItems: type.max,
+        minItems: type.minimum,
+        maxItems: type.maximum,
         default: type.default
       });
 

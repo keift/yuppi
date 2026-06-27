@@ -50,7 +50,7 @@ export class Yuppi {
 
   public schema<const _Schema extends Schema>(schema: _Schema) {
     return {
-      validate: (data: unknown): InferSchema<_Schema> | ValidationError => validate(schema, data, this.options),
+      validate: (data: unknown): InferSchema<_Schema> => validate(schema, data, this.options),
 
       declare: async (name: string): Promise<void> => {
         name = pascal_case(name);
@@ -77,11 +77,9 @@ export class Yuppi {
         version: 1,
         vendor: 'yuppi',
 
-        validate: (data: unknown): StandardSchemaV1.Result<InferSchema<_Schema> | ValidationError> => {
+        validate: (data) => {
           try {
-            const validated = validate(schema, data, this.options);
-
-            return { value: validated };
+            return { value: validate(schema, data, this.options) };
           } catch (error) {
             if (error instanceof ValidationError) {
               return error;

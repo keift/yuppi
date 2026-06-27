@@ -1,4 +1,4 @@
-import type { IssueType, IssueEnum, IssuePattern, IssueMin, IssueMax, IssueInteger, IssueNullable, IssueRequired } from './validation_error';
+import type { IssueType, IssueEnum, IssuePattern, IssueMinimum, IssueMaximum, IssueInteger, IssueNullable, IssueRequired } from './validation_error';
 
 export type YuppiOptions = {
   output_dir?: string;
@@ -8,8 +8,8 @@ export type YuppiOptions = {
       type?: (issue: IssueType) => string;
       enum?: (issue: IssueEnum) => string;
       pattern?: (issue: IssuePattern) => string;
-      min?: (issue: IssueMin) => string;
-      max?: (issue: IssueMax) => string;
+      minimum?: (issue: IssueMinimum) => string;
+      maximum?: (issue: IssueMaximum) => string;
       nullable?: (issue: IssueNullable) => string;
       required?: (issue: IssueRequired) => string;
     };
@@ -17,8 +17,8 @@ export type YuppiOptions = {
     number?: {
       type?: (issue: IssueType) => string;
       enum?: (issue: IssueEnum) => string;
-      min?: (issue: IssueMin) => string;
-      max?: (issue: IssueMax) => string;
+      minimum?: (issue: IssueMinimum) => string;
+      maximum?: (issue: IssueMaximum) => string;
       integer?: (issue: IssueInteger) => string;
       nullable?: (issue: IssueNullable) => string;
       required?: (issue: IssueRequired) => string;
@@ -32,8 +32,8 @@ export type YuppiOptions = {
 
     date?: {
       type?: (issue: IssueType) => string;
-      min?: (issue: IssueMin) => string;
-      max?: (issue: IssueMax) => string;
+      minimum?: (issue: IssueMinimum) => string;
+      maximum?: (issue: IssueMaximum) => string;
       nullable?: (issue: IssueNullable) => string;
       required?: (issue: IssueRequired) => string;
     };
@@ -46,8 +46,8 @@ export type YuppiOptions = {
 
     array?: {
       type?: (issue: IssueType) => string;
-      min?: (issue: IssueMin) => string;
-      max?: (issue: IssueMax) => string;
+      minimum?: (issue: IssueMinimum) => string;
+      maximum?: (issue: IssueMaximum) => string;
       nullable?: (issue: IssueNullable) => string;
       required?: (issue: IssueRequired) => string;
     };

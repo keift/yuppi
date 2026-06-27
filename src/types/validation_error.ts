@@ -9,7 +9,6 @@ export type IssueType = {
   nullable: boolean;
   path: (string | number)[];
   texts: { path: string };
-  code: string;
   message: string;
 };
 
@@ -20,7 +19,6 @@ export type IssueEnum = {
   nullable: boolean;
   path: (string | number)[];
   texts: { path: string };
-  code: string;
   message: string;
 };
 
@@ -31,38 +29,34 @@ export type IssuePattern = {
   nullable: boolean;
   path: (string | number)[];
   texts: { path: string };
-  code: string;
   message: string;
 };
 
-export type IssueMin = {
-  type: 'min';
+export type IssueMinimum = {
+  type: 'minimum';
   minimum: number;
   received: number;
   nullable: boolean;
   path: (string | number)[];
   texts: { path: string; plural_suffix: '' | 's' };
-  code: string;
   message: string;
 };
 
-export type IssueMax = {
-  type: 'max';
+export type IssueMaximum = {
+  type: 'maximum';
   maximum: number;
   received: number;
   nullable: boolean;
   path: (string | number)[];
   texts: { path: string; plural_suffix: '' | 's' };
-  code: string;
   message: string;
 };
 
 export type IssueInteger = {
   type: 'integer';
   nullable: boolean;
-  path: string[];
+  path: (string | number)[];
   texts: { path: string };
-  code: string;
   message: string;
 };
 
@@ -73,7 +67,6 @@ export type IssueTuple = {
   nullable: boolean;
   path: (string | number)[];
   texts: { path: string };
-  code: string;
   message: string;
 };
 
@@ -82,7 +75,6 @@ export type IssueNullable = {
   nullable: boolean;
   path: (string | number)[];
   texts: { path: string };
-  code: string;
   message: string;
 };
 
@@ -91,11 +83,10 @@ export type IssueRequired = {
   nullable: boolean;
   path: (string | number)[];
   texts: { path: string };
-  code: string;
   message: string;
 };
 
-export type Issue = IssueType | IssueEnum | IssuePattern | IssueMin | IssueMax | IssueInteger | IssueNullable | IssueRequired;
+export type Issue = IssueType | IssueEnum | IssuePattern | IssueMinimum | IssueMaximum | IssueInteger | IssueNullable | IssueRequired;
 
 export class ValidationError extends Error {
   public issues: Issue[];

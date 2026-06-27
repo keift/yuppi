@@ -8,8 +8,8 @@ export const YuppiOptionsDefault: YuppiOptions = {
       type: (issue) => `Field ${issue.texts.path} must be a string`,
       enum: (issue) => `Field ${issue.texts.path} must be one of the allowed values`,
       pattern: (issue) => `Field ${issue.texts.path} must match the required pattern`,
-      min: (issue) => `Field ${issue.texts.path} must be at least ${String(issue.minimum)} character${issue.texts.plural_suffix}`,
-      max: (issue) => `Field ${issue.texts.path} must be at most ${String(issue.maximum)} character${issue.texts.plural_suffix}`,
+      minimum: (issue) => `Field ${issue.texts.path} must be at least ${String(issue.minimum)} character${issue.texts.plural_suffix}`,
+      maximum: (issue) => `Field ${issue.texts.path} must be at most ${String(issue.maximum)} character${issue.texts.plural_suffix}`,
       nullable: (issue) => `Field ${issue.texts.path} cannot be null`,
       required: (issue) => `Field ${issue.texts.path} is required`
     },
@@ -17,8 +17,8 @@ export const YuppiOptionsDefault: YuppiOptions = {
     number: {
       type: (issue) => `Field ${issue.texts.path} must be a number`,
       enum: (issue) => `Field ${issue.texts.path} must be one of the allowed values`,
-      min: (issue) => `Field ${issue.texts.path} must be greater than or equal to ${String(issue.minimum)}`,
-      max: (issue) => `Field ${issue.texts.path} must be less than or equal to ${String(issue.maximum)}`,
+      minimum: (issue) => `Field ${issue.texts.path} must be greater than or equal to ${String(issue.minimum)}`,
+      maximum: (issue) => `Field ${issue.texts.path} must be less than or equal to ${String(issue.maximum)}`,
       integer: (issue) => `Field ${issue.texts.path} must be an integer`,
       nullable: (issue) => `Field ${issue.texts.path} cannot be null`,
       required: (issue) => `Field ${issue.texts.path} is required`
@@ -32,8 +32,8 @@ export const YuppiOptionsDefault: YuppiOptions = {
 
     date: {
       type: (issue) => `Field ${issue.texts.path} must be a date`,
-      min: (issue) => `Field ${issue.texts.path} must be after ${String(issue.minimum)}`,
-      max: (issue) => `Field ${issue.texts.path} must be before ${String(issue.maximum)}`,
+      minimum: (issue) => `Field ${issue.texts.path} must be after ${String(issue.minimum)}`,
+      maximum: (issue) => `Field ${issue.texts.path} must be before ${String(issue.maximum)}`,
       nullable: (issue) => `Field ${issue.texts.path} cannot be null`,
       required: (issue) => `Field ${issue.texts.path} is required`
     },
@@ -46,8 +46,8 @@ export const YuppiOptionsDefault: YuppiOptions = {
 
     array: {
       type: (issue) => `Field ${issue.texts.path} must be an array`,
-      min: (issue) => `Field ${issue.texts.path} must be at least ${String(issue.minimum)} item${issue.texts.plural_suffix}`,
-      max: (issue) => `Field ${issue.texts.path} must be at most ${String(issue.maximum)} item${issue.texts.plural_suffix}`,
+      minimum: (issue) => `Field ${issue.texts.path} must be at least ${String(issue.minimum)} item${issue.texts.plural_suffix}`,
+      maximum: (issue) => `Field ${issue.texts.path} must be at most ${String(issue.maximum)} item${issue.texts.plural_suffix}`,
       nullable: (issue) => `Field ${issue.texts.path} cannot be null`,
       required: (issue) => `Field ${issue.texts.path} is required`
     },

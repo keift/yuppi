@@ -6,9 +6,4 @@
  * Use `Yuppi.declare()` to regenerate this type.
  */
 
-export interface User {
-  display_name: string;
-  username: string;
-  email: string;
-  permissions: '*' | ('read' | 'write')[];
-}
+export type Yarrak = string | [string, boolean];
