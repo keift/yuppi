@@ -53,19 +53,75 @@ const validate_type_single = (type: TypeSingle, data: unknown, path: (string | n
   return data;
 };
 
-const validate_type_union = (types: TypeUnion, data: unknown, path: (string | number)[], options: YuppiOptions) => {};
+const validate_type_union = (types: TypeUnion, data: unknown, path: (string | number)[], issues: Issue[], options: YuppiOptions) => {
+  for (const type of types) {
+    const validation = validate_type_single(type, data, path, issues, options);
 
-const validate_type = (type: Type, data: unknown, path: (string | number)[], options: YuppiOptions) => {};
+    if (issues.length === 0) {
+      return validation;
+    }
+  }
+};
 
-const validate_schema_single = (schema: SchemaSingle, data: unknown, path: (string | number)[], options: YuppiOptions) => {};
+const validate_type = (type: Type, data: unknown, path: (string | number)[], issues: Issue[], options: YuppiOptions) => {
+  if (Array.isArray(type)) {
+    return validate_type_union(type, data, path, issues, options);
+  } else {
+    return validate_type_single(type, data, path, issues, options);
+  }
+};
 
-const validate_schema_union = (schemas: SchemaUnion, data: unknown, path: (string | number)[], options: YuppiOptions) => {};
+const validate_schema_single = (schema: SchemaSingle, data: unknown, path: (string | number)[], issues: Issue[], options: YuppiOptions) => {
+  const target = typeof data === 'object' && data !== null && !Array.isArray(data) ? (data as Record<string, unknown>) : {};
 
-const validate_schema = (schema: Schema, data: unknown, path: (string | number)[], options: YuppiOptions) => {};
+  for (const [key, type] of Object.entries(schema)) {
+    target[key] = validate_type(type, target[key], [...path, key], issues, options);
+  }
+
+  return target;
+};
+
+const validate_schema_union = (schemas: SchemaUnion, data: unknown, path: (string | number)[], issues: Issue[], options: YuppiOptions) => {
+  for (const schema of schemas) {
+    const validation = validate_schema_single(schema, data, path, issues, options);
+
+    if (issues.length === 0) {
+      return validation;
+    }
+  }
+};
+
+const validate_schema = (schema: Schema, data: unknown, path: (string | number)[], issues: Issue[], options: YuppiOptions) => {
+  if (Array.isArray(schema)) {
+    if ('type' in schema[0]) {
+      // TypeUnion
+      return validate_type_union(schema as TypeUnion, data, path, issues, options);
+    } else {
+      // SchemaUnion
+      return validate_schema_union(schema as SchemaUnion, data, path, issues, options);
+    }
+  } else {
+    if ('type' in schema) {
+      // TypeSingle
+      return validate_type_single(schema as TypeSingle, data, path, issues, options);
+    } else {
+      // SchemaSingle
+      return validate_schema_single(schema, data, path, issues, options);
+    }
+  }
+};
 
 export const validate = (schema: Schema, data: unknown, options: YuppiOptions) => {
   if (typeof data === 'object') {
     data = structuredClone(data);
+  }
+
+  const issues: Issue[] = [];
+
+  const validation = validate_schema(schema, data, [], issues, options);
+
+  if (issues.length > 0) {
+    throw new ValidationError({ issues });
   }
 
   return data;
