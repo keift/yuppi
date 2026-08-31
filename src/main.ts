@@ -1,6 +1,6 @@
-import { Yuppi } from './yuppi';
+import { Yuppi } from './classes/yuppi';
 
-export { Yuppi } from './yuppi';
+export { Yuppi } from './classes/yuppi';
 
 export const yuppi = new Yuppi();
 

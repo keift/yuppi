@@ -3,18 +3,18 @@ import merge from 'lodash.merge';
 import fs from 'fs/promises';
 import path from 'path';
 
-import { json_schema } from './utils/json_schema';
-import { validate } from './utils/validate';
-import { pascal_case } from './utils/pascal_case';
+import { json_schema } from '../utils/json_schema';
+import { validate } from '../utils/validate';
+import { pascal_case } from '../utils/pascal_case';
 
-import { yuppi_options } from './defaults/yuppi_options';
+import { yuppi_options } from '../defaults/yuppi_options';
 
-import type { InferSchema } from './main';
-import type { JSONSchema } from './types/json_schema';
-import type { Schema } from './types/schema';
-import type { StandardSchemaV1 } from './types/standart_schema';
-import { ValidationError } from './types/validation_error';
-import type { YuppiOptions } from './types/yuppi_options';
+import type { InferSchema } from '../main';
+import type { JSONSchema } from '../types/json_schema';
+import type { Schema } from '../types/schema';
+import type { StandardSchemaV1 } from '../types/standart_schema';
+import { ValidationError } from '../types/validation_error';
+import type { YuppiOptions } from '../types/yuppi_options';
 
 const cleaned_types_dirs = new Set<string>();
 
