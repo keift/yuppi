@@ -1,6 +1,6 @@
 import type { YuppiOptions } from '../types/yuppi_options';
 
-export const YuppiOptionsDefault: YuppiOptions = {
+export const yuppi_options: YuppiOptions = {
   output_dir: './generated/yuppi',
 
   issue_messages: {

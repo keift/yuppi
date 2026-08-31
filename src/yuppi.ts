@@ -7,7 +7,7 @@ import { json_schema } from './utils/json_schema';
 import { validate } from './utils/validate';
 import { pascal_case } from './utils/pascal_case';
 
-import { YuppiOptionsDefault } from './defaults/yuppi_options';
+import { yuppi_options } from './defaults/yuppi_options';
 
 import type { InferSchema } from './main';
 import type { JSONSchema } from './types/json_schema';
@@ -21,8 +21,8 @@ const cleaned_types_dirs = new Set<string>();
 export class Yuppi {
   private readonly options: YuppiOptions;
 
-  public constructor(options: YuppiOptions = YuppiOptionsDefault) {
-    this.options = merge({}, YuppiOptionsDefault, options);
+  public constructor(options: YuppiOptions = yuppi_options) {
+    this.options = merge({}, yuppi_options, options);
 
     void this.cleanup_types_dir();
   }

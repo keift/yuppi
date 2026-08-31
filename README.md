@@ -1,13 +1,13 @@
-[Domain]: ./src/patterns/domain.ts
-[Email]: ./src/patterns/email.ts
-[HTTP]: ./src/patterns/http.ts
-[PhoneNumber]: ./src/patterns/phone_number.ts
-[URI]: ./src/patterns/uri.ts
-[Username]: ./src/patterns/username.ts
+[domain]: ./src/patterns/domain.ts
+[email]: ./src/patterns/email.ts
+[http]: ./src/patterns/http.ts
+[phone_number]: ./src/patterns/phone_number.ts
+[uri]: ./src/patterns/uri.ts
+[username]: ./src/patterns/username.ts
 
 <!---->
 
-[YuppiOptionsDefault]: ./src/defaults/yuppi_options.ts
+[yuppi_options]: ./src/defaults/yuppi_options.ts
 
 <!---->
 
@@ -98,14 +98,16 @@ yuppi
 │       ├── declare(name)
 │       └── json_schema()
 │
-├── Patterns
-│   │
-│   ├── Domain
-│   ├── Email
-│   ├── HTTP
-│   ├── PhoneNumber
-│   ├── URI
-│   └── Username
+└── Patterns
+    │
+    ├── Domain
+    ├── Email
+    ├── HTTP
+    ├── PhoneNumber
+    ├── URI
+    └── Username
+
+yuppi/types
 │
 ├── type InferSchema
 ├── type JSONSchema
@@ -128,9 +130,9 @@ import { Yuppi, Patterns } from 'yuppi';
 
 Yuppi schema builder.
 
-> | Parameter  | Type           | Default               | Description            |
-> | ---------- | -------------- | --------------------- | ---------------------- |
-> | `options?` | [YuppiOptions] | [YuppiOptionsDefault] | Constructor's options. |
+> | Parameter  | Type           | Default         | Description            |
+> | ---------- | -------------- | --------------- | ---------------------- |
+> | `options?` | [YuppiOptions] | [yuppi_options] | Constructor's options. |
 >
 > Example:
 >
