@@ -5,6 +5,13 @@
   "license": "MIT",
   "homepage": "https://github.com/keift/yuppi",
   "bugs": "https://github.com/keift/yuppi/issues",
+  "scripts": {
+    "tests": "bun run lint && bun test",
+    "retouch": "bun run prettier",
+    "build": "tsdown",
+    "lint": "eslint ./",
+    "prettier": "prettier --write ./"
+  },
   "exports": {
     ".": {
       "import": "./dist/main.mjs",
@@ -14,13 +21,6 @@
       "import": "./dist/types.mjs",
       "types": "./dist/types.d.mts"
     }
-  },
-  "scripts": {
-    "tests": "bun run lint && bun test",
-    "retouch": "bun run prettier",
-    "build": "tsdown",
-    "lint": "eslint ./",
-    "prettier": "prettier --write ./"
   },
   "dependencies": {
     "@sinclair/typebox": "^0.34.52",
