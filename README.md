@@ -24,7 +24,7 @@
   <br/>
   <img src="https://img.shields.io/npm/v/yuppi?label=version&color=615fff"/>
   <img src="https://img.shields.io/npm/l/yuppi?label=license&color=615fff"/>
-  <img src="https://img.shields.io/npm/dt/yuppi?label=downloads&color=00bc7d"/>
+  <img src="https://img.shields.io/npm/dw/yuppi?label=downloads&color=00bc7d"/>
   <img src="https://img.shields.io/npm/unpacked-size/yuppi?label=size&color=00bc7d"/>
 </div>
 
