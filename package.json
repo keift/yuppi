@@ -4,7 +4,7 @@
   "description": "Portable and simple schemas for property validation.",
   "license": "MIT",
   "homepage": "https://github.com/keift/yuppi",
-  "bugs": "https://github.com/keift/yuppi/issues",
+  "repository": "https://github.com/keift/yuppi",
   "scripts": {
     "tests": "bun run lint && bun test",
     "retouch": "bun run prettier",
@@ -35,10 +35,6 @@
     "rulint": "latest",
     "tsdown": "latest",
     "unrun": "latest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/keift/yuppi"
   },
   "keywords": [
     "validate",
