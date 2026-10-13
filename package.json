@@ -6,7 +6,7 @@
   "homepage": "https://github.com/keift/yuppi",
   "repository": "https://github.com/keift/yuppi",
   "scripts": {
-    "tests": "bun run lint && bun test",
+    "tests": "bun check && bun run lint && bun test",
     "retouch": "bun run prettier",
     "build": "tsdown",
     "lint": "eslint ./",
